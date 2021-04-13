@@ -1,3 +1,0 @@
-# Summary
-
-- [Inicio](./Inicio.md)
