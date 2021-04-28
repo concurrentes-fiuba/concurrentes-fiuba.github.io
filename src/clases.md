@@ -5,4 +5,5 @@
   * [Fuentes](./clases/introduccion.tar.bz2)
 * [Clase 2](./clases/2-correccion.pdf) Corrección / Sección Crítica / Locks
   * [Fuentes SmartPointers](./clases/SmartPointers.tar.bz2) - [Fuentes Locks](./clases/Locks.tar.bz2)
-
+* [Clase 3](./clases/3-sincronizacion.pdf) Sincronización / Semáforos / Barreras
+  * [Fuentes Semaforos](./clases/Semaforos.tar.bz2) - [Fuentes Barriers](./clases/Barriers.tar.bz2)
