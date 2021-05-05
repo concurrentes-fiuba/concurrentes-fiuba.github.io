@@ -8,3 +8,5 @@
 * [Clase 3](./clases/3-sincronizacion.pdf) Sincronización / Semáforos / Barreras
   * [Fuentes Semaforos](./clases/Semaforos.tar.bz2) - [Fuentes Barriers](./clases/Barriers.tar.bz2)
 * [Clase 3 - Práctica](./clases/practica-semaforos-barriers-filosofos.tar.bz2) Práctica sobre Semáforos / Barreras / Problema de los Filósofos Comensales
+* [Clase 4](./clases/4-mensajes-channels.pdf) Pasaje de Mensajes / Canales
+  * [Fuentes Channels en Rust](./clases/Channels.tar.bz2)
