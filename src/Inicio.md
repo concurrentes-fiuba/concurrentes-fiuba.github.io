@@ -7,7 +7,7 @@ Los docentes de la Cátedra son:
 * **Profesor:** Ing. Pablo A. Deymonnaz
 
 * **Ayudante:**
-    * Ariel Scarpinelli
+    * Ing. Ariel Scarpinelli
 
 
 ## Materias Correlativas

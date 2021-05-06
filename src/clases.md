@@ -10,3 +10,5 @@
 * [Clase 3 - Práctica](./clases/practica-semaforos-barriers-filosofos.tar.bz2) Práctica sobre Semáforos / Barreras / Problema de los Filósofos Comensales
 * [Clase 4](./clases/4-mensajes-channels.pdf) Pasaje de Mensajes / Canales
   * [Fuentes Channels en Rust](./clases/Channels.tar.bz2)
+* [Clase 4 - Práctica](./clases/4-practica-semaforos-channels.pdf) Práctica sobre problemas clásicos con Semáforos y Channels
+  * [Fuentes](./clases/practica-semaforos-channels.tar.bz2)
