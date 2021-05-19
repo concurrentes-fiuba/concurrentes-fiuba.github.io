@@ -12,3 +12,4 @@
   * [Fuentes Channels en Rust](./clases/Channels.tar.bz2)
 * [Clase 4 - Práctica](./clases/4-practica-semaforos-channels.pdf) Práctica sobre problemas clásicos con Semáforos y Channels
   * [Fuentes](./clases/practica-semaforos-channels.tar.bz2)
+* [Clase 5](./clases/5-monitores.pdf) Monitores
