@@ -13,4 +13,8 @@
 * [Clase 4 - Práctica](./clases/4-practica-semaforos-channels.pdf) Práctica sobre problemas clásicos con Semáforos y Channels
   * [Fuentes](./clases/practica-semaforos-channels.tar.bz2)
 * [Clase 5](./clases/5-monitores.pdf) Monitores
+* [Clase 5 - Práctica](./clases/5-practica-condvars.pdf) Práctica sobre Condvars
+  * [Fuentes](./clases/practica-condvars.tar.bz2)
 * [Clase 6](./clases/6-actores.pdf) Actores - [Fuentes - ping](./clases/ping.tar.bz2)
+* [Clase 6 - Práctica](./clases/6-practica-actores.pdf) Práctica sobre Actores
+  * [Fuentes](./clases/practica-actores.tar.bz2)
