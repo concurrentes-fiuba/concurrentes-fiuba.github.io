@@ -18,3 +18,4 @@
 * [Clase 6](./clases/6-actores.pdf) Actores - [Fuentes - ping](./clases/ping.tar.bz2)
 * [Clase 6 - Práctica](./clases/6-practica-actores.pdf) Práctica sobre Actores
   * [Fuentes](./clases/practica-actores.tar.bz2)
+* [Clase 7](./clases/7-fork-join.pdf) Modelo Fork Join - [Fuentes](./clases/forkjoin.tar.bz2)
