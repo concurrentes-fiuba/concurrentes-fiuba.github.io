@@ -19,3 +19,7 @@ Preparar una exposición en grupo para presentar frente a la clase.
   * [An Actor-Based Programming System](./tp1/An_Actor-Based_Programming_System.pdf)
 * [Redes de Petri](./tp1/IJPP.pdf).
 * [Monitores](./tp1/Hoare78.pdf)
+
+## Trabajo presentados
+
+* Grupo 1: [slides](./tp1/presentaciones/grupo1_Redes_de_Petri.pdf) - [ejemplos de código](./tp1/presentaciones/grupo1_ejemplos_codigo.tar.bz2)
