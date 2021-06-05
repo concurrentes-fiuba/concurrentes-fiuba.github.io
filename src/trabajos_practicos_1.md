@@ -22,4 +22,5 @@ Preparar una exposición en grupo para presentar frente a la clase.
 
 ## Trabajo presentados
 
-* Grupo 1: [slides](./tp1/presentaciones/grupo1_Redes_de_Petri.pdf) - [ejemplos de código](./tp1/presentaciones/grupo1_ejemplos_codigo.tar.bz2)
+* Grupo 1 - Redes de Petri: [slides](./tp1/presentaciones/grupo1_Redes_de_Petri.pdf) - [ejemplos de código](./tp1/presentaciones/grupo1_ejemplos_codigo.tar.bz2)
+* Grupo 4 - Redes de Petri: [slides](./tp1/presentaciones/grupo4_TP1_Redes_de_Petri.pdf)
