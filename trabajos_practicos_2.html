@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Inicio - Concurrentes - FIUBA</title>
+        <title>Trabajo Práctico 2 - Concurrentes - FIUBA</title>
                 
 
         <!-- Custom HTML head -->
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="Inicio.html" class="active"><strong aria-hidden="true">1.</strong> Inicio</a></li><li class="chapter-item expanded "><a href="clases.html"><strong aria-hidden="true">2.</strong> Clases</a></li><li class="chapter-item expanded "><a href="trabajos_practicos.html"><strong aria-hidden="true">3.</strong> Trabajos Prácticos</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="trabajos_practicos_1.html"><strong aria-hidden="true">3.1.</strong> Trabajo Práctico 1</a></li><li class="chapter-item expanded "><a href="trabajos_practicos_2.html"><strong aria-hidden="true">3.2.</strong> Trabajo Práctico 2</a></li></ol></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Inicio.html"><strong aria-hidden="true">1.</strong> Inicio</a></li><li class="chapter-item expanded "><a href="clases.html"><strong aria-hidden="true">2.</strong> Clases</a></li><li class="chapter-item expanded "><a href="trabajos_practicos.html"><strong aria-hidden="true">3.</strong> Trabajos Prácticos</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="trabajos_practicos_1.html"><strong aria-hidden="true">3.1.</strong> Trabajo Práctico 1</a></li><li class="chapter-item expanded "><a href="trabajos_practicos_2.html" class="active"><strong aria-hidden="true">3.2.</strong> Trabajo Práctico 2</a></li></ol></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,33 +143,85 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="inicio"><a class="header" href="#inicio">Inicio</a></h1>
-<p>Bienvenidos y bienvenidas a la cátedra de <strong>Técnicas de Programación Concurrente I</strong> de FIUBA.</p>
-<p>Los docentes de la Cátedra son:</p>
+                        <h1 id="buscador-de-sinónimos-rústico"><a class="header" href="#buscador-de-sinónimos-rústico">Buscador de Sinónimos Rústico</a></h1>
+<p><strong>Fecha de entrega:</strong> 29 de junio antes de las 19 hs.</p>
+<h2 id="objetivo"><a class="header" href="#objetivo">Objetivo</a></h2>
+<p>El presente trabajo práctico tiene como objetivo implementar un software buscador de sinónimos de palabras.</p>
+<p>Para ello se realizarán peticiones de varios sitios de Internet que ofrecen este servicio.</p>
+<h2 id="requerimientos-funcionales"><a class="header" href="#requerimientos-funcionales">Requerimientos Funcionales</a></h2>
+<p>Se debe implementar un software para ser ejecutado en la consola de comandos que busque sinónimos de palabras en distintos sitios de Internet.</p>
+<p>Se usarán los siguientes sitios que permiten buscar sinóminos de palabras en inglés:</p>
 <ul>
-<li>
-<p><strong>Profesor:</strong> Ing. Pablo A. Deymonnaz</p>
-</li>
-<li>
-<p><strong>Ayudante:</strong></p>
+<li><a href="https://thesaurus.yourdictionary.com/">https://thesaurus.yourdictionary.com/</a></li>
+<li><a href="https://www.thesaurus.com/browse/">https://www.thesaurus.com/browse/</a></li>
+<li><a href="https://www.merriam-webster.com/thesaurus/">https://www.merriam-webster.com/thesaurus/</a></li>
+</ul>
+<p>Por ejemplo, para buscar sinónimos de &quot;car&quot;, se debe invocar:</p>
 <ul>
-<li>Ing. Ariel Scarpinelli</li>
+<li><a href="https://thesaurus.yourdictionary.com/car">https://thesaurus.yourdictionary.com/car</a></li>
+<li><a href="https://www.thesaurus.com/browse/car">https://www.thesaurus.com/browse/car</a></li>
+<li><a href="https://www.merriam-webster.com/thesaurus/car">https://www.merriam-webster.com/thesaurus/car</a></li>
+</ul>
+<p><em>Nota:</em> Estos tres proveedores de sinónimos son los que disponemos hoy en día. En un futuro se debería poder incorporar fácilmente nuevos proveedores, el único trabajo que se debería hacer es el parser específico de la respuesta, para extraer las palabras.</p>
+<p>El programa debe recibir por parámetro la ruta a un archivo que contiene una lista de palabras sobre las que se quieren buscar sinónimos (una palabra por línea del archivo) y los parámetros de configuración de la ejecución, como se explica más adelante.</p>
+<p>Para realizar las consultas de los sinónimos, se debe realizar un pedido (<strong>request</strong>) HTTP a cada una de las direcciones. Para eso, se debe utilizar el crate <a href="https://docs.rs/reqwest/">reqwest</a>. Este crate debe ser usado en forma bloqueante (<a href="https://docs.rs/reqwest/0.11.3/reqwest/blocking/index.html">ver blocking</a>).</p>
+<p>Debe procesarse el texto de respuesta de cada una de las invocaciones (string) para extraer las palabras que son sinónimos. Para esto, debe utilizarse los <a href="https://doc.rust-lang.org/std/string/struct.String.html">métodos de <strong>String</strong></a> de la std del lenguaje.</p>
+<p>Los resultados deben mostrarse de forma consolidada, sin repetir los resultados (en caso de que se encuentren en más de un sitio). Al lado de cada resultado se debe indicar entre paréntesis, en cuántos sitios apareció ese valor.</p>
+<p>Las parámetros que se debe poder configurar son:</p>
+<ul>
+<li>Cantidad máxima de pedidos a los sitios web (requests) a procesar de forma concurrente.</li>
+<li>Tiempo de espera mínimo entre dos invocaciones al mismo sitio de sinónimos.</li>
+</ul>
+<p>Se debe divir el programa en hilos de ejecución (threads) que sean lo más chico posibles y con una responsabilidad acotada, que permitan realizar las diversas tareas de forma concurrente.</p>
+<p>Se debe escribir un archivo de <strong>log</strong> con las operaciones que se realizan y sus resultados.</p>
+<h3 id="parte-a"><a class="header" href="#parte-a">Parte A</a></h3>
+<p>Implementar el programa utilizando las herramientas de concurrencia de la biblioteca standard de Rust vistas en clase: Mutex, RwLock, Semáforos (del crate <a href="https://docs.rs/std-semaphore/">std-semaphore</a>), Channels, Barriers y Condvars.</p>
+<h3 id="parte-b"><a class="header" href="#parte-b">Parte B</a></h3>
+<p>Implementar el programa basado en el modelo de Actores, utilizando el framework <a href="https://actix.rs/">Actix</a>.</p>
+<h2 id="requerimientos-no-funcionales"><a class="header" href="#requerimientos-no-funcionales">Requerimientos no funcionales</a></h2>
+<p>Los siguientes son los requerimientos no funcionales para la resolución de los ejercicios:</p>
+<ul>
+<li>El proyecto deberá ser desarrollado en lenguaje Rust, usando las herramientas de la biblioteca estándar.</li>
+<li>No se permite utilizar <strong>crates</strong> externos, salvo los explícitamente mencionados.</li>
+<li>El código fuente debe compilarse en la última versión stable del compilador y no se permite utilizar bloques unsafe.</li>
+<li>El código deberá funcionar en ambiente Unix / Linux.</li>
+<li>El programa deberá ejecutarse en la línea de comandos.</li>
+<li>La compilación no debe arrojar <strong>warnings</strong> del compilador, ni del linter <strong>clippy</strong>.</li>
+<li>Las funciones y los tipos de datos (<strong>struct</strong>) deben estar documentadas siguiendo el estándar de <strong>cargo doc</strong>.</li>
+<li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
+<li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
+</ul>
+<h2 id="tareas-a-realizar"><a class="header" href="#tareas-a-realizar">Tareas a Realizar</a></h2>
+<p>A continuación se listan las tareas a realizar para completar el desarrollo del proyecto:</p>
+<ul>
+<li>Dividir el proyecto en threads. El objetivo es lograr que la simulación esté conformada por un conjunto de hilos de ejecución que sean lo más sencillos posible.</li>
+<li>Una vez obtenida la división en threads, establecer un esquema de comunicación entre ellos teniendo en cuenta los requerimientos de la aplicación. ¿Qué threads se comunican entre sı́? ¿Qué datos necesitan compartir para poder trabajar?</li>
+<li>Realizar la codificación de la aplicación. El código fuente debe estar documentado.</li>
+<li>Implementar tests unitarios de las funciones que considere relevantes.</li>
+</ul>
+<h2 id="entrega"><a class="header" href="#entrega">Entrega</a></h2>
+<p>La resolución del presente proyecto es en grupos de tres integrantes.</p>
+<p>La entrega del proyecto comprende lo siguiente:</p>
+<ul>
+<li>Informe, se deberá presentar en forma digital (PDF) enviado por correo electrónico a la dirección: pdeymon@fi.uba.ar</li>
+<li>El código fuente de la aplicación, que se entregará únicamente por e-mail. El código fuente debe estar estructurado en un proyecto de cargo, y se debe omitir el directorio target/ en la entrega. El informe a entregar debe contener los siguientes items:
+<ul>
+<li>Una explicación del diseño y de las decisiones tomadas para la implementación de la solución.</li>
+<li>Detalle de resolución de la lista de tareas anterior.</li>
+<li>Diagrama que refleje los threads, el flujo de comunicación entre ellos y los datos que intercambian.</li>
+<li>Diagramas de entidades realizados (structs y demás).</li>
 </ul>
 </li>
-</ul>
-<h2 id="materias-correlativas"><a class="header" href="#materias-correlativas">Materias Correlativas</a></h2>
-<ul>
-<li>75.08 Sistemas Operativos</li>
 </ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
-                                                    <a rel="next" href="clases.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
+                                                    <a rel="prev" href="trabajos_practicos_1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
                             </a>
+                        
                         
                         <div style="clear: both"></div>
                     </nav>
@@ -177,10 +229,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                                    <a rel="next" href="clases.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
+                                    <a rel="prev" href="trabajos_practicos_1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
                     </a>
+                
                             </nav>
 
         </div>
