@@ -24,3 +24,4 @@ Preparar una exposición en grupo para presentar frente a la clase.
 
 * Grupo 1 - Redes de Petri: [slides](./tp1/presentaciones/grupo1_Redes_de_Petri.pdf) - [ejemplos de código](./tp1/presentaciones/grupo1_ejemplos_codigo.tar.bz2)
 * Grupo 4 - Redes de Petri: [slides](./tp1/presentaciones/grupo4_TP1_Redes_de_Petri.pdf)
+* Grupo 5 - Paper Dijkstra: [slides](./tp1/presentaciones/grupo5_Presentacion_Paper_Dijkstra_cap_3y4-JoregAnca82399.pdf)
