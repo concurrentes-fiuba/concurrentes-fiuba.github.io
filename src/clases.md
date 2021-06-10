@@ -19,3 +19,4 @@
 * [Clase 6 - Práctica](./clases/6-practica-actores.pdf) Práctica sobre Actores
   * [Fuentes](./clases/practica-actores.tar.bz2)
 * [Clase 7](./clases/7-fork-join.pdf) Modelo Fork Join - [Fuentes](./clases/forkjoin.tar.bz2)
+* [Clase 8](./clases/8-distrib.pdf) Concurrencia Distribuida: Algoritmos de Exclusión Mutua - Repaso de Redes. Sockets en UNIX - [Fuentes](./clases/8_sockets.tar.bz2)
