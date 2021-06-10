@@ -1,6 +1,6 @@
 # Inicio
 
-Bienvenidos y bienvenidas a la cátedra de **Técnicas de Programación Concurrente I** de FIUBA.
+Bienvenidos y bienvenidas a la cátedra de **Técnicas de Programación Concurrente I** de la [Facultad de Ingeniería](http://www.fi.uba.ar/) - UBA.
 
 Los docentes de la Cátedra son:
 
