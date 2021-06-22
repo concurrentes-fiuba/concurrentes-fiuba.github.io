@@ -22,3 +22,5 @@
 * [Clase 7 - Práctica](./clases/7-practica-forkjoin.pdf) Práctica sobre Fork Join
   * [Fuentes](./clases/practica-forkjoin.tar.bz2)
 * [Clase 8](./clases/8-distrib.pdf) Concurrencia Distribuida: Algoritmos de Exclusión Mutua - Repaso de Redes. Sockets en UNIX - [Fuentes](./clases/8_sockets.tar.bz2)
+* [Clase 8 - Práctica](./clases/8-practica-sockets.pdf) Práctica sobre Sockets y Exclusión Mutua distribuida
+  * [Fuentes](./clases/practica-sockets.tar.bz2)
