@@ -8,22 +8,36 @@ El objetivo del presente trabajo consiste en aplicar los conceptos estudiados de
 
 ## Introducción
 
-La **blockchain** es una forma de almacenar información, que consiste en un registro único, consensuado y distribuido en varios nodos de una red.  @@@@@@@
+La **blockchain** es una forma de almacenar información, que consiste en un registro único, consensuado y distribuido en varios nodos de una red.  A grandes rasgos su estructura es la de una cadena de bloques que están encadenados de forma sucesiva. Cada bloque contiene la información (a partir de un <em>hash</em>) del bloque que lo precede.
 
 Se usa para almacenar información que no puede ser alterada, como es el caso de transacciones de criptomonedas. Se puede pensar como el libro contable donde se registra cada una de esas transacciones.
 
 ## Requerimientos Funcionales
 
+Se debe implementar una versión reducida y simplificada de una blockchain que permita almacenar las calificaciones de los estudiantes de la materia. Esta información debe poder ser escrita y leída.
+
+Se debe respetar que cada registro sea un bloque de la blockchain y, por lo tanto, tenga información referente al bloque o los bloques precedentes.
+
+Esta implementación debe funcionar como un conjunto de programas en ejecución que se comunican entre sí utilizando sockets sobre el protocolo TCP/IP. Se debe utilizar Sockets de la biblioteca standar del lenguaje Rust.
+
+Para el agregado de un bloque nuevo, un nodo debe poder realizar las operaciones de forma **exclusiva**. Para esto, se debe implementar alguno de los algoritmos estudiados en la materia:
+  * Algoritmo Centralizado
+  * Algoritmo Distribuido
+  * Algoritmo Token Ring
+
+Una vez que se agrega un bloque nuevo, un nodo que cumple el rol de líder debe comunicar la operación a todos los demás. Para la elección del líder se debe implementar alguno de los algoritmos estudiados:
+  * Algoritmo de Bully
+  * Algoritmo Ring
 
 
-@@@@@@@@@@@@@@
+Se debe poder simular la salida de servicio de los nodos de forma aleatoria o voluntaria. En particular, se debe poder observar que si sale de servicio el nodo que actúa como líder, se debe reiniciar el algoritmo de elección para reemplazarlo con uno nuevo.
 
 ## Requerimientos no funcionales
 
 Los siguientes son los requerimientos no funcionales para la resolución de los ejercicios:
 
 * El proyecto deberá ser desarrollado en lenguaje Rust, usando las herramientas de la biblioteca estándar.
-* No se permite utilizar **crates** externos, salvo los explícitamente mencionados.
+* No se permite utilizar **crates** externos.
 * El código fuente debe compilarse en la última versión stable del compilador y no se permite utilizar bloques unsafe.
 * El código deberá funcionar en ambiente Unix / Linux.
 * El programa deberá ejecutarse en la línea de comandos.
