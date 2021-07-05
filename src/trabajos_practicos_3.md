@@ -49,7 +49,7 @@ Los siguientes son los requerimientos no funcionales para la resolución de los 
 ## Tareas a Realizar
 A continuación se listan las tareas a realizar para completar el desarrollo del proyecto:
 
-* Dividir el proyecto en threads. El objetivo es lograr que la simulación esté conformada por un conjunto de hilos de ejecución que sean lo más sencillos posible.
+* Dividir el proyecto en procesos y threads. El objetivo es lograr procesos que cumplan un objetivo específico y que estos se conformen por un conjunto de hilos de ejecución que sean lo más sencillos posible.
 * Una vez obtenida la división en threads, establecer un esquema de comunicación entre ellos teniendo en cuenta los requerimientos de la aplicación. ¿Qué threads se comunican entre sı́? ¿Qué datos necesitan compartir para poder trabajar?
 * Realizar la codificación de la aplicación. El código fuente debe estar documentado.
 * Implementar tests unitarios de las funciones que considere relevantes.
