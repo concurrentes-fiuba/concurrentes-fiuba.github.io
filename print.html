@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="Inicio.html"><strong aria-hidden="true">1.</strong> Inicio</a></li><li class="chapter-item expanded "><a href="clases.html"><strong aria-hidden="true">2.</strong> Clases</a></li><li class="chapter-item expanded "><a href="trabajos_practicos.html"><strong aria-hidden="true">3.</strong> Trabajos Prácticos</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="trabajos_practicos_1.html"><strong aria-hidden="true">3.1.</strong> Trabajo Práctico 1</a></li><li class="chapter-item expanded "><a href="trabajos_practicos_2.html"><strong aria-hidden="true">3.2.</strong> Trabajo Práctico 2</a></li></ol></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Inicio.html"><strong aria-hidden="true">1.</strong> Inicio</a></li><li class="chapter-item expanded "><a href="clases.html"><strong aria-hidden="true">2.</strong> Clases</a></li><li class="chapter-item expanded "><a href="trabajos_practicos.html"><strong aria-hidden="true">3.</strong> Trabajos Prácticos</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="trabajos_practicos_1.html"><strong aria-hidden="true">3.1.</strong> Trabajo Práctico 1</a></li><li class="chapter-item expanded "><a href="trabajos_practicos_2.html"><strong aria-hidden="true">3.2.</strong> Trabajo Práctico 2</a></li><li class="chapter-item expanded "><a href="trabajos_practicos_3.html"><strong aria-hidden="true">3.3.</strong> Trabajo Práctico 3</a></li></ol></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -303,6 +303,64 @@
 <li>Implementar tests unitarios de las funciones que considere relevantes.</li>
 </ul>
 <h2 id="entrega"><a class="header" href="#entrega">Entrega</a></h2>
+<p>La resolución del presente proyecto es en grupos de tres integrantes.</p>
+<p>La entrega del proyecto comprende lo siguiente:</p>
+<ul>
+<li>Informe, se deberá presentar en forma digital (PDF) enviado por correo electrónico a la dirección: pdeymon@fi.uba.ar</li>
+<li>El código fuente de la aplicación, que se entregará únicamente por e-mail. El código fuente debe estar estructurado en un proyecto de cargo, y se debe omitir el directorio target/ en la entrega. El informe a entregar debe contener los siguientes items:
+<ul>
+<li>Una explicación del diseño y de las decisiones tomadas para la implementación de la solución.</li>
+<li>Detalle de resolución de la lista de tareas anterior.</li>
+<li>Diagrama que refleje los threads, el flujo de comunicación entre ellos y los datos que intercambian.</li>
+<li>Diagramas de entidades realizados (structs y demás).</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="blockchain-rústica"><a class="header" href="#blockchain-rústica">Blockchain Rústica</a></h1>
+<p><strong>Fecha de entrega:</strong> 27 de julio antes de las 19 hs.</p>
+<h2 id="objetivo-1"><a class="header" href="#objetivo-1">Objetivo</a></h2>
+<p>El objetivo del presente trabajo consiste en aplicar los conceptos estudiados de Concurrencia Distribuida para implementar una funcionalidad de <em>blockchain</em> simplificada.</p>
+<h2 id="introducción"><a class="header" href="#introducción">Introducción</a></h2>
+<p>La <strong>blockchain</strong> es una forma de almacenar información, que consiste en un registro único, consensuado y distribuido en varios nodos de una red.  A grandes rasgos su estructura es la de una cadena de bloques que están encadenados de forma sucesiva. Cada bloque contiene la información (a partir de un <em>hash</em>) del bloque que lo precede.</p>
+<p>Se usa para almacenar información que no puede ser alterada, como es el caso de transacciones de criptomonedas. Se puede pensar como el libro contable donde se registra cada una de esas transacciones.</p>
+<h2 id="requerimientos-funcionales-1"><a class="header" href="#requerimientos-funcionales-1">Requerimientos Funcionales</a></h2>
+<p>Se debe implementar una versión reducida y simplificada de una blockchain que permita almacenar las calificaciones de los estudiantes de la materia. Esta información debe poder ser escrita y leída.</p>
+<p>Se debe respetar que cada registro sea un bloque de la blockchain y, por lo tanto, tenga información referente al bloque o los bloques precedentes.</p>
+<p>Esta implementación debe funcionar como un conjunto de programas en ejecución que se comunican entre sí utilizando sockets sobre el protocolo TCP/IP. Se debe utilizar Sockets de la biblioteca standar del lenguaje Rust.</p>
+<p>Para el agregado de un bloque nuevo, un nodo debe poder realizar las operaciones de forma <strong>exclusiva</strong>. Para esto, se debe implementar alguno de los algoritmos estudiados en la materia:</p>
+<ul>
+<li>Algoritmo Centralizado</li>
+<li>Algoritmo Distribuido</li>
+<li>Algoritmo Token Ring</li>
+</ul>
+<p>Una vez que se agrega un bloque nuevo, un nodo que cumple el rol de líder debe comunicar la operación a todos los demás. Para la elección del líder se debe implementar alguno de los algoritmos estudiados:</p>
+<ul>
+<li>Algoritmo de Bully</li>
+<li>Algoritmo Ring</li>
+</ul>
+<p>Se debe poder simular la salida de servicio de los nodos de forma aleatoria o voluntaria. En particular, se debe poder observar que si sale de servicio el nodo que actúa como líder, se debe reiniciar el algoritmo de elección para reemplazarlo con uno nuevo.</p>
+<h2 id="requerimientos-no-funcionales-1"><a class="header" href="#requerimientos-no-funcionales-1">Requerimientos no funcionales</a></h2>
+<p>Los siguientes son los requerimientos no funcionales para la resolución de los ejercicios:</p>
+<ul>
+<li>El proyecto deberá ser desarrollado en lenguaje Rust, usando las herramientas de la biblioteca estándar.</li>
+<li>No se permite utilizar <strong>crates</strong> externos.</li>
+<li>El código fuente debe compilarse en la última versión stable del compilador y no se permite utilizar bloques unsafe.</li>
+<li>El código deberá funcionar en ambiente Unix / Linux.</li>
+<li>El programa deberá ejecutarse en la línea de comandos.</li>
+<li>La compilación no debe arrojar <strong>warnings</strong> del compilador, ni del linter <strong>clippy</strong>.</li>
+<li>Las funciones y los tipos de datos (<strong>struct</strong>) deben estar documentadas siguiendo el estándar de <strong>cargo doc</strong>.</li>
+<li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
+<li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
+</ul>
+<h2 id="tareas-a-realizar-1"><a class="header" href="#tareas-a-realizar-1">Tareas a Realizar</a></h2>
+<p>A continuación se listan las tareas a realizar para completar el desarrollo del proyecto:</p>
+<ul>
+<li>Dividir el proyecto en procesos y threads. El objetivo es lograr procesos que cumplan un objetivo específico y que estos se conformen por un conjunto de hilos de ejecución que sean lo más sencillos posible.</li>
+<li>Una vez obtenida la división en threads, establecer un esquema de comunicación entre ellos teniendo en cuenta los requerimientos de la aplicación. ¿Qué threads se comunican entre sı́? ¿Qué datos necesitan compartir para poder trabajar?</li>
+<li>Realizar la codificación de la aplicación. El código fuente debe estar documentado.</li>
+<li>Implementar tests unitarios de las funciones que considere relevantes.</li>
+</ul>
+<h2 id="entrega-1"><a class="header" href="#entrega-1">Entrega</a></h2>
 <p>La resolución del presente proyecto es en grupos de tres integrantes.</p>
 <p>La entrega del proyecto comprende lo siguiente:</p>
 <ul>
