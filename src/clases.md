@@ -27,3 +27,4 @@
 * [Clase 9](./clases/9-distrib2.pdf) Concurrencia Distribuida (parte 2): Algoritmos de Elección - Sockets en Rust
 * [Clase 10](./clases/9-practica-lider.pdf) Práctica de Algoritmos de Elección - [Fuentes](./clases/practica-leader.tar.bz2)
 * [Clase 10](./clases/10-distrib3.pdf) Concurrencia Distribuida (parte 3): Transacciones - Deadlocks
+* [Clase 11 - Especial](./clases/Erlang_Concurrencia_y_tolerancia_a_fallos.pdf). Erlang: Concurrencia y tolerancia a fallos
