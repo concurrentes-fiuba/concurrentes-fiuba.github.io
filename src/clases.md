@@ -29,3 +29,4 @@
 * [Clase 10](./clases/10-distrib3.pdf) Concurrencia Distribuida (parte 3): Transacciones - Deadlocks
 * [Clase 11 - Especial](./clases/Erlang_Concurrencia_y_tolerancia_a_fallos.pdf). Erlang: Concurrencia y tolerancia a fallos
 * [Clase 12](./clases/12-async.pdf). Programación Asincrónica.
+* [Clase 13](./clases/13-ambientes-distrib.pdf). Ambientes Distribuidos.
