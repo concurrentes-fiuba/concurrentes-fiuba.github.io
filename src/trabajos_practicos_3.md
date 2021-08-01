@@ -4,11 +4,11 @@
 
 ## Objetivo
 
-El objetivo del presente trabajo consiste en aplicar los conceptos estudiados de Concurrencia Distribuida para implementar una funcionalidad de <em>blockchain</em> simplificada.
+El objetivo del presente trabajo consiste en aplicar los conceptos estudiados de Concurrencia Distribuida para implementar una funcionalidad de _blockchain_ simplificada.
 
 ## Introducción
 
-La **blockchain** es una forma de almacenar información, que consiste en un registro único, consensuado y distribuido en varios nodos de una red.  A grandes rasgos su estructura es la de una cadena de bloques que están encadenados de forma sucesiva. Cada bloque contiene la información (a partir de un <em>hash</em>) del bloque que lo precede.
+La **blockchain** es una forma de almacenar información, que consiste en un registro único, consensuado y distribuido en varios nodos de una red.  A grandes rasgos su estructura es la de una cadena de bloques que están encadenados de forma sucesiva. Cada bloque contiene la información (a partir de un _hash_) del bloque que lo precede.
 
 Se usa para almacenar información que no puede ser alterada, como es el caso de transacciones de criptomonedas. Se puede pensar como el libro contable donde se registra cada una de esas transacciones.
 
@@ -21,14 +21,15 @@ Se debe respetar que cada registro sea un bloque de la blockchain y, por lo tant
 Esta implementación debe funcionar como un conjunto de programas en ejecución que se comunican entre sí utilizando sockets sobre el protocolo TCP/IP. Se debe utilizar Sockets de la biblioteca standar del lenguaje Rust.
 
 Para el agregado de un bloque nuevo, un nodo debe poder realizar las operaciones de forma **exclusiva**. Para esto, se debe implementar alguno de los algoritmos estudiados en la materia:
-  * Algoritmo Centralizado
-  * Algoritmo Distribuido
-  * Algoritmo Token Ring
+
+* Algoritmo Centralizado
+* Algoritmo Distribuido
+* Algoritmo Token Ring
 
 Una vez que se agrega un bloque nuevo, un nodo que cumple el rol de líder debe comunicar la operación a todos los demás. Para la elección del líder se debe implementar alguno de los algoritmos estudiados:
-  * Algoritmo de Bully
-  * Algoritmo Ring
 
+* Algoritmo de Bully
+* Algoritmo Ring
 
 Se debe poder simular la salida de servicio de los nodos de forma aleatoria o voluntaria. En particular, se debe poder observar que si sale de servicio el nodo que actúa como líder, se debe reiniciar el algoritmo de elección para reemplazarlo con uno nuevo.
 
@@ -47,6 +48,7 @@ Los siguientes son los requerimientos no funcionales para la resolución de los 
 * Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.
 
 ## Tareas a Realizar
+
 A continuación se listan las tareas a realizar para completar el desarrollo del proyecto:
 
 * Dividir el proyecto en procesos y threads. El objetivo es lograr procesos que cumplan un objetivo específico y que estos se conformen por un conjunto de hilos de ejecución que sean lo más sencillos posible.

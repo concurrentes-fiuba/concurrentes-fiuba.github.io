@@ -7,7 +7,7 @@ Los docentes de la Cátedra son:
 * **Profesor:** Ing. Pablo A. Deymonnaz
 
 * **Ayudante:**
-    * Ing. Ariel Scarpinelli
+  * Ing. Ariel Scarpinelli
 
 Las clases se desarrollan los días **martes y miércoles de 19 a 22 hs** a través de la plataforma Google Meet.
 
