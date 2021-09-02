@@ -9,6 +9,11 @@ Los docentes de la Cátedra son:
 * **Ayudante:**
   * Ing. Ariel Scarpinelli
 
+* **Asesores:**
+  * Dr. Mariano Méndez (asesor académico)
+  * Federico Carrone (asesor de la industria)
+  * Facundo Olano (asesor de la industria)
+
 Las clases se desarrollan los días **martes y miércoles de 19 a 22 hs** a través de la plataforma Google Meet.
 
 ## Materias Correlativas
