@@ -7,7 +7,7 @@
   * [Fuentes SmartPointers](./clases/SmartPointers.tar.bz2)
   * [Fuentes Locks](./clases/Locks.tar.bz2)
 * [Clase 2 - Práctica](./clases/2-practica-threads-locks.pdf) Práctica sobre threads, exclusión mutua y locks
-  * [Fuentes](./2-practica-threads-locks.tar.bz2)
+  * [Fuentes](./clases/2-practica-threads-locks.tar.bz2)
 * [Clase 3](./clases/3-sincronizacion.pdf) Sincronización / Semáforos / Barreras
   * [Fuentes Semaforos](./clases/Semaforos.tar.bz2)
   * [Fuentes Barriers](./clases/Barriers.tar.bz2)
