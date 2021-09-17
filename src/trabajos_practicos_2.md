@@ -1,4 +1,4 @@
-# Buscador de Sinónimos Rústico
+# Buscador de Sinónimos Rústico - 1er Cuatrimestre 2021
 
 **Fecha de entrega:** 29 de junio antes de las 19 hs.
 
@@ -19,11 +19,12 @@ Se usarán los siguientes sitios que permiten buscar sinóminos de palabras en i
 * <https://www.merriam-webster.com/thesaurus/>
 
 Por ejemplo, para buscar sinónimos de "car", se debe invocar:
+
 * <https://thesaurus.yourdictionary.com/car>
 * <https://www.thesaurus.com/browse/car>
 * <https://www.merriam-webster.com/thesaurus/car>
 
-<em>Nota:</em> Estos tres proveedores de sinónimos son los que disponemos hoy en día. En un futuro se debería poder incorporar fácilmente nuevos proveedores, el único trabajo que se debería hacer es el parser específico de la respuesta, para extraer las palabras.
+_Nota:_ Estos tres proveedores de sinónimos son los que disponemos hoy en día. En un futuro se debería poder incorporar fácilmente nuevos proveedores, el único trabajo que se debería hacer es el parser específico de la respuesta, para extraer las palabras.
 
 El programa debe recibir por parámetro la ruta a un archivo que contiene una lista de palabras sobre las que se quieren buscar sinónimos (una palabra por línea del archivo) y los parámetros de configuración de la ejecución, como se explica más adelante.
 
@@ -65,6 +66,7 @@ Los siguientes son los requerimientos no funcionales para la resolución de los 
 * Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.
 
 ## Tareas a Realizar
+
 A continuación se listan las tareas a realizar para completar el desarrollo del proyecto:
 
 * Dividir el proyecto en threads. El objetivo es lograr que la simulación esté conformada por un conjunto de hilos de ejecución que sean lo más sencillos posible.
