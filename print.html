@@ -277,8 +277,8 @@
 <p>El proceso de reserva se compone de la siguiente manera:</p>
 <ul>
 <li>El pedido de reserva ingresa al sistema e indica aeropuerto de origen, de destino, aerolínea preferida y si la reserva es por paquete o solo vuelo.</li>
-<li>El pedido se debe enviar a la aerolínea correspondiente. Para ello se comunica con un webservice especifico de la misma. Por motivos de rate limiting, cada webservice no puede realizar mas de  N pedidos concurrentes (es un límite configurable). Tener en cuenta que la cantidad de aerolíneas con las que se comunica el sistema debe poder crecer con un esfuerzo mínimo.</li>
-<li>La aerolínea puede aceptar el pedido o recharzarlo. Si falla el sistema debe esperar X segundos para reintentar (el tiempo debe ser configurable).</li>
+<li>El pedido se debe enviar a la aerolínea correspondiente. Para ello se comunica con un webservice específico de la misma. Por motivos de rate limiting, cada webservice no puede realizar mas de  N pedidos concurrentes (es un límite configurable). Tener en cuenta que la cantidad de aerolíneas con las que se comunica el sistema debe poder crecer con un esfuerzo mínimo.</li>
+<li>La aerolínea puede aceptar el pedido o recharzarlo. Si es rechazado, el sistema debe esperar X segundos para reintentar (el tiempo debe ser configurable).</li>
 <li>En el caso de que la reserva sea por paquete, el pedido se debe enviar también al webservice de hoteles. El resultado final de la reserva entonces necesitará que ambos pedidos (hotel y aerolinea) se completen. Por suerte las reservas de hoteles nunca se rechazan.</li>
 <li>El sistema debe mantener estadísticas de las rutas más solicitadas, que luego se utilizan para realizar ofertas. Para ello debe mantener un conteo de la cantidad de reservas realizadas de cada ruta y poder informar periódicamente las 10 más solicitadas.</li>
 <li>Además el sistema mantendrá estadísticas operacionales. Para ello debe calcular el tiempo medio que toma una reserva desde que ingresa el pedido hasta que es finalmente aceptada.</li>
