@@ -12,3 +12,5 @@
   - [Trabajo Práctico 3](./trabajos_practicos_3.md)
 
 - [Examen Final - Instrucciones y papers](./papers_final.md)
+
+- [Material Adicional](./material_adicional.md)
