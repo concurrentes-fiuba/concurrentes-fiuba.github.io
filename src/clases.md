@@ -11,14 +11,15 @@
 * [Clase 3](./clases/3-sincronizacion.pdf) Sincronización / Semáforos / Barreras
   * [Fuentes Semaforos](./clases/Semaforos.tar.bz2)
   * [Fuentes Barriers](./clases/Barriers.tar.bz2)
-* [Clase 3 - Práctica](./clases/practica-semaforos-barriers-filosofos.tar.bz2) Fuentes Práctica sobre Semáforos / Barreras / Problema de los Filósofos Comensales
+* [Clase 3 - Práctica](./clases/practica-semaforos-barriers.pdf) Práctica sobre Semáforos / Barreras / Problemas clásicos
+  * [Fuentes](./clases/2-practica-threads-locks.tar.bz2)
 * [Clase 4](./clases/4-mensajes-channels.pdf) Pasaje de Mensajes / Canales
   * [Fuentes Channels en Rust](./clases/Channels.tar.bz2)
-* [Clase 4 - Práctica](./clases/4-practica-semaforos-channels.pdf) Práctica sobre problemas clásicos con Semáforos y Channels
-  * [Fuentes](./clases/practica-semaforos-channels.tar.bz2)
+* [Clase 4 - Práctica](./clases/4-practica-channels.pdf) Práctica sobre Channels
+  * [Fuentes](./clases/4-practica-channels.tar.bz2)
 * [Clase 5](./clases/5-monitores.pdf) Monitores
 * [Clase 5 - Práctica](./clases/5-practica-condvars.pdf) Práctica sobre Condvars
-  * [Fuentes](./clases/practica-condvars.tar.bz2)
+  * [Fuentes](./clases/5-practica-condvars.tar.bz2)
 * [Clase 6](./clases/6-actores.pdf) Actores
   * [Fuentes - ping](./clases/ping.tar.bz2)
 * [Clase 6 - Práctica](./clases/6-practica-actores.pdf) Práctica sobre Actores
