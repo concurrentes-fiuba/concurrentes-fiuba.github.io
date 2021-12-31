@@ -4,6 +4,8 @@
 
 - [Clases](./clases.md)
 
+- [Finales Febrero/Marzo 2022](./finales_2022_feb.md)
+
 - [Trabajo Práctico 1](./2C2021_tp.md)
 
 - [Trabajo Práctico 2](./2C2021_tp2.md)
