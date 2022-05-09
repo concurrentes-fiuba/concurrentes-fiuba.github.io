@@ -13,23 +13,26 @@
   * [Fuentes Barriers](./clases/Barriers.tar.bz2)
 * [Clase 3 - Práctica](./clases/3-practica-semaforos-barriers.pdf) Práctica sobre Semáforos / Barreras / Problemas clásicos
   * [Fuentes](./clases/3-practica-semaforos-barriers.tar.bz2)
-* [Clase 4](./clases/4-mensajes-channels.pdf) Pasaje de Mensajes / Canales
-  * [Fuentes Channels en Rust](./clases/Channels.tar.bz2)
-* [Clase 4 - Práctica](./clases/4-practica-channels.pdf) Práctica sobre Channels
-  * [Fuentes](./clases/4-practica-channels.tar.bz2)
-* [Clase 5](./clases/5-monitores.pdf) Monitores
-* [Clase 5 - Práctica](./clases/5-practica-condvars.pdf) Práctica sobre Condvars
-  * [Fuentes](./clases/5-practica-condvars.tar.bz2)
-* [Clase 6](./clases/6-actores.pdf) Actores
-  * [Fuentes - ping](./clases/ping.tar.bz2)
-* [Clase 6 - Práctica](./clases/6-practica-actores.pdf) Práctica sobre Actores
-  * [Fuentes](./clases/6-practica-actores.tar.bz2)
-* [Clase 7](./clases/7-fork-join.pdf) Modelo Fork Join
+* [Clase 4](./clases/4-monitores.pdf) Monitores
+* [Clase 4 - Práctica](./clases/4-practica-condvars.pdf) Práctica sobre Condvars
+  * [Fuentes](./clases/4-practica-condvars.tar.bz2)
+* [Clase 5](./clases/5-fork-join.pdf) Modelo Fork Join
   * [Fuentes](./clases/forkjoin.tar.bz2)
-* [Clase 7 - Práctica](./clases/7-practica-forkjoin.pdf) Práctica sobre Fork Join
-  * [Fuentes](./clases/7-practica-forkjoin.tar.bz2)
-* [Clase 7 - Taller de Testing](./clases/7-practica-testing.pdf) Taller de testing
-  * [Fuentes](./clases/7-practica-testing.tar.bz2)
+* [Clase 5 - Práctica](./clases/5-practica-forkjoin.pdf) Práctica sobre Fork Join
+  * [Fuentes](./clases/5-practica-forkjoin.tar.bz2)
+* [Clase 6](./clases/6-async.pdf). Programación Asincrónica.
+* [Clase 6 - Práctica](./clases/6-practica-async.pdf). Práctica de Programación Asincrónica.
+  * [Fuentes](./clases/6-practica-async.tar.bz2)
+* [Clase 7](./clases/7-mensajes-channels.pdf) Pasaje de Mensajes / Canales
+  * [Fuentes Channels en Rust](./clases/Channels.tar.bz2)
+* [Clase 7 - Práctica](./clases/7-practica-channels.pdf) Práctica sobre Channels
+  * [Fuentes](./clases/7-practica-channels.tar.bz2)
+* [Clase 7](./clases/7-actores.pdf) Actores
+  * [Fuentes - ping](./clases/ping.tar.bz2)
+* [Clase 7 - Práctica](./clases/7-practica-actores.pdf) Práctica sobre Actores
+  * [Fuentes](./clases/6-practica-actores.tar.bz2)
+* [Practica Especial - Taller de Testing](./clases/x-practica-testing.pdf) Taller de testing
+  * [Fuentes](./clases/x-practica-testing.tar.bz2)
 * [Clase 8](./clases/8-distrib.pdf) Concurrencia Distribuida: Algoritmos de Exclusión Mutua - Repaso de Redes. Sockets en UNIX
   * [Fuentes](./clases/8_sockets.tar.bz2)
 * [Clase 8 - Práctica](./clases/8-practica-sockets.pdf) Práctica sobre Sockets y Exclusión Mutua distribuida
@@ -40,10 +43,7 @@
 * [Clase 10](./clases/10-distrib3.pdf) Concurrencia Distribuida (parte 3): Transacciones - Deadlocks
 * [Clase 10 - Práctica](./clases/10-practica-transacciones-distribuidas.pdf): Transacciones Distribuidas
   * [Fuentes](./clases/practica-transacciones.tar.bz2)
-* [Clase 11 - Especial](./clases/Erlang_Concurrencia_y_tolerancia_a_fallos.pdf). Erlang: Concurrencia y tolerancia a fallos
-* [Clase 12](./clases/12-async.pdf). Programación Asincrónica.
-* [Clase 12 - Práctica](./clases/12-practica-async.pdf). Práctica de Programación Asincrónica.
-  * [Fuentes](./clases/practica-async.tar.bz2)
-* [Clase 13](./clases/13-ambientes-distrib.pdf). Ambientes Distribuidos.
-* [Clase 13 - Practica](./clases/13-practica-golang.pdf) Lenguaje Go
+* [Clase 11](./clases/11-ambientes-distrib.pdf). Ambientes Distribuidos.
+* [Practica Especial - Lenguajes para concurrencia](./clases/x-practica-golang.pdf) Lenguaje Go
+  * [Erlang](./clases/Erlang_Concurrencia_y_tolerancia_a_fallos.pdf). Erlang: Concurrencia y tolerancia a fallos
   * [Fuentes](./clases/practica-golang.tar.bz2)
