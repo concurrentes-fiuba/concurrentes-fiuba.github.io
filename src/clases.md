@@ -25,12 +25,9 @@
   * [Fuentes](./clases/6-practica-async.tar.bz2)
 * [Clase 7](./clases/7-mensajes-channels.pdf) Pasaje de Mensajes / Canales
   * [Fuentes Channels en Rust](./clases/Channels.tar.bz2)
-* [Clase 7 - Práctica](./clases/7-practica-channels.pdf) Práctica sobre Channels
-  * [Fuentes](./clases/7-practica-channels.tar.bz2)
 * [Clase 7](./clases/7-actores.pdf) Actores
-  * [Fuentes - ping](./clases/ping.tar.bz2)
-* [Clase 7 - Práctica](./clases/7-practica-actores.pdf) Práctica sobre Actores
-  * [Fuentes](./clases/6-practica-actores.tar.bz2)
+* [Clase 7 - Práctica](./clases/7-practica-actores.pdf) Práctica sobre Channels y Actores
+  * [Fuentes](./clases/7-practica-actores.tar.bz2)
 * [Practica Especial - Taller de Testing](./clases/x-practica-testing.pdf) Taller de testing
   * [Fuentes](./clases/x-practica-testing.tar.bz2)
 * [Clase 8](./clases/8-distrib.pdf) Concurrencia Distribuida: Algoritmos de Exclusión Mutua - Repaso de Redes. Sockets en UNIX
