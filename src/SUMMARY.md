@@ -6,6 +6,7 @@
 
 - [1er Cuatrimestre 2022](./1C2022.md)
   - [Trabajo Práctico](./1C2022_tp.md)
+  - [Finales Julio/Agosto 2022](./finales_2022_jul.md)
 
 - [2do Cuatrimestre 2021](./2C2021.md)
   - [Trabajo Práctico 1](./2C2021_tp.md)
