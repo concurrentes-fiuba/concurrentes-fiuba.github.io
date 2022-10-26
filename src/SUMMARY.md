@@ -6,6 +6,7 @@
 
 - [2do Cuatrimestre 2022](./2C2022.md)
   - [Trabajo Práctico 1](./2C2022_tp1.md)
+  - [Trabajo Práctico 2](./2C2022_tp2.md)
  
 - [1er Cuatrimestre 2022](./1C2022.md)
   - [Trabajo Práctico](./1C2022_tp.md)
