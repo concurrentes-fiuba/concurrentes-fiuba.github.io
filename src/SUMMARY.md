@@ -28,3 +28,4 @@
   - [Examen Final - Instrucciones y papers](./papers_final.md)
 
 - [Material Adicional](./material_adicional.md)
+- [Bibliografia](./bibliografia.md)
