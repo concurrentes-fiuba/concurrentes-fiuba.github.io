@@ -5,7 +5,7 @@ La bibliografía recomendada de la materia es la siguiente
 
 * **Rust**
 
-    - Principles of Concurrent and Distributed Programming, M. Ben-Ari, Segunda edición (capítulos 1, 2 , 6 y 7)
+    - Principles of Concurrent and Distributed Programming, M. Ben-Ari, Segunda edición (capítulos 1, 2, 6 y 7)
     - Operating System Concepts, Ninth Edition, Abraham Silberschatz, Greg Gagne, and Peter Baer Galvin, Cap. 4.
     - [The Rust Programming Language](https://doc.rust-lang.org/book/)
 
