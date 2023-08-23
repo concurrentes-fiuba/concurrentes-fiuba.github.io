@@ -52,7 +52,7 @@ La bibliografía recomendada de la materia es la siguiente
     - Ricart, Glenn; Agrawala, Ashok K. (1 January 1981). ""An optimal algorithm formutual exclusion in computer networks"". Communications of the ACM. 24 (1):9–17 https://dl.acm.org/doi/abs/10.1145/358527.358537
     - Tanenbaum. Distributed Systems: Principles and paradigmns. Capitulo 6 "
 
-* **Eleccion de lider**
+* **Elección de lider**
 
     - Distributed Operating Systems, Andrew S. Tanenbaum, capítulo 3
     - Computer Networks, Andrew S. Tanenbaum y David J Wetherall, quinta edición
