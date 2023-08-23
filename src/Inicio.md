@@ -6,7 +6,7 @@ Los docentes de la Cátedra son:
 
 * **Profesor:** Ing. Pablo A. Deymonnaz
 
-* **Ayudantes:**
+* **Jefe de Trabajos Practicos:**
   * Ing. Ariel Scarpinelli
 
 * **Colaboradores:**
