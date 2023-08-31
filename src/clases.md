@@ -1,8 +1,14 @@
 # Clases
 
-* [Clase 1](./clases/1-introduccion.pdf) Introducción a Concurrencia.
-* [Clase 1 - Práctica](./clases/1-practica-intro-rust.pdf) Introducción a Rust 
-  * [Fuentes](./clases/1-practica-intro-rust.tar.bz2)
+| Semana | Teorica | Práctica |
+|--------|---------|----------|
+| 1 | [Introducción a Concurrencia](./clases/1-introduccion.pdf) | [Introducción a Rust](./clases/1-practica-intro-rust.pdf) |
+| 2 | [Modelo Fork Join](./clases/2-fork-join.pdf) | [Práctica sobre Fork Join](./clases/2-practica-forkjoin.pdf)  |
+
+
+[Repositorio de ejemplos](https://github.com/concurrentes-fiuba/ejemplos-concurrentes)
+
+<!--
 * [Clase 2](./clases/2-correccion.pdf) Corrección / Sección Crítica / Locks
   * [Fuentes SmartPointers](./clases/SmartPointers.tar.bz2)
   * [Fuentes Locks](./clases/Locks.tar.bz2)
@@ -16,10 +22,7 @@
 * [Clase 4](./clases/4-monitores.pdf) Monitores
 * [Clase 4 - Práctica](./clases/4-practica-condvars.pdf) Práctica sobre Condvars
   * [Fuentes](./clases/4-practica-condvars.tar.bz2)
-* [Clase 5](./clases/5-fork-join.pdf) Modelo Fork Join
-  * [Fuentes](./clases/forkjoin.tar.bz2)
-* [Clase 5 - Práctica](./clases/5-practica-forkjoin.pdf) Práctica sobre Fork Join
-  * [Fuentes](./clases/5-practica-forkjoin.tar.bz2)
+
 * [Clase 6](./clases/6-async.pdf). Programación Asincrónica.
 * [Clase 6 - Práctica](./clases/6-practica-async.pdf). Práctica de Programación Asincrónica.
   * [Fuentes](./clases/6-practica-async.tar.bz2)
@@ -44,3 +47,4 @@
 * [Practica Especial - Lenguajes para concurrencia](./clases/x-practica-golang.pdf) Lenguaje Go
   * [Erlang](./clases/Erlang_Concurrencia_y_tolerancia_a_fallos.pdf). Erlang: Concurrencia y tolerancia a fallos
   * [Fuentes](./clases/practica-golang.tar.bz2)
+-->
