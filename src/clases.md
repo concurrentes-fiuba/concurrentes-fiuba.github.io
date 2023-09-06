@@ -1,10 +1,10 @@
 # Clases
 
-| Semana | Teorica | Práctica |
-|--------|---------|----------|
-| 1 | [Introducción a Concurrencia](./clases/1-introduccion.pdf) | [Introducción a Rust](./clases/1-practica-intro-rust.pdf) |
-| 2 | [Modelo Fork Join](./clases/2-fork-join.pdf) | [Práctica sobre Fork Join](./clases/2-practica-forkjoin.pdf)  |
-
+| Semana | Teorica                                                    | Práctica                                                     |
+| ------ | ---------------------------------------------------------- | ------------------------------------------------------------ |
+| 1      | [Introducción a Concurrencia](./clases/1-introduccion.pdf) | [Introducción a Rust](./clases/1-practica-intro-rust.pdf)    |
+| 2      | [Modelo Fork Join](./clases/2-fork-join.pdf)               | [Práctica sobre Fork Join](./clases/2-practica-forkjoin.pdf) |
+| 3      | [Programación Asincrónica](./clases/3-async.pdf)           | [Práctica sobre Programación Asincrónica]                    |
 
 [Repositorio de ejemplos](https://github.com/concurrentes-fiuba/ejemplos-concurrentes)
 
