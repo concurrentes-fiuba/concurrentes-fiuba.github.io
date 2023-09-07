@@ -4,7 +4,7 @@
 | ------ | ---------------------------------------------------------- | ------------------------------------------------------------ |
 | 1      | [Introducción a Concurrencia](./clases/1-introduccion.pdf) | [Introducción a Rust](./clases/1-practica-intro-rust.pdf)    |
 | 2      | [Modelo Fork Join](./clases/2-fork-join.pdf)               | [Práctica sobre Fork Join](./clases/2-practica-forkjoin.pdf) |
-| 3      | [Programación Asincrónica](./clases/3-async.pdf)           | [Práctica sobre Programación Asincrónica]                    |
+| 3      | [Programación Asincrónica](./clases/3-async.pdf)           | [Práctica sobre Programación Asincrónica](./clases/3-practica-async.pdf) <br/> Vectorización(./clases/3-practica-vectorizacion|
 
 [Repositorio de ejemplos](https://github.com/concurrentes-fiuba/ejemplos-concurrentes)
 
@@ -23,7 +23,6 @@
 * [Clase 4 - Práctica](./clases/4-practica-condvars.pdf) Práctica sobre Condvars
   * [Fuentes](./clases/4-practica-condvars.tar.bz2)
 
-* [Clase 6](./clases/6-async.pdf). Programación Asincrónica.
 * [Clase 6 - Práctica](./clases/6-practica-async.pdf). Práctica de Programación Asincrónica.
   * [Fuentes](./clases/6-practica-async.tar.bz2)
 * [Clase 7](./clases/7-mensajes-channels.pdf) Pasaje de Mensajes / Canales
