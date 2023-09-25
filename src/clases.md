@@ -6,19 +6,12 @@
 | 2      | [Modelo Fork Join](./clases/2-fork-join.pdf)               | [Práctica sobre Fork Join](./clases/2-practica-forkjoin.pdf) |
 | 3      | [Programación Asincrónica](./clases/3-async.pdf)           | [Práctica sobre Programación Asincrónica](./clases/3-practica-async.pdf) <br/> [Vectorización](./clases/3-practica-vectorizacion.pdf)|
 | 4      | [Corrección / Sección Crítica / Locks](./clases/4-correccion.pdf) | [Práctica sobre Locks](./clases/4-practica-threads-locks.pdf)    |
+| 5      | [Sincronización / Semáforos y Barreras](./clases/5-sincronizacion.pdf) <br/> [Monitores](./clases/5-monitores.pdf) | [Práctica sobre Sincronizacion](./clases/5-practica-sincronizacion.pdf)    |
 
 [Repositorio de ejemplos](https://github.com/concurrentes-fiuba/ejemplos-concurrentes)
 
 <!--
 
-* [Clase 3](./clases/3-sincronizacion.pdf) Sincronización / Semáforos / Barreras
-  * [Fuentes Semaforos](./clases/Semaforos.tar.bz2)
-  * [Fuentes Barriers](./clases/Barriers.tar.bz2)
-* [Clase 3 - Práctica](./clases/3-practica-semaforos-barriers.pdf) Práctica sobre Semáforos / Barreras / Problemas clásicos
-  * [Fuentes](./clases/3-practica-semaforos-barriers.tar.bz2)
-* [Clase 4](./clases/4-monitores.pdf) Monitores
-* [Clase 4 - Práctica](./clases/4-practica-condvars.pdf) Práctica sobre Condvars
-  * [Fuentes](./clases/4-practica-condvars.tar.bz2)
 
 * [Clase 7](./clases/7-mensajes-channels.pdf) Pasaje de Mensajes / Canales
   * [Fuentes Channels en Rust](./clases/Channels.tar.bz2)
