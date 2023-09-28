@@ -7,6 +7,7 @@
 | 3      | [Programación Asincrónica](./clases/3-async.pdf)           | [Práctica sobre Programación Asincrónica](./clases/3-practica-async.pdf) <br/> [Vectorización](./clases/3-practica-vectorizacion.pdf)|
 | 4      | [Corrección / Sección Crítica / Locks](./clases/4-correccion.pdf) | [Práctica sobre Locks](./clases/4-practica-threads-locks.pdf)    |
 | 5      | [Sincronización / Semáforos y Barreras](./clases/5-sincronizacion.pdf) <br/> [Monitores](./clases/5-monitores.pdf) | [Práctica sobre Sincronizacion](./clases/5-practica-sincronizacion.pdf)    |
+| 6      | [Redes de Petri](./clases/6-petri.pdf) | [Práctica sobre Redes de Petri](./clases/6-practica-petri.pdf)    |
 
 [Repositorio de ejemplos](https://github.com/concurrentes-fiuba/ejemplos-concurrentes)
 
