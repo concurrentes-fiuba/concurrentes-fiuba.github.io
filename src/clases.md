@@ -9,19 +9,16 @@
 | 5      | [Sincronización / Semáforos y Barreras](./clases/5-sincronizacion.pdf) <br/> [Monitores](./clases/5-monitores.pdf) | [Práctica sobre Sincronizacion](./clases/5-practica-sincronizacion.pdf)    |
 | 6      | [Redes de Petri](./clases/6-petri.pdf) | [Práctica sobre Redes de Petri](./clases/6-practica-petri.pdf)    |
 | 7      | [Pasaje de Mensajes / Canales](./clases/7-mensajes-channels.pdf) <br/> [Actores](./clases/7-actores.pdf)| [Práctica Channels y Actores](./clases/7-practica-actores.pdf)    |
+| 8      | [Concurrencia Distribuida: Algoritmos de Exclusión Mutua - Repaso de Redes. Sockets en UNIX](./clases/8-distrib.pdf) | [Práctica sobre Sockets y Exclusión Mutua distribuida](./clases/8-practica-sockets.pdf)  |
 
 [Repositorio de ejemplos](https://github.com/concurrentes-fiuba/ejemplos-concurrentes)
 
 <!--
 
 
-* [Clase 7](./clases/) 
-  * [Fuentes Channels en Rust](./clases/Channels.tar.bz2)
 * [Practica Especial - Taller de Testing](./clases/x-practica-testing.pdf) Taller de testing
   * [Fuentes](./clases/x-practica-testing.tar.bz2)
-* [Clase 8](./clases/8-distrib.pdf) Concurrencia Distribuida: Algoritmos de Exclusión Mutua - Repaso de Redes. Sockets en UNIX
-  * [Fuentes](./clases/8_sockets.tar.bz2)
-* [Clase 8 - Práctica](./clases/8-practica-sockets.pdf) Práctica sobre Sockets y Exclusión Mutua distribuida
+
   * [Fuentes](./clases/practica-sockets.tar.bz2)
 * [Clase 9](./clases/9-distrib2.pdf) Concurrencia Distribuida (parte 2): Algoritmos de Elección - Sockets en Rust
 * [Clase 9 - Práctica](./clases/9-practica-lider.pdf) Práctica de Algoritmos de Elección

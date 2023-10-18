@@ -4,6 +4,9 @@
 
 - [Clases](./clases.md)
 
+- [2do Cuatrimestre 2023](./2C2023.md)
+  - [Trabajo Práctico](./2C2023_tp.md)
+
 - [1er Cuatrimestre 2023](./1C2023.md)
   - [Trabajo Práctico 1](./1C2023_tp1.md)
   - [Trabajo Práctico 2](./1C2023_tp2.md)
