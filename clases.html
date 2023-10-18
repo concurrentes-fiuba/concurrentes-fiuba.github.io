@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -31,7 +31,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -61,24 +61,29 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -116,9 +121,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -174,17 +179,15 @@
 <tr><td>4</td><td><a href="./clases/4-correccion.pdf">Corrección / Sección Crítica / Locks</a></td><td><a href="./clases/4-practica-threads-locks.pdf">Práctica sobre Locks</a></td></tr>
 <tr><td>5</td><td><a href="./clases/5-sincronizacion.pdf">Sincronización / Semáforos y Barreras</a> <br/> <a href="./clases/5-monitores.pdf">Monitores</a></td><td><a href="./clases/5-practica-sincronizacion.pdf">Práctica sobre Sincronizacion</a></td></tr>
 <tr><td>6</td><td><a href="./clases/6-petri.pdf">Redes de Petri</a></td><td><a href="./clases/6-practica-petri.pdf">Práctica sobre Redes de Petri</a></td></tr>
+<tr><td>7</td><td><a href="./clases/7-mensajes-channels.pdf">Pasaje de Mensajes / Canales</a> <br/> <a href="./clases/7-actores.pdf">Actores</a></td><td><a href="./clases/7-practica-actores.pdf">Práctica Channels y Actores</a></td></tr>
 </tbody></table>
 </div>
 <p><a href="https://github.com/concurrentes-fiuba/ejemplos-concurrentes">Repositorio de ejemplos</a></p>
 <!--
 
 
-* [Clase 7](./clases/7-mensajes-channels.pdf) Pasaje de Mensajes / Canales
+* [Clase 7](./clases/) 
   * [Fuentes Channels en Rust](./clases/Channels.tar.bz2)
-* [Clase 7](./clases/7-actores.pdf) Actores
-* [Clase 7 - Práctica](./clases/7-practica-actores.pdf) Práctica sobre Channels y Actores
-  * [Fuentes](./clases/7-practica-actores.tar.bz2)
 * [Practica Especial - Taller de Testing](./clases/x-practica-testing.pdf) Taller de testing
   * [Fuentes](./clases/x-practica-testing.tar.bz2)
 * [Clase 8](./clases/8-distrib.pdf) Concurrencia Distribuida: Algoritmos de Exclusión Mutua - Repaso de Redes. Sockets en UNIX
@@ -211,7 +214,7 @@
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="1C2023.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="1C2023.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -225,7 +228,7 @@
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="1C2023.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="1C2023.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
