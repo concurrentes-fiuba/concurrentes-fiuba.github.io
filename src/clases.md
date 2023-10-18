@@ -8,17 +8,15 @@
 | 4      | [Corrección / Sección Crítica / Locks](./clases/4-correccion.pdf) | [Práctica sobre Locks](./clases/4-practica-threads-locks.pdf)    |
 | 5      | [Sincronización / Semáforos y Barreras](./clases/5-sincronizacion.pdf) <br/> [Monitores](./clases/5-monitores.pdf) | [Práctica sobre Sincronizacion](./clases/5-practica-sincronizacion.pdf)    |
 | 6      | [Redes de Petri](./clases/6-petri.pdf) | [Práctica sobre Redes de Petri](./clases/6-practica-petri.pdf)    |
+| 7      | [Pasaje de Mensajes / Canales](./clases/7-mensajes-channels.pdf) <br/> [Actores](./clases/7-actores.pdf)| [Práctica Channels y Actores](./clases/7-practica-actores.pdf)    |
 
 [Repositorio de ejemplos](https://github.com/concurrentes-fiuba/ejemplos-concurrentes)
 
 <!--
 
 
-* [Clase 7](./clases/7-mensajes-channels.pdf) Pasaje de Mensajes / Canales
+* [Clase 7](./clases/) 
   * [Fuentes Channels en Rust](./clases/Channels.tar.bz2)
-* [Clase 7](./clases/7-actores.pdf) Actores
-* [Clase 7 - Práctica](./clases/7-practica-actores.pdf) Práctica sobre Channels y Actores
-  * [Fuentes](./clases/7-practica-actores.tar.bz2)
 * [Practica Especial - Taller de Testing](./clases/x-practica-testing.pdf) Taller de testing
   * [Fuentes](./clases/x-practica-testing.tar.bz2)
 * [Clase 8](./clases/8-distrib.pdf) Concurrencia Distribuida: Algoritmos de Exclusión Mutua - Repaso de Redes. Sockets en UNIX
