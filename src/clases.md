@@ -10,22 +10,14 @@
 | 6      | [Redes de Petri](./clases/6-petri.pdf) | [Práctica sobre Redes de Petri](./clases/6-practica-petri.pdf)    |
 | 7      | [Pasaje de Mensajes / Canales](./clases/7-mensajes-channels.pdf) <br/> [Actores](./clases/7-actores.pdf)| [Práctica Channels y Actores](./clases/7-practica-actores.pdf)    |
 | 8      | [Concurrencia Distribuida: Algoritmos de Exclusión Mutua - Repaso de Redes. Sockets en UNIX](./clases/8-distrib.pdf) | [Práctica sobre Sockets y Exclusión Mutua distribuida](./clases/8-practica-sockets.pdf)  |
-
+| 9      | [Concurrencia Distribuida (parte 2): Algoritmos de Elección - Sockets en Rust](./clases/9-distrib2.pdf) | [Práctica de Algoritmos de Elección](./clases/9-practica-lider.pdf) 
+| 10     | [Concurrencia Distribuida (parte 3): Transacciones - Deadlocks](./clases/10-distrib3.pdf) | [Práctica de Transacciones Distribuidas](./clases/10-practica-transacciones-distribuidas.pdf)
+|         |  | [Practica Especial - Taller de Testing](./clases/x-practica-testing.pdf)
 [Repositorio de ejemplos](https://github.com/concurrentes-fiuba/ejemplos-concurrentes)
 
 <!--
 
 
-* [Practica Especial - Taller de Testing](./clases/x-practica-testing.pdf) Taller de testing
-  * [Fuentes](./clases/x-practica-testing.tar.bz2)
-
-  * [Fuentes](./clases/practica-sockets.tar.bz2)
-* [Clase 9](./clases/9-distrib2.pdf) Concurrencia Distribuida (parte 2): Algoritmos de Elección - Sockets en Rust
-* [Clase 9 - Práctica](./clases/9-practica-lider.pdf) Práctica de Algoritmos de Elección
-  * [Fuentes](./clases/practica-leader.tar.bz2)
-* [Clase 10](./clases/10-distrib3.pdf) Concurrencia Distribuida (parte 3): Transacciones - Deadlocks
-* [Clase 10 - Práctica](./clases/10-practica-transacciones-distribuidas.pdf): Transacciones Distribuidas
-  * [Fuentes](./clases/practica-transacciones.tar.bz2)
 * [Clase 11](./clases/11-ambientes-distrib.pdf). Ambientes Distribuidos.
 * [Practica Especial - Lenguajes para concurrencia](./clases/x-practica-golang.pdf) Lenguaje Go
   * [Erlang](./clases/Erlang_Concurrencia_y_tolerancia_a_fallos.pdf). Erlang: Concurrencia y tolerancia a fallos
