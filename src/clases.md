@@ -12,14 +12,10 @@
 | 8      | [Concurrencia Distribuida: Algoritmos de Exclusión Mutua - Repaso de Redes. Sockets en UNIX](./clases/8-distrib.pdf) | [Práctica sobre Sockets y Exclusión Mutua distribuida](./clases/8-practica-sockets.pdf)  |
 | 9      | [Concurrencia Distribuida (parte 2): Algoritmos de Elección - Sockets en Rust](./clases/9-distrib2.pdf) | [Práctica de Algoritmos de Elección](./clases/9-practica-lider.pdf) 
 | 10     | [Concurrencia Distribuida (parte 3): Transacciones - Deadlocks](./clases/10-distrib3.pdf) | [Práctica de Transacciones Distribuidas](./clases/10-practica-transacciones-distribuidas.pdf)
-|         |  | [Practica Especial - Taller de Testing](./clases/x-practica-testing.pdf)
+| 11     | [Ambientes Distribuidos](./clases/11-ambientes-distrib.pdf) | [Práctica de Transacciones Distribuidas](./clases/10-practica-transacciones-distribuidas.pdf)
+| Especiales   | [Lenguajes para concurrencia](./clases/x-practica-lenguajes.pdf) | [Taller de Testing](./clases/x-practica-testing.pdf)
+
+## Ejemplos
+
 [Repositorio de ejemplos](https://github.com/concurrentes-fiuba/ejemplos-concurrentes)
 
-<!--
-
-
-* [Clase 11](./clases/11-ambientes-distrib.pdf). Ambientes Distribuidos.
-* [Practica Especial - Lenguajes para concurrencia](./clases/x-practica-golang.pdf) Lenguaje Go
-  * [Erlang](./clases/Erlang_Concurrencia_y_tolerancia_a_fallos.pdf). Erlang: Concurrencia y tolerancia a fallos
-  * [Fuentes](./clases/practica-golang.tar.bz2)
--->
