@@ -10,6 +10,7 @@ Los docentes de la Cátedra son:
   * Ing. Ariel Scarpinelli
 
 * **Colaboradores:**
+  * Nicolás Longo
   * Alfonso Campodonico
 
 * **Asesores:**

@@ -2,7 +2,13 @@
 
 - [Inicio](./Inicio.md)
 
+- [Cronograma](./cronograma.md)
+
 - [Clases](./clases.md)
+
+- [2do Cuatrimestre 2024](./2024_2C.md)
+  - [Trabajo Práctico 1](./2024_2C_tp1.md)
+
 
 - [1er Cuatrimestre 2024](./2024_1C.md)
   - [Trabajo Práctico 1](./2024_1C_tp1.md)
