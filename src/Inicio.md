@@ -20,7 +20,7 @@ Los docentes de la Cátedra son:
 
 Las clases se desarrollan los días **martes y miércoles de 19 a 22 hs** a través de la plataforma Google Meet, se graban las clases.
 
-Los enlaces para acceder a Meet, así como las grabaciones de clases anteriores, son de acceso exclusivo a los ionscriptos a la materia.
+Los enlaces para acceder a Meet, así como las grabaciones de clases anteriores, son de acceso exclusivo a los inscriptos a la materia.
 
 ## Materias Correlativas
 
