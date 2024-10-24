@@ -11,7 +11,6 @@ Los docentes de la Cátedra son:
 
 * **Colaboradores:**
   * Nicolás Longo
-  * Alfonso Campodonico
 
 * **Asesores:**
   * Dr. Mariano Méndez (asesor académico)
