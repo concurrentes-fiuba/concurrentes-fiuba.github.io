@@ -14,6 +14,7 @@
 | 10     | [Concurrencia Distribuida (parte 3): Transacciones - Deadlocks](./clases/10-distrib3.pdf) | [Práctica de Transacciones Distribuidas](./clases/10-practica-transacciones-distribuidas.pdf)
 | 11     | [Ambientes Distribuidos](./clases/11-ambientes-distrib.pdf) | [Práctica de Transacciones Distribuidas](./clases/10-practica-transacciones-distribuidas.pdf)
 | Especiales   | [Lenguajes para concurrencia](./clases/x-practica-lenguajes.pdf) | [Taller de Testing](./clases/x-practica-testing.pdf)
+| | [CUDA](./clases/x-practica-cuda.pdf) | 
 
 ## Ejemplos
 

@@ -13,6 +13,6 @@ Cronograma 2do cuatrimestre 2024
 | 13 de Noviembre | TP2 - Pre-entrega. |
 | 3 de Diciembre | TP2 - Entrega Final |
 | 3, 4, 10 y 11 de Diciembre | TP2 - Presentaciones |
-| 11 de Diciembre | 2do recuperatorio de parcial |
+| 10 de Diciembre | 2do recuperatorio de parcial |
 
 
