@@ -6,6 +6,9 @@
 
 - [Clases](./clases.md)
 
+- [2do Cuatrimestre 2025](./2025_2C.md)
+  - [Trabajo Práctico 1](./2025_2C_tp1.md)
+
 - [1er Cuatrimestre 2025](./2025_1C.md)
   - [Trabajo Práctico 1](./2025_1C_tp1.md)
   - [Trabajo Práctico 2](./2025_1C_tp2.md)
