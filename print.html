@@ -219,17 +219,81 @@
 <h2 id="ejemplos"><a class="header" href="#ejemplos">Ejemplos</a></h2>
 <p><a href="https://github.com/concurrentes-fiuba/ejemplos-concurrentes">Repositorio de ejemplos</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="2do-cuatrimestre-2025"><a class="header" href="#2do-cuatrimestre-2025">2do Cuatrimestre 2025</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-1"><a class="header" href="#trabajo-práctico-1">Trabajo Práctico 1</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="1er-cuatrimestre-2025"><a class="header" href="#1er-cuatrimestre-2025">1er Cuatrimestre 2025</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico"><a class="header" href="#trabajo-práctico">Trabajo Práctico</a></h1>
 <p><strong>Fecha de Entrega:</strong>
-<em>23 de Abril</em></p>
+<em>8 de Octubre de 2025</em></p>
 <h2 id="introducción"><a class="header" href="#introducción">Introducción</a></h2>
+<p>El modelo de computo concurrente fork-join permite el procesamiento de grandes volumenes de datos de manera eficiente.</p>
+<p>Para experimentar con ello, los alumnos deberán buscar y proponer un dataset estructurado que puedan obtener de sitios como Kaggle, con un volumen de datos significativo, al cual le apliquen algunas transformaciones; y donde puedan evaluar la performance del modelo al correr con diferente cantidad de workers.</p>
+<h2 id="objetivo"><a class="header" href="#objetivo">Objetivo</a></h2>
+<p>Implementar una aplicación en Rust para procesamiento de información, aprovechando las ventajas del modelo Fork-Join. Para ello:</p>
+<ul>
+<li>
+<p>Deberan buscar y proponer dataset de Kaggle, Hugging Face o cualquiera de su preferencia. Se recomienda que sea estructurado (con campos), aunque puede ser de texto. El tamaño mínimo deberá ser de 4GB.</p>
+</li>
+<li>
+<p>Deberán proponer un conjunto de transformaciones a aplicar, con agrupamientos. Por ejemplo en un dataset de reviews de hoteles, podrían buscar los 3 hoteles mejor puntuados por ciudad, y las 3 ciudades con más reviews por hotel. Tomar los TPs de cuatrimestres anteriores para mas ideas. Se deben aplicar por lo menos dos transformaciones.</p>
+</li>
+<li>
+<p>Deberán desarrollar el código en Rust para resolver estas transformaciones, utilizando las bibliotecas presentadas en clase para el modelo fork-join y/o herramientas de la librería standard.</p>
+</li>
+<li>
+<p>Deberán presentar un informe analizando cómo su codigo se comporta en la ejecución con distinta cantidad de procesadores, informando tiempos de ejecución y uso de memoria para al menos 3 ejecuciones distintas. Por ejemplo para ejecuciones con 1, 2 y 4 CPUs.</p>
+</li>
+</ul>
+<h2 id="restricciones"><a class="header" href="#restricciones">Restricciones</a></h2>
+<ul>
+<li>Los datasets utilizados deberán ser diferentes entre los miembros del mismo grupo. Además, entre miembros de distintos grupos deberán intentar no repetir datasets. Si se encontraran datasets repetidos se validará exhaustivamente que los procesamientos y análisis sean efectivamente diferentes.</li>
+<li>El proyecto deberá ser desarrollado en lenguaje Rust, usando las herramientas de la biblioteca estándar.</li>
+<li>Se deberán utilizar las herramientas de concurrencia correspondientes al modelo fork-join</li>
+<li>No se permite utilizar <strong>crates</strong> externos, salvo los explícitamente mencionados en este enunciado, en los ejemplos de la materia, o autorizados expresamente por los profesores. Para el procesamiento de JSON se puede utilizar el crate <code>serde_json</code>.</li>
+<li>El código fuente debe compilarse en la última versión stable del compilador y no se permite utilizar bloques unsafe.</li>
+<li>El código deberá funcionar en ambiente Unix / Linux.</li>
+<li>El programa deberá ejecutarse en la línea de comandos.</li>
+<li>La compilación no debe arrojar <strong>warnings</strong> del compilador, ni del linter <strong>clippy</strong>.</li>
+<li>Las funciones y los tipos de datos (<strong>struct</strong>) deben estar documentadas siguiendo el estándar de <strong>cargo doc</strong>.</li>
+<li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
+<li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
+</ul>
+<h2 id="entrega"><a class="header" href="#entrega">Entrega</a></h2>
+<p>La resolución del presente proyecto es individual.</p>
+<p>La entrega del proyecto se realizará mediante Github Classroom. Cada estudiante tendrá un repositorio disponible para hacer diferentes commits con el objetivo de resolver el problema propuesto. Se recomienda iniciar tempranamente y hacer commits pequeños agreguen funcionalidad incrementalmente.</p>
+<p>Se podrán hacer commits hasta el día de la entrega a las 19 hs Arg, luego el sistema automáticamente quitará el acceso de escritura.</p>
+<p>El archivo README.md representará el informe de resolución y deberá incluir:</p>
+<ul>
+<li>Nombre y padrón del alumno.</li>
+<li>El link al dataset utilizado, junto a una descripción del mismo y la forma en que fue interpretado.</li>
+<li>Instrucciones para la correcta ejecución de la solución por los profesores y su parametrización para las distintas ejecuciones.</li>
+<li>Las transformaciones aplicadas al dataset y el formato del resultado esperado.</li>
+<li>Los análisis de performance.</li>
+<li>Conclusiones y posibles mejores.</li>
+</ul>
+<h2 id="evaluación"><a class="header" href="#evaluación">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs"><a class="header" href="#principios-teóricos-y-corrección-de-bugs">Principios teóricos y corrección de bugs</a></h3>
+<p>La evaluación se realizará sobre Github, pudiendo el profesor hacer comentarios en el repositorio y solicitar cambios
+o mejoras cuando lo encuentre oportuno, especialmente debido al uso incorrecto de herramientas de concurrencia.</p>
+<h3 id="casos-de-prueba"><a class="header" href="#casos-de-prueba">Casos de prueba</a></h3>
+<p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de
+concurrencia, por ejemplo, la ausencia de deadlocks.</p>
+<p>Además la aplicación deberá mostrar algún incremento en performance cuando la ejecución de la misma se hace con varios hilos en un ambiente multiprocesador.</p>
+<h3 id="informe"><a class="header" href="#informe">Informe</a></h3>
+<p>El informe debe estar estructurado profesionalmente y debe poder dar cuenta de las decisiones tomadas para implementar la solución.</p>
+<h3 id="organización-del-código"><a class="header" href="#organización-del-código">Organización del código</a></h3>
+<p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust. Se prohibe el uso de bloques <code>unsafe</code>.</p>
+<h3 id="tests-automatizados"><a class="header" href="#tests-automatizados">Tests automatizados</a></h3>
+<p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
+<h3 id="presentación-en-término"><a class="header" href="#presentación-en-término">Presentación en término</a></h3>
+<p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación previa con la cátedra influye negativamente en la nota final.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="1er-cuatrimestre-2025"><a class="header" href="#1er-cuatrimestre-2025">1er Cuatrimestre 2025</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-1"><a class="header" href="#trabajo-práctico-1">Trabajo Práctico</a></h1>
+<p><strong>Fecha de Entrega:</strong>
+<em>23 de Abril</em></p>
+<h2 id="introducción-1"><a class="header" href="#introducción-1">Introducción</a></h2>
 <p>Steam es una plataforma de distribución digital de videojuegos.</p>
 <p>Publica una API para obtener, entre otras cosas, los reviews que los usuarios publican sobre estos juegos. https://partner.steamgames.com/doc/store/getreviews</p>
 <p>Queremos analizar un dataset con dumps de estos reviews par encontrar los juegos mejor calificados, y las caracteristicas de su comunidad.</p>
 <p>Dicho dataset se encuentra publicado en Kaggle, en formato CSV donde cada linea correspodne a una reseña hecha por un usuario sobre un juego.</p>
-<h2 id="objetivo"><a class="header" href="#objetivo">Objetivo</a></h2>
+<h2 id="objetivo-1"><a class="header" href="#objetivo-1">Objetivo</a></h2>
 <p>Implementar una aplicación en Rust para procesamiento de información, aprovechando las ventajas del modelo Fork-Join,
 utilizando el dataset <a href="https://www.kaggle.com/datasets/najzeko/steam-reviews-2021">https://www.kaggle.com/datasets/najzeko/steam-reviews-2021</a></p>
 <p>La información a obtener del mismo incluye:</p>
@@ -325,31 +389,31 @@ archivos <code>.csv</code> en el mismo. Los archivos a procesar corresponden con
 <li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
 <li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
 </ul>
-<h2 id="entrega"><a class="header" href="#entrega">Entrega</a></h2>
+<h2 id="entrega-1"><a class="header" href="#entrega-1">Entrega</a></h2>
 <p>La resolución del presente proyecto es individual.</p>
 <p>La entrega del proyecto se realizará mediante Github Classroom. Cada estudiante tendrá un repositorio disponible para hacer diferentes commits con el objetivo de resolver el problema propuesto. Se recomienda iniciar tempranamente y hacer commits pequeños agreguen funcionalidad incrementalmente.</p>
 <p>Se podrán hacer commits hasta el día de la entrega a las 19 hs Arg, luego el sistema automáticamente quitará el acceso de escritura.</p>
 <p>El archivo README.md en el repositorio debe incluir el padrón del alumno y un enlace a un video de entre 5 y 7 minutos donde el alumno explique su resolución, detallando las decisiones de diseño y mostrando en vivo el código que escribió. El video debe mostrar claramente la cara del alumno y se debe poder escuchar correctamente y con buen volumen su voz.</p>
-<h2 id="evaluación"><a class="header" href="#evaluación">Evaluación</a></h2>
-<h3 id="principios-teóricos-y-corrección-de-bugs"><a class="header" href="#principios-teóricos-y-corrección-de-bugs">Principios teóricos y corrección de bugs</a></h3>
+<h2 id="evaluación-1"><a class="header" href="#evaluación-1">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs-1"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-1">Principios teóricos y corrección de bugs</a></h3>
 <p>La evaluación se realizará sobre Github, pudiendo el profesor hacer comentarios en el repositorio y solicitar cambios
 o mejoras cuando lo encuentre oportuno, especialmente debido al uso incorrecto de herramientas de concurrencia.</p>
-<h3 id="casos-de-prueba"><a class="header" href="#casos-de-prueba">Casos de prueba</a></h3>
+<h3 id="casos-de-prueba-1"><a class="header" href="#casos-de-prueba-1">Casos de prueba</a></h3>
 <p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de
 concurrencia, por ejemplo, la ausencia de deadlocks.</p>
 <p>Además la aplicación deberá respetar los formatos de salida y valores esperados de los resultados, y deberá mostrar algún
 incremento en performance cuando la ejecución de la misma se hace con varios hilos en un ambiente multiprocesador.</p>
-<h3 id="organización-del-código"><a class="header" href="#organización-del-código">Organización del código</a></h3>
+<h3 id="organización-del-código-1"><a class="header" href="#organización-del-código-1">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust. Se prohibe el uso de bloques <code>unsafe</code>.</p>
-<h3 id="tests-automatizados"><a class="header" href="#tests-automatizados">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-1"><a class="header" href="#tests-automatizados-1">Tests automatizados</a></h3>
 <p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
-<h3 id="presentación-en-término"><a class="header" href="#presentación-en-término">Presentación en término</a></h3>
+<h3 id="presentación-en-término-1"><a class="header" href="#presentación-en-término-1">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influye negativamente en la nota final.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-1"><a class="header" href="#trabajo-práctico-1">Trabajo Práctico</a></h1>
-<h2 id="introducción-1"><a class="header" href="#introducción-1">Introducción</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-2"><a class="header" href="#trabajo-práctico-2">Trabajo Práctico</a></h1>
+<h2 id="introducción-2"><a class="header" href="#introducción-2">Introducción</a></h2>
 <p>PedidosRust es una nueva aplicación para conectar restaurantes, repartidores y comensales. Gracias a su innovadora implementación distribuida, permitirá reducir los costos y apuntar a ser líder en el mercado.</p>
 <p>Los comensales podrán solicitar un pedido a un restaurante, los restaurantes notifican cuando el pedido está listo, y los repartidores buscan pedidos cercanos y los entregan.</p>
-<h2 id="objetivo-1"><a class="header" href="#objetivo-1">Objetivo</a></h2>
+<h2 id="objetivo-2"><a class="header" href="#objetivo-2">Objetivo</a></h2>
 <p>Deberán implementar un conjunto de aplicaciones en Rust que modele el sistema.</p>
 <h2 id="requerimientos-1"><a class="header" href="#requerimientos-1">Requerimientos</a></h2>
 <ul>
@@ -419,32 +483,32 @@ incremento en performance cuando la ejecución de la misma se hace con varios hi
 <p>Todos los integrantes del grupo deberán exponer algo. La evaluación es individual.</p>
 <p>La cátedra podrá solicitar luego correcciones donde se encuentren errores severos, sobre todo en el uso de herramientas de concurrencia; o bien desviaciones respecto al diseño pactado inicialmente.</p>
 <p>De tener correciones para realizar, las mismas deben realizarse y aprobarse con anterioridad a la presentación a examen final.</p>
-<h2 id="evaluación-1"><a class="header" href="#evaluación-1">Evaluación</a></h2>
-<h3 id="principios-teóricos-y-corrección-de-bugs-1"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-1">Principios teóricos y corrección de bugs</a></h3>
+<h2 id="evaluación-2"><a class="header" href="#evaluación-2">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs-2"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-2">Principios teóricos y corrección de bugs</a></h3>
 <p>Los estudiantes presentarán el diseño, código y comportamiento en vivo de su solución, con foco en el uso de las diferentes herramientas de concurrencia.</p>
 <p>Deberán poder explicar, desde los conceptos teóricos vistos en clase, cómo se comportará potencialmente su solución ante problemas de concurrencia (por ejemplo ausencia de deadlocks).</p>
 <p>En caso de que la solución no se comportara de forma esperada, deberán poder explicar las causas y sus posibles rectificaciones.</p>
-<h3 id="casos-de-prueba-1"><a class="header" href="#casos-de-prueba-1">Casos de prueba</a></h3>
+<h3 id="casos-de-prueba-2"><a class="header" href="#casos-de-prueba-2">Casos de prueba</a></h3>
 <p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia y la resiliencia de las distintas entidades.</p>
-<h3 id="informe"><a class="header" href="#informe">Informe</a></h3>
+<h3 id="informe-1"><a class="header" href="#informe-1">Informe</a></h3>
 <p>El README de su repositorio funcionará como informe del trabajo y deberá contener toda la información requerida tanto para la primera como para la segunda entrega.</p>
-<h3 id="organización-del-código-1"><a class="header" href="#organización-del-código-1">Organización del código</a></h3>
+<h3 id="organización-del-código-2"><a class="header" href="#organización-del-código-2">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust.
 Se prohibe el uso de bloques <code>unsafe</code>.</p>
-<h3 id="tests-automatizados-1"><a class="header" href="#tests-automatizados-1">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-2"><a class="header" href="#tests-automatizados-2">Tests automatizados</a></h3>
 <p>La entrega debe contar con tests automatizados que prueben diferentes casos. Se considerará en especial aquellos que pongan a prueba el uso de las herramientas de concurrencia.</p>
-<h3 id="presentación-en-término-1"><a class="header" href="#presentación-en-término-1">Presentación en término</a></h3>
+<h3 id="presentación-en-término-2"><a class="header" href="#presentación-en-término-2">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influirá negativamente en la nota final.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="2do-cuatrimestre-2024"><a class="header" href="#2do-cuatrimestre-2024">2do Cuatrimestre 2024</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-2"><a class="header" href="#trabajo-práctico-2">Trabajo Práctico</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-3"><a class="header" href="#trabajo-práctico-3">Trabajo Práctico</a></h1>
 <p><strong>Fecha de Entrega:</strong>
 <em>18 de Septiembre</em></p>
-<h2 id="introducción-2"><a class="header" href="#introducción-2">Introducción</a></h2>
+<h2 id="introducción-3"><a class="header" href="#introducción-3">Introducción</a></h2>
 <p>PUBG es un juego de disparos en primera y tercera persona estilo Battle Royale que enfrenta a más de 90 jugadores en una
 gran isla donde los equipos y los jugadores luchan a muerte hasta que queda uno.</p>
 <p>El sitio pubg.op.gg publica estadísticas sobre este juego.</p>
 <p>Queremos analizar un dataset con dumps de este sitio para mejorar las estrategias de juego.</p>
-<h2 id="objetivo-2"><a class="header" href="#objetivo-2">Objetivo</a></h2>
+<h2 id="objetivo-3"><a class="header" href="#objetivo-3">Objetivo</a></h2>
 <p>Implementar una aplicación en Rust para procesamiento de información, aprovechando las ventajas del modelo Fork-Join,
 utilizando el dataset <a href="https://www.kaggle.com/datasets/skihikingkevin/pubg-match-deaths">https://www.kaggle.com/datasets/skihikingkevin/pubg-match-deaths</a></p>
 <p>La información a obtener del mismo incluye:</p>
@@ -516,33 +580,33 @@ archivos <code>.csv</code> en el mismo. Los archivos a procesar corresponden con
 <li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
 <li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
 </ul>
-<h2 id="entrega-1"><a class="header" href="#entrega-1">Entrega</a></h2>
+<h2 id="entrega-2"><a class="header" href="#entrega-2">Entrega</a></h2>
 <p>La resolución del presente proyecto es individual.</p>
 <p>La entrega del proyecto se realizará mediante Github Classroom. Cada estudiante tendrá un repositorio disponible para
 hacer diferentes commits con el objetivo de resolver el problema propuesto. Se recomienda iniciar tempranamente y
 hacer commits pequeños agreguen funcionalidad incrementalmente.
 Se podrán hacer commit hasta el día de la entrega a las 19 hs Arg, luego el sistema automáticamente quitará el acceso
 de escritura.</p>
-<h2 id="evaluación-2"><a class="header" href="#evaluación-2">Evaluación</a></h2>
-<h3 id="principios-teóricos-y-corrección-de-bugs-2"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-2">Principios teóricos y corrección de bugs</a></h3>
+<h2 id="evaluación-3"><a class="header" href="#evaluación-3">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs-3"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-3">Principios teóricos y corrección de bugs</a></h3>
 <p>La evaluación se realizará sobre Github, pudiendo el profesor hacer comentarios en el repositorio y solicitar cambios
 o mejoras cuando lo encuentre oportuno, especialmente debido al uso incorrecto de herramientas de concurrencia.</p>
-<h3 id="casos-de-prueba-2"><a class="header" href="#casos-de-prueba-2">Casos de prueba</a></h3>
+<h3 id="casos-de-prueba-3"><a class="header" href="#casos-de-prueba-3">Casos de prueba</a></h3>
 <p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de
 concurrencia, por ejemplo, la ausencia de deadlocks.</p>
 <p>Además la aplicación deberá respetar los formatos de salida y valores esperados de los resultados, y deberá mostrar algún
 incremento en performance cuando la ejecución de la misma se hace con varios hilos en un ambiente multiprocesador.</p>
-<h3 id="organización-del-código-2"><a class="header" href="#organización-del-código-2">Organización del código</a></h3>
+<h3 id="organización-del-código-3"><a class="header" href="#organización-del-código-3">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust. Se prohibe el uso de bloques <code>unsafe</code>.</p>
-<h3 id="tests-automatizados-2"><a class="header" href="#tests-automatizados-2">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-3"><a class="header" href="#tests-automatizados-3">Tests automatizados</a></h3>
 <p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
-<h3 id="presentación-en-término-2"><a class="header" href="#presentación-en-término-2">Presentación en término</a></h3>
+<h3 id="presentación-en-término-3"><a class="header" href="#presentación-en-término-3">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influye negativamente en la nota final.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-3"><a class="header" href="#trabajo-práctico-3">Trabajo Práctico</a></h1>
-<h2 id="introducción-3"><a class="header" href="#introducción-3">Introducción</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-4"><a class="header" href="#trabajo-práctico-4">Trabajo Práctico</a></h1>
+<h2 id="introducción-4"><a class="header" href="#introducción-4">Introducción</a></h2>
 <p>ConcuRide es una nueva aplicación para conectar conductores y pasajeros. Gracias a su inovadora implementación distribuida, permitirá reducir los costos y apuntar a ser líder en el mercado.</p>
 <p>Los pasajeros tendrán una app donde podrán elegir el destino, y los choferes una app donde recibirán y podrán aceptar o denegar viajes.</p>
-<h2 id="objetivo-3"><a class="header" href="#objetivo-3">Objetivo</a></h2>
+<h2 id="objetivo-4"><a class="header" href="#objetivo-4">Objetivo</a></h2>
 <p>Deberán implementar un conjunto de aplicaciones en Rust que modele el sistema.</p>
 <h2 id="requerimientos-3"><a class="header" href="#requerimientos-3">Requerimientos</a></h2>
 <ul>
@@ -612,30 +676,30 @@ que deberán tenerse en cuenta durante la implementación.</p>
 <p>Todos los integrantes del grupo deberán exponer algo. La evaluación es individual.</p>
 <p>La cátedra podrá solicitar luego correcciones donde se encuentren errores severos, sobre todo en el uso de herramientas de concurrencia; o bien desviaciones respecto al diseño pactado inicialmente.</p>
 <p>De tener correciones para realizar, las mismas deben realizarse y aprobarse con anterioridad a la presentación a examen final.</p>
-<h2 id="evaluación-3"><a class="header" href="#evaluación-3">Evaluación</a></h2>
-<h3 id="principios-teóricos-y-corrección-de-bugs-3"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-3">Principios teóricos y corrección de bugs</a></h3>
+<h2 id="evaluación-4"><a class="header" href="#evaluación-4">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs-4"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-4">Principios teóricos y corrección de bugs</a></h3>
 <p>Los alumnos presentarán el diseño, código y comportamiento en vivo de su solución, con foco en el uso de las diferentes herramientas de concurrencia.</p>
 <p>Deberán poder explicar desde los conceptos teóricos vistos en clase cómo se comportará potencialmente su solución ante problemas de concurrencia (por ejemplo ausencia de deadlocks).</p>
 <p>En caso de que la solución no se comportara de forma esperada, deberán poder explicar las causas y sus posibles rectificaciones.</p>
-<h3 id="casos-de-prueba-3"><a class="header" href="#casos-de-prueba-3">Casos de prueba</a></h3>
+<h3 id="casos-de-prueba-4"><a class="header" href="#casos-de-prueba-4">Casos de prueba</a></h3>
 <p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia y la resiliencia de las distintas entidades.</p>
-<h3 id="informe-1"><a class="header" href="#informe-1">Informe</a></h3>
+<h3 id="informe-2"><a class="header" href="#informe-2">Informe</a></h3>
 <p>El informe debe poder dar cuenta de todas las decisiones tomadas para implementar la solución, incluyendo diferentes diagramas y se debe poder utilizar como soporte para que el equipo presente su trabajo.</p>
-<h3 id="organización-del-código-3"><a class="header" href="#organización-del-código-3">Organización del código</a></h3>
+<h3 id="organización-del-código-4"><a class="header" href="#organización-del-código-4">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust.
 Se prohibe el uso de bloques <code>unsafe</code>.</p>
-<h3 id="tests-automatizados-3"><a class="header" href="#tests-automatizados-3">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-4"><a class="header" href="#tests-automatizados-4">Tests automatizados</a></h3>
 <p>La entrega debe contar con tests automatizados que prueben diferentes casos. Se considerará en especial aquellos que pongan a prueba el uso de las herramientas de concurrencia.</p>
-<h3 id="presentación-en-término-3"><a class="header" href="#presentación-en-término-3">Presentación en término</a></h3>
+<h3 id="presentación-en-término-4"><a class="header" href="#presentación-en-término-4">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influirá negativamente en la nota final.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="1er-cuatrimestre-2024"><a class="header" href="#1er-cuatrimestre-2024">1er Cuatrimestre 2024</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-4"><a class="header" href="#trabajo-práctico-4">Trabajo Práctico</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-5"><a class="header" href="#trabajo-práctico-5">Trabajo Práctico</a></h1>
 <p><strong>Fecha de Entrega:</strong> 17 de Abril</p>
-<h2 id="introducción-4"><a class="header" href="#introducción-4">Introducción</a></h2>
+<h2 id="introducción-5"><a class="header" href="#introducción-5">Introducción</a></h2>
 <p>Stack Exchange publica periódicamente el dump de todas las preguntas y respuestas realizadas en los sitios de su red.</p>
 <p>Queremos aprovechar esto para realizar un análisis de los temas que se hablan en los sitios.
 Para ello utilizaremos los tags que cada pregunta tiene asociada.</p>
-<h2 id="objetivo-4"><a class="header" href="#objetivo-4">Objetivo</a></h2>
+<h2 id="objetivo-5"><a class="header" href="#objetivo-5">Objetivo</a></h2>
 <p>Implementar una aplicación en Rust para procesamiento de información, aprovechando las ventajas del modelo Fork-Join, utilizando el dataset https://huggingface.co/datasets/flax-sentence-embeddings/stackexchange_title_body_jsonl</p>
 <h2 id="requerimientos-4"><a class="header" href="#requerimientos-4">Requerimientos</a></h2>
 <ul>
@@ -703,30 +767,30 @@ Para ello utilizaremos los tags que cada pregunta tiene asociada.</p>
 <li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
 <li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
 </ul>
-<h2 id="entrega-2"><a class="header" href="#entrega-2">Entrega</a></h2>
+<h2 id="entrega-3"><a class="header" href="#entrega-3">Entrega</a></h2>
 <p>La resolución del presente proyecto es individual.</p>
 <p>La entrega del proyecto se realizará mediante Github Classroom. Cada estudiante tendrá un repositorio disponible para
 hacer diferentes commits con el objetivo de resolver el problema propuesto. Se recomienda iniciar tempranamente y
 hacer commits pequeños agreguen funcionalidad incrementalmente.
 Se podrán hacer commit hasta el día de la entrega a las 19 hs Arg, luego el sistema automáticamente quitará el acceso
 de escritura.</p>
-<h2 id="evaluación-4"><a class="header" href="#evaluación-4">Evaluación</a></h2>
-<h3 id="principios-teóricos-y-corrección-de-bugs-4"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-4">Principios teóricos y corrección de bugs</a></h3>
+<h2 id="evaluación-5"><a class="header" href="#evaluación-5">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs-5"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-5">Principios teóricos y corrección de bugs</a></h3>
 <p>La evaluación se realizará sobre Github, pudiendo el profesor hacer comentarios en el repositorio y solicitar cambios
 o mejoras cuando lo encuentre oportuno, especialmente debido al uso incorrecto de herramientas de concurrencia.</p>
-<h3 id="casos-de-prueba-4"><a class="header" href="#casos-de-prueba-4">Casos de prueba</a></h3>
+<h3 id="casos-de-prueba-5"><a class="header" href="#casos-de-prueba-5">Casos de prueba</a></h3>
 <p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia.</p>
-<h3 id="organización-del-código-4"><a class="header" href="#organización-del-código-4">Organización del código</a></h3>
+<h3 id="organización-del-código-5"><a class="header" href="#organización-del-código-5">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust. Se prohibe el uso de bloques <code>unsafe</code>.</p>
-<h3 id="tests-automatizados-4"><a class="header" href="#tests-automatizados-4">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-5"><a class="header" href="#tests-automatizados-5">Tests automatizados</a></h3>
 <p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
-<h3 id="presentación-en-término-4"><a class="header" href="#presentación-en-término-4">Presentación en término</a></h3>
+<h3 id="presentación-en-término-5"><a class="header" href="#presentación-en-término-5">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influye negativamente en la nota final.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-5"><a class="header" href="#trabajo-práctico-5">Trabajo Práctico</a></h1>
-<h2 id="introducción-5"><a class="header" href="#introducción-5">Introducción</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-6"><a class="header" href="#trabajo-práctico-6">Trabajo Práctico</a></h1>
+<h2 id="introducción-6"><a class="header" href="#introducción-6">Introducción</a></h2>
 <p>Una importante cadena de heladerías desea abrir una sucursal completamente robotizada.
 Los clientes harán su pedido sobre una interfáz gráfica eligiendo gustos y tamaño. Luego un conjunto de robots podrán resolver los pedidos de forma concurrente, tal como lo hacen los heladeros los días de calor. Así mismo, cada contenedor con un gusto de helado podrá ser utilizado solamente por un robot a la vez. Finalmente se le entregará su helado al cliente; y solamente se le cobrará en la tarjeta si efectivamente se pudo completar su pedido.</p>
-<h2 id="objetivo-5"><a class="header" href="#objetivo-5">Objetivo</a></h2>
+<h2 id="objetivo-6"><a class="header" href="#objetivo-6">Objetivo</a></h2>
 <p>Deberán implementar un conjunto de aplicaciones en Rust que modele el sistema de la heladería.</p>
 <h2 id="requerimientos-5"><a class="header" href="#requerimientos-5">Requerimientos</a></h2>
 <ul>
@@ -772,29 +836,29 @@ que deberán tenerse en cuenta durante la implementación.</p>
 <p>De tener correciones para realizar, las mismas deben realizarse y aprobarse con anterioridad a la presentación a examen final.</p>
 <h3 id="entrega-final"><a class="header" href="#entrega-final">Entrega final</a></h3>
 <p>Durante el examen final, los alumnos deberán poder responder preguntas sobre su diseño e implementación, y su participación personal en el trabajo; además de las preguntas y situaciones problemáticas propias de los contenidos presentados por la cátedra durante toda la materia.</p>
-<h2 id="evaluación-5"><a class="header" href="#evaluación-5">Evaluación</a></h2>
-<h3 id="principios-teóricos-y-corrección-de-bugs-5"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-5">Principios teóricos y corrección de bugs</a></h3>
+<h2 id="evaluación-6"><a class="header" href="#evaluación-6">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs-6"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-6">Principios teóricos y corrección de bugs</a></h3>
 <p>Los alumnos presentarán el código de su solución primero en video, y luego personalmente, con foco en el uso de las diferentes herramientas de concurrencia.
 Deberán poder explicar desde los conceptos teóricos vistos en clase cómo se comportará potencialmente su solución ante problemas de concurrencia (por ejemplo ausencia de deadlocks).</p>
 <p>En caso de que la solución no se comportara de forma esperada, deberán poder explicar las causas y sus posibles rectificaciones.</p>
-<h3 id="casos-de-prueba-5"><a class="header" href="#casos-de-prueba-5">Casos de prueba</a></h3>
+<h3 id="casos-de-prueba-6"><a class="header" href="#casos-de-prueba-6">Casos de prueba</a></h3>
 <p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia y la resiliencia de las distintas entidades.</p>
-<h3 id="informe-2"><a class="header" href="#informe-2">Informe</a></h3>
+<h3 id="informe-3"><a class="header" href="#informe-3">Informe</a></h3>
 <p>El informe debe poder dar cuenta de todas las decisiones tomadas para implementar la solución, incluyendo diferentes diagramas y se debe poder utilizar como soporte para que el equipo presente su trabajo.</p>
-<h3 id="organización-del-código-5"><a class="header" href="#organización-del-código-5">Organización del código</a></h3>
+<h3 id="organización-del-código-6"><a class="header" href="#organización-del-código-6">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust.
 Se prohibe el uso de bloques <code>unsafe</code>.</p>
-<h3 id="tests-automatizados-5"><a class="header" href="#tests-automatizados-5">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-6"><a class="header" href="#tests-automatizados-6">Tests automatizados</a></h3>
 <p>La entrega debe contar con tests automatizados que prueben diferentes casos. Se considerará en especial aquellos que pongan a prueba el uso de las herramientas de concurrencia.</p>
-<h3 id="presentación-en-término-5"><a class="header" href="#presentación-en-término-5">Presentación en término</a></h3>
+<h3 id="presentación-en-término-6"><a class="header" href="#presentación-en-término-6">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influirá negativamente en la nota final.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="2do-cuatrimestre-2023"><a class="header" href="#2do-cuatrimestre-2023">2do Cuatrimestre 2023</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-6"><a class="header" href="#trabajo-práctico-6">Trabajo Práctico</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-7"><a class="header" href="#trabajo-práctico-7">Trabajo Práctico</a></h1>
 <p><strong>Fecha de Entrega:</strong> 21 de Noviembre de 2023</p>
-<h2 id="introducción-6"><a class="header" href="#introducción-6">Introducción</a></h2>
+<h2 id="introducción-7"><a class="header" href="#introducción-7">Introducción</a></h2>
 <p>Nos encontramos desarrollando un software para una cadena de tiendas distribuida por todo el país. La misma tiene un sitio de e-commerce además de locales físicos.</p>
 <p>En este caso estamos trabajando el módulo de manejo de stocks. Se pueden registrar compras en cada tienda física, así como también desde el e-commerce. El sitio de e-commerce reserva stock de producto de la tienda más cercana posible a la dirección de envío de la compra idealmente (modelar de forma aleatoria), pero puede potencialmente tomar el stock de cualquier local de ser necesario.</p>
-<h2 id="objetivo-6"><a class="header" href="#objetivo-6">Objetivo</a></h2>
+<h2 id="objetivo-7"><a class="header" href="#objetivo-7">Objetivo</a></h2>
 <p>Deberán implementar un conjunto de aplicaciones en Rust que modele el sistema de stocks.</p>
 <h2 id="requerimientos-6"><a class="header" href="#requerimientos-6">Requerimientos</a></h2>
 <ul>
@@ -820,37 +884,37 @@ Se prohibe el uso de bloques <code>unsafe</code>.</p>
 <li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
 <li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
 </ul>
-<h2 id="entrega-3"><a class="header" href="#entrega-3">Entrega</a></h2>
+<h2 id="entrega-4"><a class="header" href="#entrega-4">Entrega</a></h2>
 <p>La resolución del presente proyecto es en grupos de tres integrantes.</p>
 <p>La entrega del proyecto se realizará mediante Github Classroom. Cada grupo tendrá un repositorio disponible para hacer diferentes commits con el objetivo de resolver el problema propuesto. Se recomienda iniciar tempranamente y trabajar siguiendo un formato de commits pequeños que agreguen funcionalidad incrementalmente.
 Se podrán hacer commits hasta el día de la entrega a las 19 hs Arg, luego el sistema automáticamente quitará el acceso de escritura.</p>
 <p>Asi mismo el proyecto debe incluir un informe en formato Markdown en el <code>README.md</code> del repositorio que contenga una explicación del diseño y de las decisiones tomadas para la implementación de la solución, asi como diagramas de threads y procesos, y la comunicación entre los mismos; y diagramas de las entidades principales.
 En el mismo archivo deberá proveerse cualquier explicación y/o set de comandos necesarios para la ejecución de los programas.</p>
-<h2 id="evaluación-6"><a class="header" href="#evaluación-6">Evaluación</a></h2>
-<h3 id="principios-teóricos-y-corrección-de-bugs-6"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-6">Principios teóricos y corrección de bugs</a></h3>
+<h2 id="evaluación-7"><a class="header" href="#evaluación-7">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs-7"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-7">Principios teóricos y corrección de bugs</a></h3>
 <p>Los alumnos presentarán el código de su solución presencialmente, con foco en el uso de las diferentes herramientas de concurrencia.
 Deberán poder explicar desde los conceptos teóricos vistos en clase cómo se comportará potencialmente su solución ante  problemas de concurrencia (por ejemplo ausencia de deadlocks).</p>
 <p>En caso de que la solución no se comportara de forma esperada, deberán poder explicar las causas y sus posibles rectificaciones.</p>
-<h3 id="casos-de-prueba-6"><a class="header" href="#casos-de-prueba-6">Casos de prueba</a></h3>
+<h3 id="casos-de-prueba-7"><a class="header" href="#casos-de-prueba-7">Casos de prueba</a></h3>
 <p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia.</p>
-<h3 id="informe-3"><a class="header" href="#informe-3">Informe</a></h3>
+<h3 id="informe-4"><a class="header" href="#informe-4">Informe</a></h3>
 <p>El informe debe poder dar cuenta de todas las decisiones tomadas para implementar la solución, incluyendo diferentes diagramas y se debe poder utilizar como soporte para que el equipo presente su trabajo.</p>
-<h3 id="organización-del-código-6"><a class="header" href="#organización-del-código-6">Organización del código</a></h3>
+<h3 id="organización-del-código-7"><a class="header" href="#organización-del-código-7">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust.
 Se prohibe el uso de bloques <code>unsafe</code>.</p>
-<h3 id="tests-automatizados-6"><a class="header" href="#tests-automatizados-6">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-7"><a class="header" href="#tests-automatizados-7">Tests automatizados</a></h3>
 <p>La entrega debe contar con tests automatizados que prueben diferentes casos. Se considerará en especial aquellos que pongan a prueba el uso de las herramientas de concurrencia.</p>
-<h3 id="presentación-en-término-6"><a class="header" href="#presentación-en-término-6">Presentación en término</a></h3>
+<h3 id="presentación-en-término-7"><a class="header" href="#presentación-en-término-7">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influirá negativamente en la nota final.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="1er-cuatrimestre-2023"><a class="header" href="#1er-cuatrimestre-2023">1er Cuatrimestre 2023</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-7"><a class="header" href="#trabajo-práctico-7">Trabajo Práctico</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-8"><a class="header" href="#trabajo-práctico-8">Trabajo Práctico</a></h1>
 <p><strong>Fecha de Entrega:</strong> 3 de mayo de 2023</p>
-<h2 id="introducción-7"><a class="header" href="#introducción-7">Introducción</a></h2>
+<h2 id="introducción-8"><a class="header" href="#introducción-8">Introducción</a></h2>
 <p><em>CoffeeGPT</em> es una nueva cadena de cafeterías que pretende competir con tantas otras con un novedoso
 modelo de negocio: los clientes son servidos por robots que preparan sus órdenes de forma totalmente automática.</p>
 <p>De entre los multiples desarrollos necesarios para implementar este proyecto, nos han contratado para realizar el software
 que controlará las cafeteras espresso.</p>
-<h2 id="objetivo-7"><a class="header" href="#objetivo-7">Objetivo</a></h2>
+<h2 id="objetivo-8"><a class="header" href="#objetivo-8">Objetivo</a></h2>
 <p>Deberán implementar una aplicación en Rust que modele el sistema de control y reporte de la cafetera inteligente.</p>
 <p>Cada pedido de bebida a preparar se leerá como una línea de un archivo y los movimientos de los distintos actuadores se simularán con un sleep.</p>
 <h2 id="requerimientos-7"><a class="header" href="#requerimientos-7">Requerimientos</a></h2>
@@ -908,7 +972,7 @@ que controlará las cafeteras espresso.</p>
 <li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
 <li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
 </ul>
-<h2 id="entrega-4"><a class="header" href="#entrega-4">Entrega</a></h2>
+<h2 id="entrega-5"><a class="header" href="#entrega-5">Entrega</a></h2>
 <p>La resolución del presente proyecto es individual.</p>
 <p>La entrega del proyecto se realizará mediante Github Classroom. Cada estudiante tendrá un repositorio disponible para
 ir haciendo diferentes commits con el objetivo de resolver el problema propuesto. Se recomienda iniciar tempranamente y
@@ -917,27 +981,27 @@ Se podrán hacer commit hasta el día de la entrega a las 19 hs Arg, luego el si
 de escritura.</p>
 <p>Asi mismo el proyecto debe incluir un pequeño informe en formato Markdown en el README.md del repositorio que contenga una
 explicación del diseño y de las decisiones tomadas para la implementación de la solución.</p>
-<h2 id="evaluación-7"><a class="header" href="#evaluación-7">Evaluación</a></h2>
-<h3 id="principios-teóricos-y-corrección-de-bugs-7"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-7">Principios teóricos y corrección de bugs</a></h3>
+<h2 id="evaluación-8"><a class="header" href="#evaluación-8">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs-8"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-8">Principios teóricos y corrección de bugs</a></h3>
 <p>La evaluación se realizará sobre Github, pudiendo el profesor hacer comentarios en el repositorio y solicitar cambios
 o mejoras cuando lo encuentre oportuno, especialmente debido al uso incorrecto de herramientas de concurrencia (por ejemplo presencia de posibles deadlocks).</p>
-<h3 id="casos-de-prueba-7"><a class="header" href="#casos-de-prueba-7">Casos de prueba</a></h3>
+<h3 id="casos-de-prueba-8"><a class="header" href="#casos-de-prueba-8">Casos de prueba</a></h3>
 <p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia.</p>
-<h3 id="informe-4"><a class="header" href="#informe-4">Informe</a></h3>
+<h3 id="informe-5"><a class="header" href="#informe-5">Informe</a></h3>
 <p>El informe debe estar estructurado profesionalmente y debe poder dar cuenta de las decisiones tomadas para implementar la solución.</p>
-<h3 id="organización-del-código-7"><a class="header" href="#organización-del-código-7">Organización del código</a></h3>
+<h3 id="organización-del-código-8"><a class="header" href="#organización-del-código-8">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust. Se prohibe el uso de bloques <code>unsafe</code>.</p>
-<h3 id="tests-automatizados-7"><a class="header" href="#tests-automatizados-7">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-8"><a class="header" href="#tests-automatizados-8">Tests automatizados</a></h3>
 <p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
-<h3 id="presentación-en-término-7"><a class="header" href="#presentación-en-término-7">Presentación en término</a></h3>
+<h3 id="presentación-en-término-8"><a class="header" href="#presentación-en-término-8">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influye negativamente en la nota final.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-8"><a class="header" href="#trabajo-práctico-8">Trabajo Práctico</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-9"><a class="header" href="#trabajo-práctico-9">Trabajo Práctico</a></h1>
 <p><strong>Fecha de Entrega:</strong> 13 de junio de 2023</p>
-<h2 id="introducción-8"><a class="header" href="#introducción-8">Introducción</a></h2>
+<h2 id="introducción-9"><a class="header" href="#introducción-9">Introducción</a></h2>
 <p>Continuamos con los desarrollos para <em>CoffeeGPT</em>.</p>
 <p>Coffeewards, es un sistema de puntos para fidelización de los clientes.
 Por cada compra que realizan los clientes, suman puntos que luego pueden canjear por cafes gratuitos.</p>
-<h2 id="objetivo-8"><a class="header" href="#objetivo-8">Objetivo</a></h2>
+<h2 id="objetivo-9"><a class="header" href="#objetivo-9">Objetivo</a></h2>
 <p>Deberán implementar un conjunto de aplicaciones en Rust que modele el sistema de puntos.</p>
 <h2 id="requerimientos-8"><a class="header" href="#requerimientos-8">Requerimientos</a></h2>
 <ul>
@@ -968,7 +1032,7 @@ utilizando en varios locales/cafeteras en simultáneo. Se debe mantener el saldo
 <li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
 <li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
 </ul>
-<h2 id="entrega-5"><a class="header" href="#entrega-5">Entrega</a></h2>
+<h2 id="entrega-6"><a class="header" href="#entrega-6">Entrega</a></h2>
 <p>La resolución del presente proyecto es en grupos de tres integrantes.</p>
 <p>La entrega del proyecto se realizará mediante Github Classroom. Cada grupo tendrá un repositorio disponible para
 hacer diferentes commits con el objetivo de resolver el problema propuesto. Se recomienda iniciar tempranamente y
@@ -978,33 +1042,33 @@ de escritura.</p>
 <p>Asi mismo el proyecto debe incluir un informe en formato Markdown en el README.md del repositorio que contenga una
 explicación del diseño y de las decisiones tomadas para la implementación de la solución, asi como diagramas de threads y procesos,
 y la comunicación entre los mismos; y diagramas de las entidades principales.</p>
-<h2 id="evaluación-8"><a class="header" href="#evaluación-8">Evaluación</a></h2>
-<h3 id="principios-teóricos-y-corrección-de-bugs-8"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-8">Principios teóricos y corrección de bugs</a></h3>
+<h2 id="evaluación-9"><a class="header" href="#evaluación-9">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs-9"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-9">Principios teóricos y corrección de bugs</a></h3>
 <p>Los alumnos presentarán el código de su solución presencialmente, con foco en el uso de las diferentes herramientas de concurrencia.
 Deberán poder explicar desde los conceptos teóricos vistos en clase cómo se comportará potencialmente su solución ante
 problemas de concurrencia (por ejemplo ausencia de deadlocks).</p>
 <p>En caso de que la solución no se comportara de forma esperada, deberán poder explicar las causas y sus posibles rectificaciones.</p>
-<h3 id="casos-de-prueba-8"><a class="header" href="#casos-de-prueba-8">Casos de prueba</a></h3>
+<h3 id="casos-de-prueba-9"><a class="header" href="#casos-de-prueba-9">Casos de prueba</a></h3>
 <p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia.</p>
-<h3 id="informe-5"><a class="header" href="#informe-5">Informe</a></h3>
+<h3 id="informe-6"><a class="header" href="#informe-6">Informe</a></h3>
 <p>El informe debe estar estructurado profesionalmente y debe poder dar cuenta de las decisiones tomadas para implementar la solución.</p>
-<h3 id="organización-del-código-8"><a class="header" href="#organización-del-código-8">Organización del código</a></h3>
+<h3 id="organización-del-código-9"><a class="header" href="#organización-del-código-9">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust.
 Se prohibe el uso de bloques <code>unsafe</code>.</p>
-<h3 id="tests-automatizados-8"><a class="header" href="#tests-automatizados-8">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-9"><a class="header" href="#tests-automatizados-9">Tests automatizados</a></h3>
 <p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
-<h3 id="presentación-en-término-8"><a class="header" href="#presentación-en-término-8">Presentación en término</a></h3>
+<h3 id="presentación-en-término-9"><a class="header" href="#presentación-en-término-9">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación
 con el profesor influye negativamente en la nota final.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="2do-cuatrimestre-2022"><a class="header" href="#2do-cuatrimestre-2022">2do Cuatrimestre 2022</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-9"><a class="header" href="#trabajo-práctico-9">Trabajo Práctico</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-10"><a class="header" href="#trabajo-práctico-10">Trabajo Práctico</a></h1>
 <p><strong>Fecha de Entrega:</strong> 12 de octubre de 2022</p>
-<h2 id="introducción-9"><a class="header" href="#introducción-9">Introducción</a></h2>
+<h2 id="introducción-10"><a class="header" href="#introducción-10">Introducción</a></h2>
 <p><em>Internet of Coffee</em> es una nueva cadena de cafeterías que pretende competir con tantas otras con un novedoso
 modelo de negocio: los clientes son servidos por robots que preparan sus órdenes de forma totalmente automática.</p>
 <p>De entre los multiples desarrollos necesarios para implementar este proyecto, nos han contratado para realizar el software
 que controlará las cafeteras espresso.</p>
-<h2 id="objetivo-9"><a class="header" href="#objetivo-9">Objetivo</a></h2>
+<h2 id="objetivo-10"><a class="header" href="#objetivo-10">Objetivo</a></h2>
 <p>Deberán implementar una aplicación en Rust que modele el sistema de control y reporte de la cafetera inteligente.</p>
 <p>Cada pedido de bebida a preparar se leerá como una línea de un archivo y los movimientos de los distintos actuadores se simularán con un sleep.</p>
 <h2 id="requerimientos-9"><a class="header" href="#requerimientos-9">Requerimientos</a></h2>
@@ -1065,7 +1129,7 @@ correspondiente vaso el cual se posiciona de forma externa a nuestro sistema dir
 <li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
 <li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
 </ul>
-<h2 id="entrega-6"><a class="header" href="#entrega-6">Entrega</a></h2>
+<h2 id="entrega-7"><a class="header" href="#entrega-7">Entrega</a></h2>
 <p>La resolución del presente proyecto es individual.</p>
 <p>La entrega del proyecto se realizará mediante Github Classroom. Cada estudiante tendrá un repositorio disponible para
 ir haciendo diferentes commits con el objetivo de resolver el problema propuesto. Se recomienda iniciar tempranamente y
@@ -1074,27 +1138,27 @@ Se podrán hacer commit hasta el día de la entrega a las 19 hs Arg, luego el si
 de escritura.</p>
 <p>Asi mismo el proyecto debe incluir un pequeño informe en formato Markdown en el README.md del repositorio que contenga una
 explicación del diseño y de las decisiones tomadas para la implementación de la solución.</p>
-<h2 id="evaluación-9"><a class="header" href="#evaluación-9">Evaluación</a></h2>
-<h3 id="principios-teóricos-y-corrección-de-bugs-9"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-9">Principios teóricos y corrección de bugs</a></h3>
+<h2 id="evaluación-10"><a class="header" href="#evaluación-10">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs-10"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-10">Principios teóricos y corrección de bugs</a></h3>
 <p>La evaluación se realizará sobre Github, pudiendo el profesor hacer comentarios en el repositorio y solicitar cambios
 o mejoras cuando lo encuentre oportuno, especialmente debido al uso incorrecto de herramientas de concurrencia (por ejemplo presencia de posibles deadlocks).</p>
-<h3 id="casos-de-prueba-9"><a class="header" href="#casos-de-prueba-9">Casos de prueba</a></h3>
+<h3 id="casos-de-prueba-10"><a class="header" href="#casos-de-prueba-10">Casos de prueba</a></h3>
 <p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia.</p>
-<h3 id="informe-6"><a class="header" href="#informe-6">Informe</a></h3>
+<h3 id="informe-7"><a class="header" href="#informe-7">Informe</a></h3>
 <p>El informe debe estar estructurado profesionalmente y debe poder dar cuenta de las decisiones tomadas para implementar la solución.</p>
-<h3 id="organización-del-código-9"><a class="header" href="#organización-del-código-9">Organización del código</a></h3>
+<h3 id="organización-del-código-10"><a class="header" href="#organización-del-código-10">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust. Se prohibe el uso de bloques <code>unsafe</code>.</p>
-<h3 id="tests-automatizados-9"><a class="header" href="#tests-automatizados-9">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-10"><a class="header" href="#tests-automatizados-10">Tests automatizados</a></h3>
 <p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
-<h3 id="presentación-en-término-9"><a class="header" href="#presentación-en-término-9">Presentación en término</a></h3>
+<h3 id="presentación-en-término-10"><a class="header" href="#presentación-en-término-10">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influye negativamente en la nota final.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-10"><a class="header" href="#trabajo-práctico-10">Trabajo Práctico</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-11"><a class="header" href="#trabajo-práctico-11">Trabajo Práctico</a></h1>
 <p><strong>Fecha de Entrega:</strong> 22 de noviembre de 2022</p>
-<h2 id="introducción-10"><a class="header" href="#introducción-10">Introducción</a></h2>
+<h2 id="introducción-11"><a class="header" href="#introducción-11">Introducción</a></h2>
 <p>Continuamos con los desarrollos para <em>Internet of Coffee</em>.</p>
 <p>Coffeewards, es un sistema de puntos para fidelización de los clientes.
 Por cada compra que realizan los clientes, suman puntos que luego pueden canjear por cafes gratuitos.</p>
-<h2 id="objetivo-10"><a class="header" href="#objetivo-10">Objetivo</a></h2>
+<h2 id="objetivo-11"><a class="header" href="#objetivo-11">Objetivo</a></h2>
 <p>Deberán implementar un conjunto de aplicaciones en Rust que modele el sistema de puntos.</p>
 <h2 id="requerimientos-10"><a class="header" href="#requerimientos-10">Requerimientos</a></h2>
 <ul>
@@ -1125,7 +1189,7 @@ utilizando en varios locales/cafeteras en simultáneo. Se debe mantener el saldo
 <li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
 <li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
 </ul>
-<h2 id="entrega-7"><a class="header" href="#entrega-7">Entrega</a></h2>
+<h2 id="entrega-8"><a class="header" href="#entrega-8">Entrega</a></h2>
 <p>La resolución del presente proyecto es en grupos de tres integrantes.</p>
 <p>La entrega del proyecto se realizará mediante Github Classroom. Cada grupo tendrá un repositorio disponible para
 hacer diferentes commits con el objetivo de resolver el problema propuesto. Se recomienda iniciar tempranamente y
@@ -1135,27 +1199,27 @@ de escritura.</p>
 <p>Asi mismo el proyecto debe incluir un informe en formato Markdown en el README.md del repositorio que contenga una
 explicación del diseño y de las decisiones tomadas para la implementación de la solución, asi como diagramas de threads y procesos,
 y la comunicación entre los mismos; y diagramas de las entidades principales.</p>
-<h2 id="evaluación-10"><a class="header" href="#evaluación-10">Evaluación</a></h2>
-<h3 id="principios-teóricos-y-corrección-de-bugs-10"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-10">Principios teóricos y corrección de bugs</a></h3>
+<h2 id="evaluación-11"><a class="header" href="#evaluación-11">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs-11"><a class="header" href="#principios-teóricos-y-corrección-de-bugs-11">Principios teóricos y corrección de bugs</a></h3>
 <p>Los alumnos presentarán el código de su solución presencialmente, con foco en el uso de las diferentes herramientas de concurrencia. Deberán poder explicar desde los conceptos teóricos vistos en clase cómo se comportará potencialmente su solución ante problemas de concurrencia (por ejemplo ausencia de deadlocks).</p>
 <p>En caso de que la solución no se comportara de forma esperada, deberán poder explicar las causas y sus posibles rectificaciones.</p>
-<h3 id="casos-de-prueba-10"><a class="header" href="#casos-de-prueba-10">Casos de prueba</a></h3>
+<h3 id="casos-de-prueba-11"><a class="header" href="#casos-de-prueba-11">Casos de prueba</a></h3>
 <p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia.</p>
-<h3 id="informe-7"><a class="header" href="#informe-7">Informe</a></h3>
+<h3 id="informe-8"><a class="header" href="#informe-8">Informe</a></h3>
 <p>El informe debe estar estructurado profesionalmente y debe poder dar cuenta de las decisiones tomadas para implementar la solución.</p>
-<h3 id="organización-del-código-10"><a class="header" href="#organización-del-código-10">Organización del código</a></h3>
+<h3 id="organización-del-código-11"><a class="header" href="#organización-del-código-11">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust. Se prohibe el uso de bloques <code>unsafe</code>.</p>
-<h3 id="tests-automatizados-10"><a class="header" href="#tests-automatizados-10">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-11"><a class="header" href="#tests-automatizados-11">Tests automatizados</a></h3>
 <p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
-<h3 id="presentación-en-término-10"><a class="header" href="#presentación-en-término-10">Presentación en término</a></h3>
+<h3 id="presentación-en-término-11"><a class="header" href="#presentación-en-término-11">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influye negativamente en la nota final.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="1er-cuatrimestre-2022"><a class="header" href="#1er-cuatrimestre-2022">1er Cuatrimestre 2022</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-11"><a class="header" href="#trabajo-práctico-11">Trabajo Práctico</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-12"><a class="header" href="#trabajo-práctico-12">Trabajo Práctico</a></h1>
 <p><strong>Fecha de Entrega:</strong> 28 de junio de 2022</p>
-<h2 id="introducción-11"><a class="header" href="#introducción-11">Introducción</a></h2>
+<h2 id="introducción-12"><a class="header" href="#introducción-12">Introducción</a></h2>
 <p><em>AlGlobo.com</em> es un nuevo sitio de venta de pasajes online. Gracias al fin de la pandemia ha empezado a crecer fuertemente y necesitan escalar su sistema de procesamiento de pagos.</p>
 <p>Para ello desean reemplazar una implementación monolítica actual con un microservicio en Rust que se encarge especificamente de este proceso.</p>
-<h2 id="objetivo-11"><a class="header" href="#objetivo-11">Objetivo</a></h2>
+<h2 id="objetivo-12"><a class="header" href="#objetivo-12">Objetivo</a></h2>
 <p>Deberán implementar un conjunto de aplicaciones en Rust que modele el sistema de procesamiento de pagos de AlGlobo.com.</p>
 <p>Se debe implementar un proceso para cada una de las entidades intervinientes y estas se comunicarán entre sí por sockets.</p>
 <p>Se debe poder simular la salida de servicio de cualquiera de los procesos y réplicas de forma aleatoria o voluntaria, mostrando que el sistema en su conjunto sigue funcionando.</p>
@@ -1186,7 +1250,7 @@ y la comunicación entre los mismos; y diagramas de las entidades principales.</
 <li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
 <li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
 </ul>
-<h2 id="entrega-8"><a class="header" href="#entrega-8">Entrega</a></h2>
+<h2 id="entrega-9"><a class="header" href="#entrega-9">Entrega</a></h2>
 <p>La resolución del presente proyecto es en grupos de tres integrantes.</p>
 <p>La entrega del proyecto comprende lo siguiente:</p>
 <ul>
@@ -1206,14 +1270,14 @@ y la comunicación entre los mismos; y diagramas de las entidades principales.</
 <p>En caso de que la solución no se comportara de forma esperada, deberán poder explicar las causas y sus posibles rectificaciones.</p>
 <h3 id="casos-de-prueba-en-vivo"><a class="header" href="#casos-de-prueba-en-vivo">Casos de prueba en vivo</a></h3>
 <p>Durante la presentación se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia.</p>
-<h3 id="informe-8"><a class="header" href="#informe-8">Informe</a></h3>
+<h3 id="informe-9"><a class="header" href="#informe-9">Informe</a></h3>
 <p>El informe debe estar estructurado profesionalmente y debe poder dar cuenta de las decisiones tomadas para implementar la solución.</p>
 <p>Se debe detallar en un diagrama, las entidades desarrolladas, las herramientas de concurrencia empleadas. Así como también los threads y formas de comunicación entre ellos. Se debe poder entender qué mensajes datos entre ellos y de qué forma.</p>
-<h3 id="organización-del-código-11"><a class="header" href="#organización-del-código-11">Organización del código</a></h3>
+<h3 id="organización-del-código-12"><a class="header" href="#organización-del-código-12">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust (i.e. no utilizar unsafe)</p>
-<h3 id="tests-automatizados-11"><a class="header" href="#tests-automatizados-11">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-12"><a class="header" href="#tests-automatizados-12">Tests automatizados</a></h3>
 <p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
-<h3 id="presentación-en-término-11"><a class="header" href="#presentación-en-término-11">Presentación en término</a></h3>
+<h3 id="presentación-en-término-12"><a class="header" href="#presentación-en-término-12">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influye negativamente en la nota final.</p>
 <h3 id="participación-individual"><a class="header" href="#participación-individual">Participación individual</a></h3>
 <p>Si bien el trabajo es grupal, la nota es individual y la participación del alumno durante la presentación influye en su nota final.</p>
@@ -1229,12 +1293,12 @@ y la comunicación entre los mismos; y diagramas de las entidades principales.</
 </ul>
 <p>Se evaluará de forma conceptual los temas tratados especialmente en la segunda parte de la materia (esto incluye responder preguntas conceptuales, desarrollos teóricos del tema o incluso desarrollar algo de código fuente para ilustrar un tema o responder algo solicitado).</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="2do-cuatrimestre-2021"><a class="header" href="#2do-cuatrimestre-2021">2do Cuatrimestre 2021</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-12"><a class="header" href="#trabajo-práctico-12">Trabajo Práctico</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-13"><a class="header" href="#trabajo-práctico-13">Trabajo Práctico</a></h1>
 <p><strong>Fecha de Entrega:</strong> 26 de octubre de 2021</p>
-<h2 id="introducción-12"><a class="header" href="#introducción-12">Introducción</a></h2>
+<h2 id="introducción-13"><a class="header" href="#introducción-13">Introducción</a></h2>
 <p><em>AlGlobo.com</em> es un nuevo sitio de venta de pasajes online.  Gracias al fin de la pandemia ha empezado a crecer fuertemente y necesitan escalar su proceso de reservas.</p>
 <p>Para ello desean reemplazar una implementación monolítica actual con un microservicio en Rust que se encarge especificamente de este proceso.</p>
-<h2 id="objetivo-12"><a class="header" href="#objetivo-12">Objetivo</a></h2>
+<h2 id="objetivo-13"><a class="header" href="#objetivo-13">Objetivo</a></h2>
 <p>Deberán implementar una aplicación en Rust que modele el sistema de reservas de AlGobo.com. Los pedidos de reserva se leerán desde un archivo y el webservice de cada aerolínea se simulará con sleeps aleatorios, y su resultado utilizando también variables aleatorias (random).</p>
 <h2 id="requerimientos-12"><a class="header" href="#requerimientos-12">Requerimientos</a></h2>
 <p>El proceso de reserva se compone de la siguiente manera:</p>
@@ -1266,7 +1330,7 @@ y la comunicación entre los mismos; y diagramas de las entidades principales.</
 <li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
 <li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
 </ul>
-<h2 id="entrega-9"><a class="header" href="#entrega-9">Entrega</a></h2>
+<h2 id="entrega-10"><a class="header" href="#entrega-10">Entrega</a></h2>
 <p>La resolución del presente proyecto es en grupos de tres integrantes.</p>
 <p>La entrega del proyecto comprende lo siguiente:</p>
 <ul>
@@ -1286,20 +1350,20 @@ y la comunicación entre los mismos; y diagramas de las entidades principales.</
 <p>En caso de que la solución no se comportara de forma esperada, deberán poder explicar las causas y sus posibles rectificaciones.</p>
 <h3 id="casos-de-prueba-en-vivo-1"><a class="header" href="#casos-de-prueba-en-vivo-1">Casos de prueba en vivo</a></h3>
 <p>Durante la presentación se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia.</p>
-<h3 id="informe-9"><a class="header" href="#informe-9">Informe</a></h3>
+<h3 id="informe-10"><a class="header" href="#informe-10">Informe</a></h3>
 <p>El informe debe estar estructurado profesionalmente y debe poder dar cuenta de las decisiones tomadas para implementar la solución.</p>
 <p>Se debe detallar en un diagrama, las entidades desarrolladas, las herramientas de concurrencia empleadas. Así como también los threads y formas de comunicación entre ellos. Se debe poder entender qué mensajes datos entre ellos y de qué forma.</p>
-<h3 id="organización-del-código-12"><a class="header" href="#organización-del-código-12">Organización del código</a></h3>
+<h3 id="organización-del-código-13"><a class="header" href="#organización-del-código-13">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust (i.e. no utilizar unsafe)</p>
-<h3 id="tests-automatizados-12"><a class="header" href="#tests-automatizados-12">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-13"><a class="header" href="#tests-automatizados-13">Tests automatizados</a></h3>
 <p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
-<h3 id="presentación-en-término-12"><a class="header" href="#presentación-en-término-12">Presentación en término</a></h3>
+<h3 id="presentación-en-término-13"><a class="header" href="#presentación-en-término-13">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influye negativamente en la nota final.</p>
 <h3 id="participación-individual-1"><a class="header" href="#participación-individual-1">Participación individual</a></h3>
 <p>Si bien el trabajo es grupal, la nota es individual y la participación del alumno durante la presentación influye en su nota final.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-13"><a class="header" href="#trabajo-práctico-13">Trabajo Práctico</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trabajo-práctico-14"><a class="header" href="#trabajo-práctico-14">Trabajo Práctico</a></h1>
 <p><strong>Fecha de Entrega:</strong> 14 de diciembre de 2021</p>
-<h2 id="introducción-13"><a class="header" href="#introducción-13">Introducción</a></h2>
+<h2 id="introducción-14"><a class="header" href="#introducción-14">Introducción</a></h2>
 <p>Continuamos desarrollando el backend de <em>AlGlobo.com</em>. En este caso vamos a trabajar con el sistema de procesamiento de pagos.</p>
 <h2 id="requerimientos-13"><a class="header" href="#requerimientos-13">Requerimientos</a></h2>
 <p>El proceso de pagos se compone de la siguiente manera:</p>
@@ -1312,7 +1376,7 @@ y la comunicación entre los mismos; y diagramas de las entidades principales.</
 <li>Las fallas se guardan en un archivo de fallas para su posterior procesamiento manual. Debe implementarse una utilidad que permita reintentar manualmente cada pedido fallado.</li>
 <li>El sistema de AlGlobo.com es de misión crítica y por lo tanto debe mantener varias réplicas en línea listas para continuar el proceso, aunque solo una de ellas se encuentra activa al mismo tiempo. Para ello utiliza un algoritmo de elección de líder y mantiene sincronizado entre las réplicas la información del la transacción actual.</li>
 </ul>
-<h2 id="objetivo-13"><a class="header" href="#objetivo-13">Objetivo</a></h2>
+<h2 id="objetivo-14"><a class="header" href="#objetivo-14">Objetivo</a></h2>
 <p>Deberán implementar un conjunto de aplicaciones en Rust que modele el sistema de procesamiento de pagos de AlGlobo.com.</p>
 <p>Se debe implementar un proceso para cada una de las entidades intervinientes y estas se comunicarán entre sí por sockets.</p>
 <p>Se debe poder simular la salida de servicio de cualquiera de los procesos y réplicas de forma aleatoria o voluntaria, mostrando que el sistema en su conjunto sigue funcionando.</p>
@@ -1329,7 +1393,7 @@ y la comunicación entre los mismos; y diagramas de las entidades principales.</
 <li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
 <li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
 </ul>
-<h2 id="entrega-10"><a class="header" href="#entrega-10">Entrega</a></h2>
+<h2 id="entrega-11"><a class="header" href="#entrega-11">Entrega</a></h2>
 <p>La resolución del presente proyecto es en grupos de tres integrantes.</p>
 <p>La entrega del proyecto comprende lo siguiente:</p>
 <ul>
@@ -1350,14 +1414,14 @@ y la comunicación entre los mismos; y diagramas de las entidades principales.</
 <p>En caso de que la solución no se comportara de forma esperada, deberán poder explicar las causas y sus posibles rectificaciones.</p>
 <h3 id="casos-de-prueba-en-vivo-2"><a class="header" href="#casos-de-prueba-en-vivo-2">Casos de prueba en vivo</a></h3>
 <p>Durante la presentación se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia.</p>
-<h3 id="informe-10"><a class="header" href="#informe-10">Informe</a></h3>
+<h3 id="informe-11"><a class="header" href="#informe-11">Informe</a></h3>
 <p>El informe debe estar estructurado profesionalmente y debe poder dar cuenta de las decisiones tomadas para implementar la solución.</p>
 <p>Se debe detallar en un diagrama, las entidades desarrolladas, las herramientas de concurrencia empleadas. Así como también los threads y formas de comunicación entre ellos. Se debe poder entender qué mensajes datos entre ellos y de qué forma.</p>
-<h3 id="organización-del-código-13"><a class="header" href="#organización-del-código-13">Organización del código</a></h3>
+<h3 id="organización-del-código-14"><a class="header" href="#organización-del-código-14">Organización del código</a></h3>
 <p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust (i.e. no utilizar unsafe)</p>
-<h3 id="tests-automatizados-13"><a class="header" href="#tests-automatizados-13">Tests automatizados</a></h3>
+<h3 id="tests-automatizados-14"><a class="header" href="#tests-automatizados-14">Tests automatizados</a></h3>
 <p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
-<h3 id="presentación-en-término-13"><a class="header" href="#presentación-en-término-13">Presentación en término</a></h3>
+<h3 id="presentación-en-término-14"><a class="header" href="#presentación-en-término-14">Presentación en término</a></h3>
 <p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influye negativamente en la nota final.</p>
 <h3 id="participación-individual-2"><a class="header" href="#participación-individual-2">Participación individual</a></h3>
 <p>Si bien el trabajo es grupal, la nota es individual y la participación del alumno durante la presentación influye en su nota final.</p>
@@ -1400,7 +1464,7 @@ y la comunicación entre los mismos; y diagramas de las entidades principales.</
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="buscador-de-sinónimos-rústico---1er-cuatrimestre-2021"><a class="header" href="#buscador-de-sinónimos-rústico---1er-cuatrimestre-2021">Buscador de Sinónimos Rústico - 1er Cuatrimestre 2021</a></h1>
 <p><strong>Fecha de entrega:</strong> 29 de junio antes de las 19 hs.</p>
-<h2 id="objetivo-14"><a class="header" href="#objetivo-14">Objetivo</a></h2>
+<h2 id="objetivo-15"><a class="header" href="#objetivo-15">Objetivo</a></h2>
 <p>El presente trabajo práctico tiene como objetivo implementar un software buscador de sinónimos de palabras.</p>
 <p>Para ello se realizarán peticiones de varios sitios de Internet que ofrecen este servicio.</p>
 <h2 id="requerimientos-funcionales"><a class="header" href="#requerimientos-funcionales">Requerimientos Funcionales</a></h2>
@@ -1454,7 +1518,7 @@ y la comunicación entre los mismos; y diagramas de las entidades principales.</
 <li>Realizar la codificación de la aplicación. El código fuente debe estar documentado.</li>
 <li>Implementar tests unitarios de las funciones que considere relevantes.</li>
 </ul>
-<h2 id="entrega-11"><a class="header" href="#entrega-11">Entrega</a></h2>
+<h2 id="entrega-12"><a class="header" href="#entrega-12">Entrega</a></h2>
 <p>La resolución del presente proyecto es en grupos de tres integrantes.</p>
 <p>La entrega del proyecto comprende lo siguiente:</p>
 <ul>
@@ -1470,9 +1534,9 @@ y la comunicación entre los mismos; y diagramas de las entidades principales.</
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="blockchain-rústica---1er-cuatrimestre-2021"><a class="header" href="#blockchain-rústica---1er-cuatrimestre-2021">Blockchain Rústica - 1er Cuatrimestre 2021</a></h1>
 <p><strong>Fecha de entrega:</strong> 27 de julio antes de las 19 hs.</p>
-<h2 id="objetivo-15"><a class="header" href="#objetivo-15">Objetivo</a></h2>
+<h2 id="objetivo-16"><a class="header" href="#objetivo-16">Objetivo</a></h2>
 <p>El objetivo del presente trabajo consiste en aplicar los conceptos estudiados de Concurrencia Distribuida para implementar una funcionalidad de <em>blockchain</em> simplificada.</p>
-<h2 id="introducción-14"><a class="header" href="#introducción-14">Introducción</a></h2>
+<h2 id="introducción-15"><a class="header" href="#introducción-15">Introducción</a></h2>
 <p>La <strong>blockchain</strong> es una forma de almacenar información, que consiste en un registro único, consensuado y distribuido en varios nodos de una red.  A grandes rasgos su estructura es la de una cadena de bloques que están encadenados de forma sucesiva. Cada bloque contiene la información (a partir de un <em>hash</em>) del bloque que lo precede.</p>
 <p>Se usa para almacenar información que no puede ser alterada, como es el caso de transacciones de criptomonedas. Se puede pensar como el libro contable donde se registra cada una de esas transacciones.</p>
 <h2 id="requerimientos-funcionales-1"><a class="header" href="#requerimientos-funcionales-1">Requerimientos Funcionales</a></h2>
@@ -1512,7 +1576,7 @@ y la comunicación entre los mismos; y diagramas de las entidades principales.</
 <li>Realizar la codificación de la aplicación. El código fuente debe estar documentado.</li>
 <li>Implementar tests unitarios de las funciones que considere relevantes.</li>
 </ul>
-<h2 id="entrega-12"><a class="header" href="#entrega-12">Entrega</a></h2>
+<h2 id="entrega-13"><a class="header" href="#entrega-13">Entrega</a></h2>
 <p>La resolución del presente proyecto es en grupos de tres integrantes.</p>
 <p>La entrega del proyecto comprende lo siguiente:</p>
 <ul>

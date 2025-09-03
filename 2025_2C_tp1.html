@@ -152,7 +152,71 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="trabajo-práctico-1"><a class="header" href="#trabajo-práctico-1">Trabajo Práctico 1</a></h1>
+                        <h1 id="trabajo-práctico"><a class="header" href="#trabajo-práctico">Trabajo Práctico</a></h1>
+<p><strong>Fecha de Entrega:</strong>
+<em>8 de Octubre de 2025</em></p>
+<h2 id="introducción"><a class="header" href="#introducción">Introducción</a></h2>
+<p>El modelo de computo concurrente fork-join permite el procesamiento de grandes volumenes de datos de manera eficiente.</p>
+<p>Para experimentar con ello, los alumnos deberán buscar y proponer un dataset estructurado que puedan obtener de sitios como Kaggle, con un volumen de datos significativo, al cual le apliquen algunas transformaciones; y donde puedan evaluar la performance del modelo al correr con diferente cantidad de workers.</p>
+<h2 id="objetivo"><a class="header" href="#objetivo">Objetivo</a></h2>
+<p>Implementar una aplicación en Rust para procesamiento de información, aprovechando las ventajas del modelo Fork-Join. Para ello:</p>
+<ul>
+<li>
+<p>Deberan buscar y proponer dataset de Kaggle, Hugging Face o cualquiera de su preferencia. Se recomienda que sea estructurado (con campos), aunque puede ser de texto. El tamaño mínimo deberá ser de 4GB.</p>
+</li>
+<li>
+<p>Deberán proponer un conjunto de transformaciones a aplicar, con agrupamientos. Por ejemplo en un dataset de reviews de hoteles, podrían buscar los 3 hoteles mejor puntuados por ciudad, y las 3 ciudades con más reviews por hotel. Tomar los TPs de cuatrimestres anteriores para mas ideas. Se deben aplicar por lo menos dos transformaciones.</p>
+</li>
+<li>
+<p>Deberán desarrollar el código en Rust para resolver estas transformaciones, utilizando las bibliotecas presentadas en clase para el modelo fork-join y/o herramientas de la librería standard.</p>
+</li>
+<li>
+<p>Deberán presentar un informe analizando cómo su codigo se comporta en la ejecución con distinta cantidad de procesadores, informando tiempos de ejecución y uso de memoria para al menos 3 ejecuciones distintas. Por ejemplo para ejecuciones con 1, 2 y 4 CPUs.</p>
+</li>
+</ul>
+<h2 id="restricciones"><a class="header" href="#restricciones">Restricciones</a></h2>
+<ul>
+<li>Los datasets utilizados deberán ser diferentes entre los miembros del mismo grupo. Además, entre miembros de distintos grupos deberán intentar no repetir datasets. Si se encontraran datasets repetidos se validará exhaustivamente que los procesamientos y análisis sean efectivamente diferentes.</li>
+<li>El proyecto deberá ser desarrollado en lenguaje Rust, usando las herramientas de la biblioteca estándar.</li>
+<li>Se deberán utilizar las herramientas de concurrencia correspondientes al modelo fork-join</li>
+<li>No se permite utilizar <strong>crates</strong> externos, salvo los explícitamente mencionados en este enunciado, en los ejemplos de la materia, o autorizados expresamente por los profesores. Para el procesamiento de JSON se puede utilizar el crate <code>serde_json</code>.</li>
+<li>El código fuente debe compilarse en la última versión stable del compilador y no se permite utilizar bloques unsafe.</li>
+<li>El código deberá funcionar en ambiente Unix / Linux.</li>
+<li>El programa deberá ejecutarse en la línea de comandos.</li>
+<li>La compilación no debe arrojar <strong>warnings</strong> del compilador, ni del linter <strong>clippy</strong>.</li>
+<li>Las funciones y los tipos de datos (<strong>struct</strong>) deben estar documentadas siguiendo el estándar de <strong>cargo doc</strong>.</li>
+<li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
+<li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
+</ul>
+<h2 id="entrega"><a class="header" href="#entrega">Entrega</a></h2>
+<p>La resolución del presente proyecto es individual.</p>
+<p>La entrega del proyecto se realizará mediante Github Classroom. Cada estudiante tendrá un repositorio disponible para hacer diferentes commits con el objetivo de resolver el problema propuesto. Se recomienda iniciar tempranamente y hacer commits pequeños agreguen funcionalidad incrementalmente.</p>
+<p>Se podrán hacer commits hasta el día de la entrega a las 19 hs Arg, luego el sistema automáticamente quitará el acceso de escritura.</p>
+<p>El archivo README.md representará el informe de resolución y deberá incluir:</p>
+<ul>
+<li>Nombre y padrón del alumno.</li>
+<li>El link al dataset utilizado, junto a una descripción del mismo y la forma en que fue interpretado.</li>
+<li>Instrucciones para la correcta ejecución de la solución por los profesores y su parametrización para las distintas ejecuciones.</li>
+<li>Las transformaciones aplicadas al dataset y el formato del resultado esperado.</li>
+<li>Los análisis de performance.</li>
+<li>Conclusiones y posibles mejores.</li>
+</ul>
+<h2 id="evaluación"><a class="header" href="#evaluación">Evaluación</a></h2>
+<h3 id="principios-teóricos-y-corrección-de-bugs"><a class="header" href="#principios-teóricos-y-corrección-de-bugs">Principios teóricos y corrección de bugs</a></h3>
+<p>La evaluación se realizará sobre Github, pudiendo el profesor hacer comentarios en el repositorio y solicitar cambios
+o mejoras cuando lo encuentre oportuno, especialmente debido al uso incorrecto de herramientas de concurrencia.</p>
+<h3 id="casos-de-prueba"><a class="header" href="#casos-de-prueba">Casos de prueba</a></h3>
+<p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de
+concurrencia, por ejemplo, la ausencia de deadlocks.</p>
+<p>Además la aplicación deberá mostrar algún incremento en performance cuando la ejecución de la misma se hace con varios hilos en un ambiente multiprocesador.</p>
+<h3 id="informe"><a class="header" href="#informe">Informe</a></h3>
+<p>El informe debe estar estructurado profesionalmente y debe poder dar cuenta de las decisiones tomadas para implementar la solución.</p>
+<h3 id="organización-del-código"><a class="header" href="#organización-del-código">Organización del código</a></h3>
+<p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust. Se prohibe el uso de bloques <code>unsafe</code>.</p>
+<h3 id="tests-automatizados"><a class="header" href="#tests-automatizados">Tests automatizados</a></h3>
+<p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
+<h3 id="presentación-en-término"><a class="header" href="#presentación-en-término">Presentación en término</a></h3>
+<p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación previa con la cátedra influye negativamente en la nota final.</p>
 
                     </main>
 
