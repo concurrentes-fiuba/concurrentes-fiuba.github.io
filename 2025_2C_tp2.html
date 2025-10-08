@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Trabajo Práctico 1 - Concurrentes - FIUBA</title>
+        <title>Trabajo Práctico 2 - Concurrentes - FIUBA</title>
 
 
         <!-- Custom HTML head -->
@@ -153,33 +153,34 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="trabajo-práctico"><a class="header" href="#trabajo-práctico">Trabajo Práctico</a></h1>
-<p><strong>Fecha de Entrega:</strong>
-<em>8 de Octubre de 2025</em></p>
 <h2 id="introducción"><a class="header" href="#introducción">Introducción</a></h2>
-<p>El modelo de computo concurrente fork-join permite el procesamiento de grandes volumenes de datos de manera eficiente.</p>
-<p>Para experimentar con ello, los alumnos deberán buscar y proponer un dataset estructurado que puedan obtener de sitios como Kaggle, con un volumen de datos significativo, al cual le apliquen algunas transformaciones; y donde puedan evaluar la performance del modelo al correr con diferente cantidad de workers.</p>
+<p>YPF Ruta es un sistema que permite a las empresas centralizar el pago y el control de gasto de combustible para su flota de vehículos.</p>
+<p>Las empresas tienen una cuenta principal y tarjetas asociadas para cada uno de los conductores de sus vehículos. Cuando un vehículo necesita cargar en cualquiera de las 1600 estaciones distribuídas alrededor del país, puede utilizar dicha tarjeta para autorizar la carga; siendo luego facturado mensualmente el monto total de todas las tarjetas a la compañía.</p>
 <h2 id="objetivo"><a class="header" href="#objetivo">Objetivo</a></h2>
-<p>Implementar una aplicación en Rust para procesamiento de información, aprovechando las ventajas del modelo Fork-Join. Para ello:</p>
+<p>La empresa YPF nos contrata para implementar un conjunto de aplicaciones que modelen el sistema descripto. Se decidió que dicha implementación se realice íntegramente usando Rust por su seguridad y eficiencia en el manejo de memoria.</p>
+<h2 id="requerimientos"><a class="header" href="#requerimientos">Requerimientos</a></h2>
 <ul>
 <li>
-<p>Deberan buscar y proponer dataset de Kaggle, Hugging Face o cualquiera de su preferencia. Se recomienda que sea estructurado (con campos), aunque puede ser de texto. El tamaño mínimo deberá ser de 4GB.</p>
+<p>Cada uno de los surtidores donde los vehículos cargan combustible perteneciente a una estación puede registrar una venta contra una tarjeta Ruta.</p>
 </li>
 <li>
-<p>Deberán proponer un conjunto de transformaciones a aplicar, con agrupamientos. Por ejemplo en un dataset de reviews de hoteles, podrían buscar los 3 hoteles mejor puntuados por ciudad, y las 3 ciudades con más reviews por hotel. Tomar los TPs de cuatrimestres anteriores para mas ideas. Se deben aplicar por lo menos dos transformaciones.</p>
+<p>Los administradores de empresa pueden visualizar en todo momento los gastos registrados por sus vehículos en tiempo real y el estado de cuenta total. Además pueden establecer límites para la cuenta de la empresa y para vehículos en particular.</p>
 </li>
 <li>
-<p>Deberán desarrollar el código en Rust para resolver estas transformaciones, utilizando las bibliotecas presentadas en clase para el modelo fork-join y/o herramientas de la librería standard.</p>
+<p>Las estaciones, y por lo tanto todos sus surtidores, se encuentran repartidas por todo el país, en algunos casos con conectividad limitada. En el caso que una  estación se encuentre sin conexión, se deberán de tener que poder registrar ventas con Ruta igualmente, las cuales se facturarán luego cuando la conexión se recupere.</p>
 </li>
 <li>
-<p>Deberán presentar un informe analizando cómo su codigo se comporta en la ejecución con distinta cantidad de procesadores, informando tiempos de ejecución y uso de memoria para al menos 3 ejecuciones distintas. Por ejemplo para ejecuciones con 1, 2 y 4 CPUs.</p>
+<p>El sistema debe intentar minimizar la cantidad de mensajes que viajan por toda la red; por ejemplo enviando mensajes sólo a los nodos que se encuentren cercanos por ubicación.</p>
 </li>
 </ul>
-<h2 id="restricciones"><a class="header" href="#restricciones">Restricciones</a></h2>
+<h2 id="requerimientos-no-funcionales"><a class="header" href="#requerimientos-no-funcionales">Requerimientos no funcionales</a></h2>
+<p>Los siguientes son los requerimientos no funcionales para la resolución de los ejercicios:</p>
 <ul>
-<li>Los datasets utilizados deberán ser diferentes entre los miembros del mismo grupo. Además, entre miembros de distintos grupos deberán intentar no repetir datasets. Si se encontraran datasets repetidos se validará exhaustivamente que los procesamientos y análisis sean efectivamente diferentes.</li>
 <li>El proyecto deberá ser desarrollado en lenguaje Rust, usando las herramientas de la biblioteca estándar.</li>
-<li>Se deberán utilizar las herramientas de concurrencia correspondientes al modelo fork-join</li>
-<li>No se permite utilizar <strong>crates</strong> externos, salvo los explícitamente mencionados en este enunciado, en los ejemplos de la materia, o autorizados expresamente por los profesores. Para el procesamiento de JSON se puede utilizar el crate <code>serde_json</code>.</li>
+<li>Por lo menos alguna, si no todas las aplicaciones implementadas deben funcionar utilizando el <strong>modelo de actores</strong>.</li>
+<li>Cada instancia de cada aplicación debe ejecutarse en un proceso independiente.</li>
+<li>En el modelado de la solución se deberán utilizar <strong>al menos dos</strong> de las herramientas de concurrencia distribuida mostradas en la cátedra. Por ejemplo: exclusiones mutuas distribuidas, elección de líder, algoritmos de anillo, commits de dos fases, etc.</li>
+<li>No se permite utilizar <strong>crates</strong> externos, salvo los explícitamente mencionados en este enunciado, los utilizados en las clases, o los autorizados expresamente por los profesores.</li>
 <li>El código fuente debe compilarse en la última versión stable del compilador y no se permite utilizar bloques unsafe.</li>
 <li>El código deberá funcionar en ambiente Unix / Linux.</li>
 <li>El programa deberá ejecutarse en la línea de comandos.</li>
@@ -188,45 +189,63 @@
 <li>El código debe formatearse utilizando <strong>cargo fmt</strong>.</li>
 <li>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</li>
 </ul>
-<h2 id="entrega"><a class="header" href="#entrega">Entrega</a></h2>
-<p>La resolución del presente proyecto es individual.</p>
-<p>La entrega del proyecto se realizará mediante Github Classroom. Cada estudiante tendrá un repositorio disponible para hacer diferentes commits con el objetivo de resolver el problema propuesto. Se recomienda iniciar tempranamente y hacer commits pequeños agreguen funcionalidad incrementalmente.</p>
-<p>Se podrán hacer commits hasta el día de la entrega a las 19 hs Arg, luego el sistema automáticamente quitará el acceso de escritura.</p>
-<p>El archivo README.md representará el informe de resolución y deberá incluir:</p>
+<h2 id="entregas"><a class="header" href="#entregas">Entregas</a></h2>
+<p>La resolución del presente proyecto es en grupos de cuatro integrantes. No se aceptan grupos de otra cantidad de miembros.</p>
+<p>Las entregas del proyecto se realizarán mediante Github Classroom. Cada grupo tendrá un repositorio disponible para hacer diferentes commits con el objetivo de resolver el problema propuesto.</p>
+<h3 id="primera-entrega-diseño"><a class="header" href="#primera-entrega-diseño">Primera entrega: Diseño</a></h3>
+<p>Deberán entregar un informe en formato Markdown en el <code>README.md</code> del repositorio que contenga una explicación del diseño y de las decisiones tomadas para la implementación de la solución, asi como diagramas de threads y procesos, y la comunicación entre los mismos; y diagramas de las entidades principales.</p>
+<p>De cada entidad se debe describir:</p>
 <ul>
-<li>Nombre y padrón del alumno.</li>
-<li>El link al dataset utilizado, junto a una descripción del mismo y la forma en que fue interpretado.</li>
-<li>Instrucciones para la correcta ejecución de la solución por los profesores y su parametrización para las distintas ejecuciones.</li>
-<li>Las transformaciones aplicadas al dataset y el formato del resultado esperado.</li>
-<li>Los análisis de performance.</li>
-<li>Conclusiones y posibles mejores.</li>
+<li>Finalidad general</li>
+<li>Su estado interno, como uno o varios structs en pseudocodigo de Rust.</li>
+<li>Mensajes que recibe, struct del payload de los mismos  y como reaccionará cuando los recibe.</li>
+<li>Mensajes que envía, struct del payload de los mismos y hacia quienes son enviados.</li>
+<li>Protolos de transporte (TCP/UDP) y de aplicación que utiliza para comunicarse.</li>
+<li>Casos de interés (felices, caídas)</li>
 </ul>
+<p>Se recomienda fuertemente que las implementaciones de las ideas de diseño se encuentren realizadas mínimamente, para validar el mismo.</p>
+<p><strong>Fecha máxima de Entrega: 5 de Noviembre de 2025</strong></p>
+<p>Presentar como un pull-request del README.md.</p>
+<p>El diseño será evaluado por la cátedra y de no presentarse a término el trabajo quedará automaticamente desaprobado.</p>
+<p>La cátedra podrá solicitar correciones que deberán realizarse en el mismo diseño, y puntos de mejora que deberán tenerse en cuenta durante la implementación.</p>
+<p>Se podrán hacer commits hasta el día de la entrega a las 19 hs Arg, luego el sistema automáticamente quitará el acceso de escritura.</p>
+<h3 id="segunda-entrega-código-final---25-de-noviembre-de-2025"><a class="header" href="#segunda-entrega-código-final---25-de-noviembre-de-2025">Segunda entrega: Código final - 25 de Noviembre de 2025</a></h3>
+<ul>
+<li>Deberá incluirse el código de la solución completa.</li>
+<li>Deberá actualizarse el readme, con una sección dedicada a cambios que se hayan realizado desde la primera entrega. Además debe incluir cualquier explicación y/o set de comandos necesarios para la ejecución de los programas.</li>
+</ul>
+<h3 id="presentación-final-25-y-26-de-noviembre-2-y-3-de-diciembre-de-2025"><a class="header" href="#presentación-final-25-y-26-de-noviembre-2-y-3-de-diciembre-de-2025">Presentación final: 25 y 26 de Noviembre, 2 y 3 de Diciembre de 2025.</a></h3>
+<p>Cada grupo presentará presencialmente a un profesor de la cátedra su trabajo. La fecha y horario para cada grupo serán definidos oportunamente.</p>
+<p>La presentación deberá incluir un resumen del diseño de la solución y la muestra en vivo de las aplicaciones funcionando, demostrando casos de interes.</p>
+<p>Todos los integrantes del grupo deberán exponer algo. La evaluación es individual.</p>
+<p>La cátedra podrá solicitar luego correcciones donde se encuentren errores severos, sobre todo en el uso de herramientas de concurrencia; o bien desviaciones respecto al diseño pactado inicialmente.</p>
+<p>De tener correciones para realizar, las mismas deben realizarse y aprobarse con anterioridad a la presentación a examen final.</p>
 <h2 id="evaluación"><a class="header" href="#evaluación">Evaluación</a></h2>
 <h3 id="principios-teóricos-y-corrección-de-bugs"><a class="header" href="#principios-teóricos-y-corrección-de-bugs">Principios teóricos y corrección de bugs</a></h3>
-<p>La evaluación se realizará sobre Github, pudiendo el profesor hacer comentarios en el repositorio y solicitar cambios
-o mejoras cuando lo encuentre oportuno, especialmente debido al uso incorrecto de herramientas de concurrencia.</p>
+<p>Los estudiantes presentarán el diseño, código y comportamiento en vivo de su solución, con foco en el uso de las diferentes herramientas de concurrencia.</p>
+<p>Deberán poder explicar, desde los conceptos teóricos vistos en clase, cómo se comportará potencialmente su solución ante problemas de concurrencia (por ejemplo ausencia de deadlocks).</p>
+<p>En caso de que la solución no se comportara de forma esperada, deberán poder explicar las causas y sus posibles rectificaciones.</p>
 <h3 id="casos-de-prueba"><a class="header" href="#casos-de-prueba">Casos de prueba</a></h3>
-<p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de
-concurrencia, por ejemplo, la ausencia de deadlocks.</p>
-<p>Además la aplicación deberá mostrar algún incremento en performance cuando la ejecución de la misma se hace con varios hilos en un ambiente multiprocesador.</p>
+<p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia y la resiliencia de las distintas entidades.</p>
 <h3 id="informe"><a class="header" href="#informe">Informe</a></h3>
-<p>El informe debe estar estructurado profesionalmente y debe poder dar cuenta de las decisiones tomadas para implementar la solución.</p>
+<p>El README de su repositorio funcionará como informe del trabajo y deberá contener toda la información requerida tanto para la primera como para la segunda entrega.</p>
 <h3 id="organización-del-código"><a class="header" href="#organización-del-código">Organización del código</a></h3>
-<p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust. Se prohibe el uso de bloques <code>unsafe</code>.</p>
+<p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust.
+Se prohibe el uso de bloques <code>unsafe</code>.</p>
 <h3 id="tests-automatizados"><a class="header" href="#tests-automatizados">Tests automatizados</a></h3>
-<p>La presencia de tests automatizados que prueben diferentes casos, en especial sobre el uso de las herramientas de concurrencia es un plus.</p>
+<p>La entrega debe contar con tests automatizados que prueben diferentes casos. Se considerará en especial aquellos que pongan a prueba el uso de las herramientas de concurrencia.</p>
 <h3 id="presentación-en-término"><a class="header" href="#presentación-en-término">Presentación en término</a></h3>
-<p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación previa con la cátedra influye negativamente en la nota final.</p>
+<p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influirá negativamente en la nota final.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="2025_2C.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="2025_2C_tp1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="2025_2C_tp2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="2025_1C.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -236,11 +255,11 @@ concurrencia, por ejemplo, la ausencia de deadlocks.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="2025_2C.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="2025_2C_tp1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="2025_2C_tp2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="2025_1C.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
