@@ -1,17 +1,15 @@
-Cronograma 1er cuatrimestre 2025
+Cronograma 1er cuatrimestre 2026
 ================================
 
 
 | Fecha | Evento |
 | ------| -------|
-| 3 de Setiembre | TP1 - Presentación de enunciado |
-| 8 de Octubre | TP1 - Entrega |
-| 8 de Octubre | TP2 - Presentación de enunciado |
-| 15 de Octubre | **Parcial** | 
-| 5 de Noviembre | TP2 - Pre-entrega. |
-| 5 de Noviembre | Recuperatorio de parcial |
-| 25 de Noviembre | TP2 - Entrega Final |
-| 25 y 26 de Noviembre, 2 y 3 de Diciembre | TP2 - Presentaciones |
-| 9 de Diciembre | 2do recuperatorio de parcial |
+| 29 de Abril | Presentación de enunciado TP grupal|
+| 6 de Mayo | **Parcial** | 
+| 10 de Mayo | TP grupal - Pre-entrega. |
+| 10 de Junio | Recuperatorio de parcial |
+| 16 de Junio | TP grupal - Entrega Final |
+| 16, 17, 23 y 25 de Junio | TP grupal - Presentaciones |
+| 30 de Junio | 2do recuperatorio de parcial |
 
 
