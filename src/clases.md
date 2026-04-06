@@ -4,7 +4,7 @@
 | ------ | ---------------------------------------------------------- | ------------------------------------------------------------ |
 | 1      | [Introducción a Concurrencia](./clases/1-introduccion.pdf) | [Introducción a Rust](./clases/1-practica-intro-rust.pdf)    |
 | 2      | [Modelo Fork Join](./clases/2-fork-join.pdf)               | [Práctica sobre Fork Join](./clases/2-practica-forkjoin.pdf) |
-| 3      | [Programación Asincrónica](./clases/3-async.pdf)           | [Práctica sobre Programación Asincrónica](./clases/3-practica-async.pdf) <br/> [Vectorización](./clases/3-practica-vectorizacion.pdf)|
+| 3      | [Programación Asincrónica](./clases/3-async.pdf)           | [Práctica sobre Programación Asincrónica](./clases/3-practica-async.pdf) |
 | 4      | [Corrección / Sección Crítica / Locks](./clases/4-correccion.pdf) | [Práctica sobre Locks](./clases/4-practica-threads-locks.pdf)    |
 | 5      | [Sincronización / Semáforos y Barreras](./clases/5-sincronizacion.pdf) <br/> [Monitores](./clases/5-monitores.pdf) | [Práctica sobre Sincronizacion](./clases/5-practica-sincronizacion.pdf)    |
 | 6      | [Redes de Petri](./clases/6-petri.pdf) | [Práctica sobre Redes de Petri](./clases/6-practica-petri.pdf)    |
@@ -14,7 +14,6 @@
 | 10     | [Concurrencia Distribuida (parte 3): Transacciones - Deadlocks](./clases/10-distrib3.pdf) | [Práctica de Transacciones Distribuidas](./clases/10-practica-transacciones-distribuidas.pdf)
 | 11     | [Ambientes Distribuidos](./clases/11-ambientes-distrib.pdf) | [Práctica de Transacciones Distribuidas](./clases/10-practica-transacciones-distribuidas.pdf)
 | Especiales   | [Lenguajes para concurrencia](./clases/x-practica-lenguajes.pdf) | [Taller de Testing](./clases/x-practica-testing.pdf)
-| | [CUDA](./clases/x-practica-cuda.pdf) | 
 
 ## Ejemplos
 
