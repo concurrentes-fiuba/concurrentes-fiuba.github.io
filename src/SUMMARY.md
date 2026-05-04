@@ -6,7 +6,8 @@
 
 - [Clases](./clases.md)
 
-- [1er Cuatrimestre 2026](./2025_1C.md)
+- [1er Cuatrimestre 2026](./2026_1C.md)
+  - [Trabajo Práctico](./2026_1C_tp.md)
 
 - [2do Cuatrimestre 2025](./2025_2C.md)
   - [Trabajo Práctico 1](./2025_2C_tp1.md)
