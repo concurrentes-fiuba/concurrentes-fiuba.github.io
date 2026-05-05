@@ -157,18 +157,18 @@
 <p>Nos encontramos desarrollando un sistema para el alquiler y devolución automatizado de bicicletas en una ciudad.</p>
 <p>Contaremos con diferentes estaciones distribuidas por ditintos puntos de interés. Las mismas tienen capacidad para albergar
 entre 10 y 20 bicicletas y se encuentran conectadas a nuestra red.</p>
-<p>Cada bicicleta contará con un chip NFC que la identificará unívocamente de forma tal que las estaciones la puedan reconocer.</p>
+<p>Cada bicicleta contará con un identificador único de forma tal que las estaciones la puedan reconocer.</p>
 <p>Los usuarios contarán con una aplicación móvil que les permitirá consultar bicicletas disponibles cercanas, estaciones posibles de devolución y realizar los pagos.</p>
 <h2 id="objetivo"><a class="header" href="#objetivo">Objetivo</a></h2>
 <p>Implementar un conjunto de aplicaciones que modelen el sistema descripto. Se decidió que dicha implementación se realice íntegramente usando Rust por su seguridad y eficiencia en el manejo de memoria.</p>
 <h2 id="requerimientos"><a class="header" href="#requerimientos">Requerimientos</a></h2>
 <ul>
 <li>
-<p>Cada estación cuenta con entre 10 y 20 candados que pueden albergar una bicicleta. Cuando se encuentran vacíos pueden detectar una bicicleta que se acerca, tomarla y asegurarla, liberando al usuario y cobrando un monto proporcional al tiempo que fue utilizada.</p>
+<p>Cada estación cuenta con entre 10 y 20 slots que pueden albergar una bicicleta. Cuando se encuentran vacíos pueden detectar una bicicleta que se acerca (se simula con un input), tomarla y asegurarla, liberando al usuario y cobrando un monto proporcional al tiempo que fue utilizada.</p>
 </li>
 <li>
-<p>Al acercarse un usuario con la app abierta a un candado con bicicleta, la misma se comunica por Bluetooth con este (simular) para asignarle la bicicleta y liberarla, pre-autorizando un monto
-de seguridad en su tarjeta de crédito.</p>
+<p>Al acercarse un usuario con la app abierta a un slot ocupado con una bicicleta, la misma se comunica para asignarle la bicicleta y liberarla, pre-autorizando un monto
+de seguridad en su tarjeta de crédito. (Simular mediante una conexión socket)</p>
 </li>
 <li>
 <p>El usuario puede visualizar en la app estaciones cercanas y la cantidad de bicicletas y lugares disponibles para estacionar en ese momento.</p>
@@ -187,6 +187,7 @@ de seguridad en su tarjeta de crédito.</p>
 <li>Por lo menos alguna, si no todas las aplicaciones implementadas deben funcionar utilizando el <strong>modelo de actores</strong>.</li>
 <li>Cada instancia de cada aplicación debe ejecutarse en un proceso independiente.</li>
 <li>En el modelado de la solución se deberán utilizar <strong>al menos dos</strong> de las herramientas de concurrencia distribuida mostradas en la cátedra. Por ejemplo: exclusiones mutuas distribuidas, elección de líder, algoritmos de anillo, commits de dos fases, etc.</li>
+<li>Todas las entradas y salidas de las aplicaciones deberán ser sobre consola, o en su defecto archivos de texto (csv, json, etc.). En ningún caso se utilizarán GUIs, TUIs o cualquier otro tipo de interfáz.</li>
 <li>No se permite utilizar <strong>crates</strong> externos, salvo los explícitamente mencionados en este enunciado, los utilizados en las clases, o los autorizados expresamente por los profesores.</li>
 <li>El código fuente debe compilarse en la última versión stable del compilador y no se permite utilizar bloques unsafe.</li>
 <li>El código deberá funcionar en ambiente Unix / Linux.</li>
