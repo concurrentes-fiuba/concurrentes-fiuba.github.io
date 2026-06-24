@@ -10,6 +10,6 @@ Cronograma 1er cuatrimestre 2026
 | 10 de Junio | Recuperatorio de parcial |
 | 16 de Junio | TP grupal - Entrega Final |
 | 16, 17, 23 y 24 de Junio | TP grupal - Presentaciones |
-| 30 de Junio | 2do recuperatorio de parcial |
+| 1 de Julio | 2do recuperatorio de parcial |
 
 
