@@ -1,4 +1,4 @@
-Cronograma 1er cuatrimestre 2026
+Cronograma 2do cuatrimestre 2026
 ================================
 
 
