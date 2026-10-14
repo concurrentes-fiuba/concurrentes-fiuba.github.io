@@ -4,8 +4,8 @@ Cronograma 2do cuatrimestre 2026
 
 | Fecha | Evento |
 | ------| -------|
-| 30 de Septiembre | Introducción al enunciado del TP |
 | 7 de Octubre | **Parcial** | 
+| 14 de Octubre | Introducción al enunciado del TP |
 | 28 de Octubre, 3, 4, 10, 11 y 17 de Noviembre | Seguimiento de TP (a coordinar) |
 | 18 de Noviembre | Recuperatorio de parcial |
 | 24 de Noviembre | TP - Entrega Final (código e informes) |
