@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Trabajo Práctico - Concurrentes - FIUBA</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Concurrentes - FIUBA</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="trabajo-práctico"><a class="header" href="#trabajo-práctico">Trabajo Práctico</a></h1>
+<h2 id="introducción"><a class="header" href="#introducción">Introducción</a></h2>
+<p>Nos encontramos en el desarrollo de un backend para un sistema distribuido y de alta disponibilidad destinado a la venta, gestión y validación de entradas para eventos deportivos de gran escala.</p>
+<p>El sistema debe gestionar la venta simultánea de miles de ubicaciones para diversos eventos en diferentes estadios, garantizando la consistencia de los datos en un entorno de alta concurrencia donde múltiples usuarios intentan comprar potencialmente los mismos asientos de forma concurrente.</p>
+<p>Así mismo, el sistema se utilizará para validar los ingresos durante los eventos, para lo cual debe soportar altísimos niveles de carga, evitando que una misma entrada se pueda utilizar más de una vez.</p>
+<p>Los usuarios finales interactuarán con el sistema a través de terminales de venta, aplicaciones móviles, aplicaciones embebidas en molinetes, y sitio de ventas web que se comunicarán a través de APIs a nuestro backend.</p>
+<h2 id="objetivo"><a class="header" href="#objetivo">Objetivo</a></h2>
+<p>Implementar un conjunto de aplicaciones distribuidas que modelen el sistema de ticketing descrito. Se requiere el uso del lenguaje Rust para explotar sus garantías de seguridad en el manejo de memoria y su modelo de concurrencia sin condiciones de carrera, fundamentales para la integridad del sistema.</p>
+<h2 id="requerimientos"><a class="header" href="#requerimientos">Requerimientos</a></h2>
+<ul>
+<li>
+<p>El sistema debe poder listar los eventos deportivos en oferta y sus asientos disponibles en tiempo real.</p>
+</li>
+<li>
+<p>El sistema debe soportar múltiples peticiones de reserva simultáneas sobre un mismo evento. Cada operación de compra debe ser atómica y aislada, asegurando que no se produzcan sobreventas ni inconsistencias en el inventario de entradas.</p>
+</li>
+<li>
+<p>El sistema debe poder soportar compras de múltiples asientos en la misma operación, y debe sugerir conjuntos de asientos idealmente contiguos para las mismas.</p>
+</li>
+<li>
+<p>El sistema entregará las entradas compradas de forma digital, enviando un correo electrónico con la confirmación de las mismas.</p>
+</li>
+<li>
+<p>El sistema realizará los cobros a través de una API externa de pagos.</p>
+</li>
+<li>
+<p>El sistema validará la entrada al momento del ingreso (por simplificación será simplemente un id). Debe no permitir que la misma entrada se utilice más de una vez.</p>
+</li>
+<li>
+<p>El sistema deberá proveer una API de analytics con información en tiempo real de las ventas, así como del estado de ingreso para los eventos en vivo.</p>
+</li>
+<li>
+<p>Por cuestiones impositivas, el sistema debe correr un proceso diario reportando todas las ventas concretadas, y un proceso mensual que totalice las operaciones realizadas con el procesador de pagos, agrupadas por su estado final.</p>
+</li>
+</ul>
+<h2 id="requerimientos-no-funcionales"><a class="header" href="#requerimientos-no-funcionales">Requerimientos no funcionales</a></h2>
+<ul>
+<li>
+<p>El estado del sistema debe ser consistente. No pueden haber entradas reservadas ni entregadas a más de un usuario, como tampoco cobros efectivos a usuarios que no tengan asegurada una entrada, o entradas entregadas sin su correspondiente pago. Tampoco puede más de un usuario ingresar el día del evento con la misma entrada.</p>
+</li>
+<li>
+<p><strong>Resiliencia y Tolerancia a Fallos</strong>: El sistema debe ser capaz de recuperarse ante la caída de nodos individuales. Si un servidor de transacciones falla, otros nodos deben poder retomar la gestión de las operaciones pendientes sin pérdida de datos.</p>
+</li>
+<li>
+<p><strong>Escalabilidad y Comunicación Eficiente</strong>: La arquitectura debe minimizar el overhead de red mediante la propagación inteligente de actualizaciones de estado, optimizando el tráfico entre los distintos servidores de la infraestructura distribuida.</p>
+</li>
+<li>
+<p><strong>Carga</strong>: el sistema debe soportar alta demanda, considerando que miles de usuarios intentarán realizar compras y validar entradas en simultáneo.</p>
+</li>
+<li>
+<p>Durante la fase de desarrollo y pruebas, se desarrollarán servidores de mocking para el envío de correos y API de pagos, los cuales registrarán en sus logs las operaciones, debiendo los mismos también poder simular fallas y negaciones de servicio.</p>
+</li>
+<li>
+<p>El proyecto deberá ser desarrollado en lenguaje Rust, usando las herramientas de la biblioteca estándar.</p>
+</li>
+<li>
+<p>Cada instancia de cada aplicación debe ejecutarse en un proceso independiente.</p>
+</li>
+<li>
+<p>Todas las entradas y salidas de las aplicaciones deberán ser vía sockets, consola, o en su defecto archivos de texto (csv, json, etc.). En ningún caso se utilizarán GUIs, TUIs o cualquier otro tipo de interfaz.</p>
+</li>
+<li>
+<p>No se permite utilizar <strong>crates</strong> externos, salvo los explícitamente mencionados en este enunciado, los utilizados en las clases, o los autorizados expresamente por los profesores.</p>
+</li>
+<li>
+<p>El código fuente debe compilarse en la última versión stable del compilador y no se permite utilizar bloques unsafe.</p>
+</li>
+<li>
+<p>El código deberá funcionar en ambiente Unix / Linux.</p>
+</li>
+<li>
+<p>El programa deberá ejecutarse en la línea de comandos.</p>
+</li>
+<li>
+<p>La compilación no debe arrojar <strong>warnings</strong> del compilador, ni del linter <strong>clippy</strong>.</p>
+</li>
+<li>
+<p>Las funciones y los tipos de datos (<strong>struct</strong>) deben estar documentadas siguiendo el estándar de <strong>cargo doc</strong>.</p>
+</li>
+<li>
+<p>El código debe formatearse utilizando <strong>cargo fmt</strong>.</p>
+</li>
+<li>
+<p>Cada tipo de dato implementado debe ser colocado en una unidad de compilación (archivo fuente) independiente.</p>
+</li>
+</ul>
+<h2 id="desarrollo"><a class="header" href="#desarrollo">Desarrollo</a></h2>
+<p>Durante el desarrollo del sistema se deberán tomar decisiones de arquitectura. Por citar algunas:</p>
+<ul>
+<li>Definición de los algoritmos a utilizar para mantener la consistencia y transaccionalidad.</li>
+<li>Cómo mantener el sistema resiliente ante alta demanda.</li>
+<li>Cómo evitar la pérdida de información ante caídas de nodos.</li>
+<li>Utilizar programación asincrónica o hilos para atender sockets.</li>
+<li>Cómo implementar los analytics en vivo.</li>
+<li>Cómo implementar la generación de informes en batch.</li>
+</ul>
+<p>Para la decisión sobre las mismas, se deberán implementar prototipos de las diferentes opciones para cada una y realizar una evaluación formal con métricas que ayuden a determinar cuál será la utilizada en la versión final. Las métricas deberán incluir uso de memoria, uso de CPU, tiempos de respuesta y análisis comparativos de la complejidad del código.</p>
+<p>Todos los recursos utilizados para el análisis incluyendo código, ejecuciones y prompts deberán ser parte de los entregables del proyecto. Se podrán utilizar herramientas externas para el análisis de carga, por ejemplo apache ab.</p>
+<h2 id="seguimiento-y-entregas"><a class="header" href="#seguimiento-y-entregas">Seguimiento y entregas</a></h2>
+<p>La resolución del presente proyecto es en grupos de tres integrantes. No se aceptan grupos de otra cantidad de miembros.</p>
+<p>Durante las semanas de cursada se tendrán encuentros de avance con algunos grupos en simultáneo, donde cada grupo hará una pequeña presentación del progreso de su proyecto, las decisiones tomadas, los resultados obtenidos, los prompts utilizados y las correcciones que tuvieron que hacer sobre los mismos para llegar a los resultados esperados; y cualquier otra información que sea relevante para compartir lecciones aprendidas y dar nota del proceso de aprendizaje y avance del proyecto.</p>
+<p>Hacia el final del cuatrimestre habrá una presentación final de cada grupo con los profesores de la materia donde deberán resumir todo el proceso de aprendizaje además de mostrar su solución funcionando correctamente ante situaciones de stress.</p>
+<h3 id="fechas"><a class="header" href="#fechas">Fechas</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Fecha</th><th>Evento</th></tr></thead><tbody>
+<tr><td>14 de Octubre de 2026</td><td>Introducción al enunciado del TP</td></tr>
+<tr><td>28 de Octubre, 3, 4, 10, 11 y 17 de Noviembre de 2026</td><td>Seguimiento de TP (a coordinar)</td></tr>
+<tr><td><strong>24 de Noviembre de 2026</strong></td><td><strong>Entrega Final (código e informes)</strong></td></tr>
+<tr><td>24, 25 de Noviembre, 1 y 2 de Diciembre de 2026</td><td>Presentación final</td></tr>
+</tbody></table>
+</div>
+<h2 id="evaluación"><a class="header" href="#evaluación">Evaluación</a></h2>
+<h3 id="calificación"><a class="header" href="#calificación">Calificación</a></h3>
+<p>La calificación del trabajo <em>individual</em> y se evaluará la participación de cada miembro del grupo tanto en el desarrollo como en la presentación. La calificación final del mismo será nominal y podrá ser INSUFICIENTE, REENTREGA, APROBADO o DESTACADO; modulando la nota del alumno en el parcial para el cierre de la nota de cursada. INSUFICIENTE implica la desaprobación y necesidad de recursar la materia.</p>
+<h3 id="entregas-parciales"><a class="header" href="#entregas-parciales">Entregas parciales</a></h3>
+<p>Las diferentes presentaciones del grupo deberán dar nota de un progreso en su aprendizaje y el dominio de las competencias de la materia, y de la práctica profesional en general. El no cumplir con las mismas puede implicar la desaprobación temprana del trabajo y la necesidad de recursar la materia.</p>
+<h3 id="principios-teóricos-y-corrección-de-bugs"><a class="header" href="#principios-teóricos-y-corrección-de-bugs">Principios teóricos y corrección de bugs</a></h3>
+<p>Los estudiantes presentarán el diseño, código y comportamiento en vivo de su solución, con foco en el uso de las diferentes herramientas de concurrencia.</p>
+<p>Deberán poder explicar, desde los conceptos teóricos vistos en clase, cómo se comportará potencialmente su solución ante problemas de concurrencia (por ejemplo ausencia de deadlocks).</p>
+<p>En caso de que la solución no se comportara de forma esperada, deberán poder explicar las causas y sus posibles rectificaciones.</p>
+<h3 id="casos-de-prueba"><a class="header" href="#casos-de-prueba">Casos de prueba</a></h3>
+<p>Se someterá a la aplicación a diferentes casos de prueba que validen la correcta aplicación de las herramientas de concurrencia y la resiliencia de las distintas entidades.</p>
+<h3 id="organización-del-código"><a class="header" href="#organización-del-código">Organización del código</a></h3>
+<p>El código debe organizarse respetando los criterios de buen diseño y en particular aprovechando las herramientas recomendadas por Rust.
+Se prohíbe el uso de bloques <code>unsafe</code>.</p>
+<h3 id="tests-automatizados"><a class="header" href="#tests-automatizados">Tests automatizados</a></h3>
+<p>La entrega debe contar con tests automatizados que prueben diferentes casos. Se considerará en especial aquellos que pongan a prueba el uso de las herramientas de concurrencia.</p>
+<h3 id="artefactos"><a class="header" href="#artefactos">Artefactos</a></h3>
+<p>Toda fuente, archivo, ejecución y prompt utilizado para el desarrollo de la solución y las presentaciones deberá ser incluido en el repositorio, dando nota explícita de las modificaciones y mejoras aportadas por los alumnos respecto de las bases. El uso de fuentes, incluyendo IA generativa sin supervisión por los alumnos implica la desaprobación automática.</p>
+<h3 id="presentación-final"><a class="header" href="#presentación-final">Presentación final</a></h3>
+<p>El trabajo deberá entregarse para la fecha estipulada. La presentación fuera de término sin coordinación con antelación con el profesor influirá negativamente en la nota final.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="2026_2C.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="2026_1C.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="2026_2C.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="2026_1C.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
