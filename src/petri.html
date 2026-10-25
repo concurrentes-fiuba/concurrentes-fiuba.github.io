@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redes de Petri</title>
+<style>
+  :root{
+    --bg:#0f1420;
+    --panel:#161d2e;
+    --panel2:#1c2438;
+    --border:#2a3452;
+    --text:#e6ebf5;
+    --muted:#93a1c2;
+    --accent:#5b8def;
+    --place-fill:#1c2438;
+    --place-stroke:#5b8def;
+    --token:#ffd166;
+    --trans-on:#2fbf71;
+    --trans-on-fill:#123425;
+    --trans-off:#4a5578;
+    --trans-off-fill:#1a2032;
+    --arc:#7280a3;
+    --inhibit:#ef5b6c;
+    --card-shadow: 0 8px 24px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 50% -10%, #1a2338 0%, var(--bg) 60%);
+    color:var(--text);
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+    padding:24px 20px 60px;
+  }
+  header.top{
+    max-width:1180px;
+    margin:0 auto 18px;
+  }
+  h1{
+    font-size:1.6rem;
+    margin:0 0 4px;
+    letter-spacing:.2px;
+  }
+  main{max-width:1180px;margin:0 auto;}
+
+  .diagram-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px;
+    box-shadow:var(--card-shadow);
+  }
+  .diagram-toolbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:8px;
+    flex-wrap:wrap;
+  }
+  .diagram-toolbar .btns{display:flex;gap:8px;}
+  button.action{
+    appearance:none;
+    border:1px solid var(--border);
+    background:var(--panel2);
+    color:var(--text);
+    padding:7px 14px;
+    border-radius:8px;
+    font-size:.82rem;
+    cursor:pointer;
+  }
+  button.action:hover{border-color:var(--accent);}
+  button.action.primary{background:var(--accent);border-color:var(--accent);color:#0b1220;font-weight:600;}
+
+  .log{
+    font-size:.8rem;
+    color:var(--muted);
+    min-height:1.4em;
+  }
+  .log b{color:#c9d6f5;}
+
+  .svg-wrap{
+    width:100%;
+    overflow:auto;
+    max-height:80vh;
+    background:
+      radial-gradient(circle at 1px 1px, #23304d 1px, transparent 1px) 0 0/22px 22px;
+    border:1px solid var(--border);
+    border-radius:10px;
+  }
+  svg.net{display:block;width:100%;height:auto;min-width:560px;}
+  .zoom{display:flex;}
+  .zoom button.action{border-radius:0;margin-left:-1px;min-width:36px;}
+  .zoom button.action:first-child{border-radius:8px 0 0 8px;margin-left:0;}
+  .zoom button.action:last-child{border-radius:0 8px 8px 0;}
+  .zoom button[data-zoom="reset"]{min-width:58px;font-variant-numeric:tabular-nums;}
+
+  .place-circle{fill:var(--place-fill);stroke:var(--place-stroke);stroke-width:2.2;}
+  .place-label{fill:#c7d1ea;font-size:12px;text-anchor:middle;paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round;}
+  .token-dot{fill:var(--token);}
+  .token-count{fill:var(--token);font-size:14px;font-weight:700;text-anchor:middle;dominant-baseline:central;}
+
+  .trans-hit{fill:transparent;}
+  .trans-bar{rx:2;ry:2;transition:filter .15s ease;}
+  .trans-bar.enabled{fill:var(--trans-on);}
+  .trans-bar.disabled{fill:var(--trans-off);opacity:.75;}
+  g.trans.enabled{cursor:pointer;}
+  .trans-label{font-size:11.5px;text-anchor:middle;pointer-events:none;paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round;}
+  .trans-label.enabled{fill:#bdf5d3;}
+  .trans-label.disabled{fill:#8992ac;}
+  g.trans:hover .trans-bar.enabled{filter:brightness(1.35);}
+
+  .arc-path{fill:none;stroke:var(--arc);stroke-width:1.6;}
+  .arc-path.inhibit{stroke:var(--inhibit);stroke-dasharray:4 3;}
+
+  .pulse{animation:pulse .5s ease;}
+  @keyframes pulse{
+    0%{transform:scale(1);}
+    35%{transform:scale(1.28);}
+    100%{transform:scale(1);}
+  }
+  circle.place-circle{transform-box:fill-box;transform-origin:center;}
+
+  /* ---- editor ---- */
+  .editor-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px;}
+  .editor-bar .spacer{flex:1;}
+  .field.net-select{font-size:.95rem;padding:9px 34px 9px 14px;min-width:280px;font-weight:600;}
+  .field{
+    appearance:none;
+    border:1px solid var(--border);
+    background:var(--panel2);
+    color:var(--text);
+    padding:7px 10px;
+    border-radius:8px;
+    font:inherit;
+    font-size:.82rem;
+  }
+  select.field{padding-right:24px;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 13px) 50%,calc(100% - 9px) 50%;background-size:4px 4px;background-repeat:no-repeat;}
+  .field:focus{outline:none;border-color:var(--accent);}
+  .seg{display:flex;flex-wrap:wrap;}
+  button.action.icon{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;}
+  .ico{width:18px;height:18px;display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .seg button.action{border-radius:0;margin-left:-1px;}
+  .seg button.action:first-child{border-radius:8px 0 0 8px;margin-left:0;}
+  .seg button.action:last-child{border-radius:0 8px 8px 0;}
+  .seg button.action.on{background:var(--accent);border-color:var(--accent);color:#0b1220;position:relative;}
+  .editor-modes{display:flex;flex-wrap:wrap;gap:10px;}
+  .editor-props{margin-top:10px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;font-size:.8rem;color:var(--muted);min-height:40px;}
+  .editor-props label{display:flex;flex-direction:column;gap:4px;}
+  .editor-props .hint{margin:0;line-height:1.5;}
+  .editor-props .hint b{color:#c9d6f5;}
+  svg.net.editing{touch-action:none;}
+  svg.net.editing g.place, svg.net.editing g.trans{cursor:grab;}
+  .arc-hit{fill:none;stroke:transparent;stroke-width:14;pointer-events:stroke;cursor:pointer;}
+  g.place.sel .place-circle{stroke:var(--token);stroke-width:3;}
+  g.trans.sel .trans-bar{stroke:var(--token);stroke-width:3;}
+  g.arc.sel .arc-path{stroke:var(--token);}
+  .arc-weight{fill:#c7d1ea;font-size:12px;font-weight:600;text-anchor:middle;dominant-baseline:central;paint-order:stroke;stroke:var(--panel);stroke-width:4px;pointer-events:none;}
+  .analysis{display:none;margin-bottom:10px;background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:.82rem;color:var(--muted);}
+  .analysis.show{display:block;}
+  .analysis .head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;}
+  .analysis .head b{color:var(--text);}
+  .analysis .head .found{color:var(--inhibit);}
+  .analysis .head .ok{color:var(--trans-on);}
+  .analysis .head .msg{flex:1 1 320px;line-height:1.5;}
+  .analysis .head .close{padding:5px 9px;}
+  .analysis ol{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px;}
+  .analysis li button{appearance:none;border:1px solid var(--border);background:var(--panel);color:var(--text);border-radius:999px;padding:4px 10px;font:inherit;font-size:.78rem;cursor:pointer;}
+  .analysis li button:hover{border-color:var(--accent);}
+  .analysis li button .n{color:var(--muted);margin-right:4px;font-variant-numeric:tabular-nums;}
+  .analysis li button.current{background:var(--accent);border-color:var(--accent);color:#0b1220;}
+  .analysis li button.current .n{color:#0b1220;}
+  .graph-panel{display:none;margin-bottom:10px;background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:.82rem;color:var(--muted);}
+  .graph-panel.show{display:block;}
+  .graph-panel .head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:8px;}
+  .graph-panel .head .msg{flex:1 1 320px;line-height:1.5;}
+  .graph-panel .head b{color:var(--text);}
+  .graph-panel .head .close{padding:5px 9px;}
+  .graph-wrap{overflow:auto;max-height:60vh;border:1px solid var(--border);border-radius:8px;background:var(--panel);}
+  .graph-wrap svg{display:block;margin:0 auto;}
+  .gnode{cursor:pointer;}
+  .gnode ellipse{fill:var(--place-fill);stroke:var(--place-stroke);stroke-width:1.6;}
+  .gnode text{fill:var(--text);font-size:13px;text-anchor:middle;dominant-baseline:central;font-variant-numeric:tabular-nums;pointer-events:none;}
+  .gnode.initial ellipse{stroke-width:3;}
+  .gnode.dead ellipse{stroke:var(--inhibit);stroke-width:2.4;}
+  .gnode.current ellipse{fill:#3a4f86;}
+  .gnode:hover ellipse{filter:brightness(1.3);}
+  .gedge{fill:none;stroke:var(--arc);stroke-width:1.3;}
+  .gedge-label{fill:#c7d1ea;font-size:11.5px;text-anchor:middle;dominant-baseline:central;paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round;}
+  dialog.confirm{background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:18px 20px;max-width:420px;box-shadow:var(--card-shadow);}
+  dialog.confirm::backdrop{background:rgba(5,8,15,.6);}
+  dialog.confirm p{margin:0 0 16px;line-height:1.5;font-size:.92rem;}
+  dialog.confirm .btns{display:flex;justify-content:flex-end;gap:8px;}
+  .ghost-arc{stroke:var(--accent);stroke-width:1.6;stroke-dasharray:5 4;pointer-events:none;}
+
+  footer{
+    max-width:1180px;
+    margin:26px auto 0;
+    color:var(--muted);
+    font-size:.78rem;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>Redes de Petri</h1>
+</header>
+
+<main id="main"></main>
+
+<dialog id="confirm-dialog" class="confirm">
+  <form method="dialog">
+    <p id="confirm-text"></p>
+    <div class="btns">
+      <button class="action" value="cancel">Cancelar</button>
+      <button class="action primary" value="ok" id="confirm-ok">Aceptar</button>
+    </div>
+  </form>
+</dialog>
+
+<footer>Modelo educativo simplificado. Elegí una red para simularla o editarla; para guardar tus cambios, exportala o copiá su enlace.</footer>
+
+<script>
+/* ======================= MOTOR GENÉRICO DE REDES DE PETRI ======================= */
+
+function makeNet(cfg){
+  const net = {
+    id: cfg.id,
+    title: cfg.title,
+    places: cfg.places,
+    transitions: cfg.transitions,
+    arcs: cfg.arcs,
+    viewBox: cfg.viewBox || "0 0 1000 500",
+    state: {},
+    init: {}
+  };
+  net.places.forEach(p => { net.init[p.id] = p.init || 0; });
+  net.state = Object.assign({}, net.init);
+  net.placeMap = Object.fromEntries(net.places.map(p => [p.id, p]));
+  net.transMap = Object.fromEntries(net.transitions.map(t => [t.id, t]));
+  return net;
+}
+
+function inArcs(net, transId){
+  return net.arcs.filter(a => a.to === transId && a.type === 'in');
+}
+function outArcs(net, transId){
+  return net.arcs.filter(a => a.from === transId && a.type === 'out');
+}
+function inhibArcs(net, transId){
+  return net.arcs.filter(a => a.to === transId && a.type === 'inhibit');
+}
+
+function isEnabled(net, transId){
+  for (const a of inArcs(net, transId)){
+    if ((net.state[a.from]||0) < (a.weight||1)) return false;
+  }
+  for (const a of inhibArcs(net, transId)){
+    if ((net.state[a.from]||0) >= (a.weight||1)) return false;
+  }
+  return true;
+}
+
+function fireTransition(net, transId, onFired){
+  if (!isEnabled(net, transId)) return false;
+  const touched = [];
+  for (const a of inArcs(net, transId)){
+    net.state[a.from] -= (a.weight||1);
+    touched.push(a.from);
+  }
+  for (const a of outArcs(net, transId)){
+    net.state[a.to] = (net.state[a.to]||0) + (a.weight||1);
+    touched.push(a.to);
+  }
+  if (onFired) onFired(transId, touched);
+  return true;
+}
+
+function resetNet(net){
+  net.state = Object.assign({}, net.init);
+}
+
+/* ---- Geometría de arcos: recorta el segmento a la superficie de los nodos ---- */
+function trim(x1,y1,x2,y2,r){
+  const dx = x2-x1, dy = y2-y1;
+  const len = Math.sqrt(dx*dx+dy*dy) || 1;
+  return [x1 + dx/len*r, y1 + dy/len*r];
+}
+
+const PLACE_R = 27;
+const TRANS_W = 70, TRANS_H = 9;
+
+function nodeCenter(net, id){
+  if (net.placeMap[id]) return {x:net.placeMap[id].x, y:net.placeMap[id].y, r:PLACE_R, isPlace:true};
+  const t = net.transMap[id];
+  return {x:t.x, y:t.y, rot:t.rot||0, isPlace:false};
+}
+
+// semiancho y semialto de la caja que envuelve una barra rotada rot grados
+function transExtent(rot){
+  const a = rot*Math.PI/180, c = Math.abs(Math.cos(a)), s = Math.abs(Math.sin(a));
+  return [c*TRANS_W/2 + s*TRANS_H/2, s*TRANS_W/2 + c*TRANS_H/2];
+}
+
+// distancia desde el centro del nodo hasta su borde, en la dirección (tx,ty); pad agranda la barra
+function edgeDist(N, tx, ty, pad=0){
+  if (N.isPlace) return N.r;
+  // se lleva la dirección al sistema local de la barra (sin rotar)
+  const a = N.rot*Math.PI/180, ux = tx-N.x, uy = ty-N.y;
+  const dx = Math.abs(Math.cos(a)*ux + Math.sin(a)*uy), dy = Math.abs(-Math.sin(a)*ux + Math.cos(a)*uy);
+  const len = Math.sqrt(dx*dx+dy*dy) || 1;
+  return Math.min(dx ? (TRANS_W/2+pad)/dx : Infinity, dy ? (TRANS_H/2+pad)/dy : Infinity) * len + 2;
+}
+
+function arcPath(net, arc){
+  const A = nodeCenter(net, arc.from);
+  const B = nodeCenter(net, arc.to);
+  const bend = arc.bend || 0;
+  // el círculo del inhibidor se centra en la punta: se deja un margen para que no quede bajo la barra
+  const padB = arc.type === 'inhibit' ? 7 : 0;
+  if (arc.loop){
+    // arco de vuelta: sale por debajo de la barra, baja, se abre hacia loop.side y sube hasta el lugar
+    const {side, width, drop = 120} = arc.loop;
+    const sy = A.y + TRANS_H/2;
+    const c1x = A.x, c1y = A.y + drop;
+    const c2x = A.x + side*width, c2y = A.y;
+    const [ex,ey] = trim(B.x,B.y,c2x,c2y,edgeDist(B,c2x,c2y));
+    return `M ${A.x} ${sy} C ${c1x} ${c1y} ${c2x} ${c2y} ${ex.toFixed(1)} ${ey.toFixed(1)}`;
+  }
+  if (arc.via){
+    // poligonal que pasa por los puntos de arc.via
+    const pts = arc.via;
+    const [f0x,f0y] = pts[0], [fnx,fny] = pts[pts.length-1];
+    const [sx,sy] = trim(A.x,A.y,f0x,f0y,edgeDist(A,f0x,f0y));
+    const [ex,ey] = trim(B.x,B.y,fnx,fny,edgeDist(B,fnx,fny,padB));
+    return `M ${sx.toFixed(1)} ${sy.toFixed(1)} ` + pts.map(([x,y]) => `L ${x} ${y} `).join('') + `L ${ex.toFixed(1)} ${ey.toFixed(1)}`;
+  }
+  if (!bend){
+    const [sx,sy] = trim(A.x,A.y,B.x,B.y,edgeDist(A,B.x,B.y));
+    const [ex,ey] = trim(B.x,B.y,A.x,A.y,edgeDist(B,A.x,A.y,padB));
+    return `M ${sx.toFixed(1)} ${sy.toFixed(1)} L ${ex.toFixed(1)} ${ey.toFixed(1)}`;
+  }
+  const mx = (A.x+B.x)/2, my=(A.y+B.y)/2;
+  const dx = B.x-A.x, dy = B.y-A.y;
+  const len = Math.sqrt(dx*dx+dy*dy) || 1;
+  const nx = -dy/len, ny = dx/len;
+  const cx = mx + nx*bend, cy = my + ny*bend;
+  const [sx,sy] = trim(A.x,A.y,cx,cy,edgeDist(A,cx,cy));
+  const [ex,ey] = trim(B.x,B.y,cx,cy,edgeDist(B,cx,cy,padB));
+  return `M ${sx.toFixed(1)} ${sy.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`;
+}
+
+function wrapLabel(label, maxChars){
+  const words = label.split(' ');
+  const lines = [];
+  let cur = '';
+  for (const w of words){
+    if ((cur + ' ' + w).trim().length > maxChars && cur){
+      lines.push(cur.trim());
+      cur = w;
+    } else {
+      cur = (cur + ' ' + w).trim();
+    }
+  }
+  if (cur) lines.push(cur);
+  return lines;
+}
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// texto de etiqueta junto a un nodo de semiancho hw y semialto hh; pos: above | below | left | right
+function labelText(cls, cx, cy, hw, hh, label, pos, maxChars, lineH, gap=0){
+  const lines = wrapLabel(label, maxChars);
+  const n = lines.length;
+  let x = cx, y0, anchor = 'middle';
+  if (pos === 'above') y0 = cy - hh - 6 - gap - (n-1)*lineH;
+  else if (pos === 'below') y0 = cy + hh + 14 + gap;
+  else {
+    y0 = cy + 4 - (n-1)*lineH/2;
+    x = pos === 'right' ? cx + hw + 8 + gap : cx - hw - 8 - gap;
+    anchor = pos === 'right' ? 'start' : 'end';
+  }
+  const tspans = lines.map((line,i) => `<tspan x="${x}" dy="${i===0?0:lineH}">${esc(line)}</tspan>`).join('');
+  return `<text class="${cls}" x="${x}" y="${y0}" style="text-anchor:${anchor}">${tspans}</text>`;
+}
+
+function tokenLayout(n){
+  // returns array of [dx,dy] offsets for up to 4 dots; beyond that we show a number
+  const layouts = {
+    0: [],
+    1: [[0,0]],
+    2: [[-7,0],[7,0]],
+    3: [[0,-7],[-7,6],[7,6]],
+    4: [[-7,-7],[7,-7],[-7,7],[7,7]]
+  };
+  return layouts[n] || null;
+}
+
+// opts.edit: todos los nodos y arcos se pueden tocar, no se disparan transiciones;
+// opts.selected: {kind:'place'|'trans'|'arc', id} a resaltar; opts.arcFrom: nodo origen de un arco en construcción
+function renderNet(net, svgEl, opts = {}){
+  const edit = !!opts.edit;
+  const isSel = (kind, id) => (opts.selected && opts.selected.kind === kind && opts.selected.id === id) || (kind !== 'arc' && opts.arcFrom === id);
+  const parts = [];
+  parts.push(`<defs>
+    <marker id="arrow-${net.id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto">
+      <path d="M0,0L10,5L0,10z" fill="var(--arc)"></path>
+    </marker>
+    <marker id="inhib-${net.id}" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto">
+      <circle cx="5" cy="5" r="4" fill="var(--panel)" stroke="var(--inhibit)" stroke-width="1.6"></circle>
+    </marker>
+  </defs>`);
+
+  // arcs first (under nodes)
+  net.arcs.forEach((arc, i) => {
+    const d = arcPath(net, arc);
+    const path = arc.type === 'inhibit'
+      ? `<path class="arc-path inhibit" d="${d}" marker-end="url(#inhib-${net.id})"></path>`
+      : `<path class="arc-path" d="${d}" marker-end="url(#arrow-${net.id})"></path>`;
+    parts.push(edit ? `<g class="arc${isSel('arc', i) ? ' sel' : ''}" data-index="${i}"><path class="arc-hit" d="${d}"></path>${path}</g>` : path);
+  });
+
+  // places
+  for (const p of net.places){
+    const n = net.state[p.id]||0;
+    const dots = tokenLayout(n);
+    let inner = '';
+    if (dots){
+      inner = dots.map(([dx,dy]) => `<circle class="token-dot" cx="${p.x+dx}" cy="${p.y+dy}" r="4.2"></circle>`).join('');
+    } else {
+      inner = `<text class="token-count" x="${p.x}" y="${p.y+1}">${n}</text>`;
+    }
+    parts.push(`<g class="place${isSel('place', p.id) ? ' sel' : ''}" data-id="${esc(p.id)}">
+      <circle class="place-circle" cx="${p.x}" cy="${p.y}" r="${PLACE_R}" id="circ-${net.id}-${p.id}"></circle>
+      ${inner}
+      ${labelText('place-label', p.x, p.y, PLACE_R, PLACE_R, p.label, p.labelPos || 'below', p.labelWrap || 16, 12, p.labelGap)}
+    </g>`);
+  }
+
+  // transitions
+  for (const t of net.transitions){
+    const en = isEnabled(net, t.id);
+    const x = t.x - TRANS_W/2, y = t.y - TRANS_H/2;
+    const rot = t.rot || 0;
+    const [hw, hh] = transExtent(rot);
+    parts.push(`<g class="trans ${en?'enabled':'disabled'}${isSel('trans', t.id) ? ' sel' : ''}" data-id="${esc(t.id)}" style="pointer-events:${en||edit?'auto':'none'}">
+      <g transform="rotate(${rot} ${t.x} ${t.y})">
+        <rect class="trans-hit" x="${x-6}" y="${y-14}" width="${TRANS_W+12}" height="${TRANS_H+28}"></rect>
+        <rect class="trans-bar ${en?'enabled':'disabled'}" x="${x}" y="${y}" width="${TRANS_W}" height="${TRANS_H}"></rect>
+      </g>
+      ${labelText('trans-label '+(en?'enabled':'disabled'), t.x, t.y, hw, hh, t.label, t.labelPos || 'above', 14, 13, t.labelGap)}
+    </g>`);
+  }
+
+  svgEl.setAttribute('viewBox', net.viewBox);
+  svgEl.innerHTML = parts.join('');
+
+  // peso de los arcos con peso mayor a 1, en la mitad del recorrido
+  const paths = svgEl.querySelectorAll('path.arc-path');
+  net.arcs.forEach((arc, i) => {
+    if ((arc.weight||1) <= 1) return;
+    const m = paths[i].getPointAtLength(paths[i].getTotalLength()/2);
+    svgEl.insertAdjacentHTML('beforeend', `<text class="arc-weight" x="${m.x.toFixed(1)}" y="${m.y.toFixed(1)}">${arc.weight}</text>`);
+  });
+
+  if (edit) return;
+
+  // wire click handlers on transitions
+  svgEl.querySelectorAll('g.trans').forEach(g => {
+    const id = g.getAttribute('data-id');
+    g.addEventListener('click', () => {
+      const netObj = NETS[svgEl.dataset.netId];
+      const logEl = document.getElementById('log-' + netObj.id);
+      const t = netObj.transMap[id];
+      const ok = fireTransition(netObj, id, (transId, touched) => {
+        if (logEl) logEl.innerHTML = `Se disparó <b>${esc(t.label)}</b> (${esc(transId)})`;
+      });
+      if (ok){
+        renderNet(netObj, svgEl);
+        touchedPulse(svgEl, netObj);
+        if (typeof highlightGraph === 'function') highlightGraph();
+      }
+    });
+  });
+}
+
+function touchedPulse(svgEl, net){
+  svgEl.querySelectorAll('circle.place-circle').forEach(c => {
+    c.classList.remove('pulse');
+    void c.offsetWidth;
+    c.classList.add('pulse');
+  });
+}
+
+/* ======================= DEFINICIÓN DE LAS REDES ======================= */
+
+const NETS = {};
+
+/* ---- 1. Mutex (práctica 6, diapositiva 3) ---- */
+NETS.mutex = makeNet({
+  id:'mutex',
+  title:'Mutex',
+  viewBox:'0 0 900 700',
+  places:[
+    {id:'P0', label:'P0: proceso 1 libre', x:250, y:80, init:1, labelPos:'right'},
+    {id:'P3', label:'P3: proceso 1 en sección crítica', x:250, y:440, init:0, labelPos:'right'},
+    {id:'P2', label:'P2: mutex libre', x:450, y:470, init:1, labelPos:'below', labelGap:20},
+    {id:'P1', label:'P1: proceso 2 libre', x:650, y:80, init:1, labelPos:'left'},
+    {id:'P4', label:'P4: proceso 2 en sección crítica', x:650, y:440, init:0, labelPos:'left'},
+  ],
+  transitions:[
+    {id:'T0', label:'T0: proceso 1 toma el mutex', x:250, y:230, labelPos:'right'},
+    {id:'T2', label:'T2: proceso 1 libera el mutex', x:250, y:620, labelPos:'left'},
+    {id:'T1', label:'T1: proceso 2 toma el mutex', x:650, y:230, labelPos:'left'},
+    {id:'T3', label:'T3: proceso 2 libera el mutex', x:650, y:620, labelPos:'right'},
+  ],
+  arcs:[
+    {from:'P0', to:'T0', type:'in'},
+    {from:'P2', to:'T0', type:'in'},
+    {from:'T0', to:'P3', type:'out'},
+    {from:'P3', to:'T2', type:'in'},
+    {from:'T2', to:'P0', type:'out', loop:{side:-1, width:360, drop:170}},
+    {from:'T2', to:'P2', type:'out'},
+    {from:'P1', to:'T1', type:'in'},
+    {from:'P2', to:'T1', type:'in'},
+    {from:'T1', to:'P4', type:'out'},
+    {from:'P4', to:'T3', type:'in'},
+    {from:'T3', to:'P1', type:'out', loop:{side:1, width:360, drop:170}},
+    {from:'T3', to:'P2', type:'out'},
+  ]
+});
+
+/* ---- 2. Productor-consumidor con buffer infinito (clase 6, diapositiva 14) ---- */
+NETS.pc_infinite = makeNet({
+  id:'pc_infinite',
+  title:'Productor-consumidor (buffer infinito)',
+  viewBox:'0 0 1050 680',
+  places:[
+    {id:'p1', label:'p1: productor libre', x:200, y:100, init:1, labelPos:'right'},
+    {id:'p2', label:'p2: ítem producido', x:200, y:430, init:0, labelPos:'right'},
+    {id:'p3', label:'p3: consumidor libre', x:850, y:100, init:1, labelPos:'left'},
+    {id:'p4', label:'p4: ítem retirado', x:850, y:430, init:0, labelPos:'left'},
+    {id:'p5', label:'p5: ítems en buffer', x:525, y:430, init:0, labelPos:'right'},
+  ],
+  transitions:[
+    {id:'t1', label:'t1: producir', x:200, y:265, labelPos:'right'},
+    {id:'t2', label:'t2: depositar en buffer', x:200, y:590, labelPos:'left'},
+    {id:'t3', label:'t3: retirar del buffer', x:850, y:265, labelPos:'left'},
+    {id:'t4', label:'t4: consumir', x:850, y:590, labelPos:'left'},
+  ],
+  arcs:[
+    {from:'p1', to:'t1', type:'in'},
+    {from:'t1', to:'p2', type:'out'},
+    {from:'p2', to:'t2', type:'in'},
+    {from:'t2', to:'p1', type:'out', loop:{side:-1, width:330, drop:170}},
+    {from:'t2', to:'p5', type:'out', bend:60},
+    {from:'p5', to:'t3', type:'in'},
+    {from:'p3', to:'t3', type:'in'},
+    {from:'t3', to:'p4', type:'out'},
+    {from:'p4', to:'t4', type:'in'},
+    {from:'t4', to:'p3', type:'out', loop:{side:1, width:330, drop:170}},
+  ]
+});
+
+/* ---- 3. Productor-consumidor con buffer acotado (clase 6, diapositiva 15) ---- */
+NETS.pc_bounded = makeNet({
+  id:'pc_bounded',
+  title:'Productor-consumidor (buffer acotado)',
+  viewBox:'0 0 1050 680',
+  places:[
+    {id:'p1', label:'p1: productor libre', x:200, y:100, init:1, labelPos:'right'},
+    {id:'p2', label:'p2: ítem producido', x:200, y:430, init:0, labelPos:'right'},
+    {id:'p3', label:'p3: consumidor libre', x:850, y:100, init:1, labelPos:'left'},
+    {id:'p4', label:'p4: ítem retirado', x:850, y:430, init:0, labelPos:'left'},
+    {id:'p5', label:'p5: ítems en buffer', x:525, y:430, init:0, labelPos:'right'},
+    {id:'p6', label:'p6: lugares libres (N = 3)', x:525, y:190, init:3, labelPos:'above'},
+  ],
+  transitions:[
+    {id:'t1', label:'t1: producir', x:200, y:265, labelPos:'right'},
+    {id:'t2', label:'t2: depositar en buffer', x:200, y:590, labelPos:'left'},
+    {id:'t3', label:'t3: retirar del buffer', x:850, y:265, labelPos:'left'},
+    {id:'t4', label:'t4: consumir', x:850, y:590, labelPos:'left'},
+  ],
+  arcs:[
+    {from:'p1', to:'t1', type:'in'},
+    {from:'t1', to:'p2', type:'out'},
+    {from:'p2', to:'t2', type:'in'},
+    {from:'p6', to:'t2', type:'in'},
+    {from:'t2', to:'p1', type:'out', loop:{side:-1, width:330, drop:170}},
+    {from:'t2', to:'p5', type:'out', bend:60},
+    {from:'p5', to:'t3', type:'in'},
+    {from:'p3', to:'t3', type:'in'},
+    {from:'t3', to:'p4', type:'out'},
+    {from:'t3', to:'p6', type:'out', bend:50},
+    {from:'p4', to:'t4', type:'in'},
+    {from:'t4', to:'p3', type:'out', loop:{side:1, width:330, drop:170}},
+  ]
+});
+
+/* ---- 5. Lector-escritor (práctica 6, diapositiva 9) ---- */
+NETS.readwrite = makeNet({
+  id:'readwrite',
+  title:'Lector-escritor',
+  viewBox:'0 0 900 680',
+  // cada lado es una columna; "terminar" devuelve la ficha a "libres" con un arco curvo por afuera
+  places:[
+    {id:'P0', label:'P0: lectores libres', x:250, y:100, init:4, labelPos:'above'},
+    {id:'P1', label:'P1: leyendo', x:250, y:420, init:0, labelPos:'right'},
+    {id:'P3', label:'P3: escritores libres', x:650, y:100, init:2, labelPos:'above'},
+    {id:'P4', label:'P4: escribiendo', x:650, y:420, init:0, labelPos:'left'},
+  ],
+  transitions:[
+    {id:'T0', label:'T0: empezar a leer', x:250, y:260, labelPos:'right'},
+    {id:'T1', label:'T1: terminar de leer', x:250, y:580, labelPos:'left'},
+    {id:'T2', label:'T2: empezar a escribir', x:650, y:260, labelPos:'left'},
+    {id:'T3', label:'T3: terminar de escribir', x:650, y:580, labelPos:'right'},
+  ],
+  arcs:[
+    {from:'P0', to:'T0', type:'in'},
+    {from:'T0', to:'P1', type:'out'},
+    {from:'P1', to:'T1', type:'in'},
+    {from:'T1', to:'P0', type:'out', loop:{side:-1, width:320, drop:170}},
+    {from:'P4', to:'T0', type:'inhibit'},
+    {from:'P3', to:'T2', type:'in'},
+    {from:'T2', to:'P4', type:'out'},
+    {from:'P4', to:'T3', type:'in'},
+    {from:'T3', to:'P3', type:'out', loop:{side:1, width:320, drop:170}},
+    {from:'P1', to:'T2', type:'inhibit'},
+    {from:'P4', to:'T2', type:'inhibit', bend:120},
+  ]
+});
+
+/* ---- 4. Cliente-servidor (clase 6, diapositiva 16) ---- */
+NETS.clientserver = makeNet({
+  id:'clientserver',
+  title:'Cliente-servidor',
+  viewBox:'0 0 1210 700',
+  places:[
+    {id:'p1', label:'p1: cliente libre', x:332, y:80, init:1, labelPos:'left'},
+    {id:'p2', label:'p2: esperando respuesta', x:332, y:350, init:0, labelPos:'left'},
+    {id:'p3', label:'p3: respuesta recibida', x:332, y:620, init:0, labelPos:'left'},
+    {id:'p4', label:'p4: pedido', x:603, y:80, init:0, labelPos:'above'},
+    {id:'p5', label:'p5: respuesta', x:603, y:620, init:0, labelPos:'above'},
+    {id:'p6', label:'p6: servidor libre', x:874, y:80, init:1, labelPos:'right'},
+    {id:'p7', label:'p7: procesando pedido', x:874, y:350, init:0, labelPos:'right'},
+    {id:'p8', label:'p8: respuesta enviada', x:874, y:620, init:0, labelPos:'right'},
+  ],
+  transitions:[
+    {id:'t1', label:'t1: procesar respuesta', x:70, y:350, labelPos:'right'},
+    {id:'t2', label:'t2: enviar pedido', x:332, y:215, labelPos:'left'},
+    {id:'t3', label:'t3: recibir respuesta', x:332, y:485, labelPos:'left'},
+    {id:'t4', label:'t4: recibir pedido', x:874, y:215, labelPos:'left'},
+    {id:'t5', label:'t5: enviar respuesta', x:874, y:485, labelPos:'left'},
+    {id:'t6', label:'t6: volver a esperar', x:1136, y:350, labelPos:'left'},
+  ],
+  arcs:[
+    {from:'p1', to:'t2', type:'in'},
+    {from:'t2', to:'p2', type:'out'},
+    {from:'t2', to:'p4', type:'out'},
+    {from:'p2', to:'t3', type:'in'},
+    {from:'p5', to:'t3', type:'in'},
+    {from:'t3', to:'p3', type:'out'},
+    {from:'p3', to:'t1', type:'in', bend:-80},
+    {from:'t1', to:'p1', type:'out', bend:-80},
+    {from:'p6', to:'t4', type:'in'},
+    {from:'p4', to:'t4', type:'in'},
+    {from:'t4', to:'p7', type:'out'},
+    {from:'p7', to:'t5', type:'in'},
+    {from:'t5', to:'p8', type:'out'},
+    {from:'t5', to:'p5', type:'out'},
+    {from:'p8', to:'t6', type:'in', bend:80},
+    {from:'t6', to:'p6', type:'out', bend:80},
+  ]
+});
+
+/* ---- 6. Filósofos comensales: disposición en estrella de la práctica 6, tomando un tenedor por vez ---- */
+// Cada filósofo toma primero el tenedor izquierdo y luego el derecho, así que la red puede quedar
+// en interbloqueo si los cinco toman el izquierdo.
+function buildPhilosophers(){
+  const cx = 820, cy = 720;
+  // radios a lo largo de cada brazo: "pensando", "toma izq.", "tiene tenedor izq.", "toma der.",
+  // "comiendo" y "suelta ambos"; los tenedores van entre brazos, más afuera que los filósofos (RF)
+  const R0 = 130, RF = 300, RL = 290, RH = 390, RR = 490, RE = 590, RP = 700;
+  const pol = (r, deg) => [Math.round(cx + r*Math.cos(deg*Math.PI/180)), Math.round(cy + r*Math.sin(deg*Math.PI/180))];
+  const angles = [-126, -54, 18, 90, 162];   // un brazo por filósofo; los tenedores quedan entre brazos
+  // lado de la etiqueta según la dirección (dx,dy) en la que tiene que alejarse del nodo
+  const side = (dx, dy) => Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'below' : 'above');
+  const dir = deg => [Math.cos(deg*Math.PI/180), Math.sin(deg*Math.PI/180)];
+  const places = [], transitions = [], arcs = [];
+
+  angles.forEach((a, i) => {
+    const n = i + 1, left = 'fork'+i, right = 'fork'+((i+1)%5);
+    const [ox, oy] = dir(a);              // hacia afuera del brazo
+    const [tx, ty] = dir(a + 90);         // costado "derecho" del brazo
+    const inward = side(-ox, -oy), outward = side(ox, oy), plus = side(tx, ty), minus = side(-tx, -ty);
+    let x, y;
+    [x, y] = pol(R0, a);      places.push({id:'think'+i, label:`F${n}: pensando`, x, y, init:1, labelPos:inward, labelWrap:8});
+    [x, y] = pol(RF, a-36);   places.push({id:left, label:`Tenedor ${n}`, x, y, init:1});
+    // las etiquetas se reparten entre los dos costados del brazo según por dónde llegan los arcos:
+    // el tenedor izquierdo llega a "toma izq." por la izquierda y la vuelta a "pensando" pasa por ahí
+    [x, y] = pol(RL, a);      transitions.push({id:'pickL'+i, label:`F${n}: toma izq.`, x, y, rot:a+90, labelPos:plus});
+    [x, y] = pol(RH, a);      places.push({id:'has'+i, label:`F${n}: tiene tenedor izq.`, x, y, init:0, labelPos:minus});
+    [x, y] = pol(RR, a);      transitions.push({id:'pickR'+i, label:`F${n}: toma der.`, x, y, rot:a+90, labelPos:minus});
+    [x, y] = pol(RE, a);      places.push({id:'eat'+i, label:`F${n}: comiendo`, x, y, init:0, labelPos:plus});
+    [x, y] = pol(RP, a);      transitions.push({id:'put'+i, label:`F${n}: suelta ambos`, x, y, rot:a+90, labelPos:outward});
+
+    arcs.push({from:'think'+i, to:'pickL'+i, type:'in'});
+    arcs.push({from:left, to:'pickL'+i, type:'in'});
+    arcs.push({from:'pickL'+i, to:'has'+i, type:'out'});
+    arcs.push({from:'has'+i, to:'pickR'+i, type:'in'});
+    arcs.push({from:right, to:'pickR'+i, type:'in', via:[pol(401, a+14)]});   // rodea "tiene tenedor izq."
+    arcs.push({from:'pickR'+i, to:'eat'+i, type:'out'});
+    arcs.push({from:'eat'+i, to:'put'+i, type:'in'});
+    // las devoluciones rodean el brazo por los costados, por fuera de las etiquetas
+    arcs.push({from:'put'+i, to:'think'+i, type:'out', via:[pol(618, a-14), pol(327, a-23)]});
+    arcs.push({from:'put'+i, to:left, type:'out', via:[pol(RP, a-24)]});
+    arcs.push({from:'put'+i, to:right, type:'out', via:[pol(RP, a+26)]});
+  });
+
+  // la etiqueta de cada tenedor va del lado más alejado de los arcos que le llegan o salen
+  const pos = id => { const n = places.find(p => p.id === id) || transitions.find(t => t.id === id); return [n.x, n.y]; };
+  const SIDES = {right:[1,0], left:[-1,0], below:[0,1], above:[0,-1]};
+  places.filter(p => p.id.startsWith('fork')).forEach(f => {
+    const dirs = arcs.filter(a => a.from === f.id || a.to === f.id).map(a => {
+      const other = a.from === f.id ? (a.via ? a.via[0] : pos(a.to)) : (a.via ? a.via[a.via.length-1] : pos(a.from));
+      const dx = other[0] - f.x, dy = other[1] - f.y, len = Math.hypot(dx, dy);
+      return [dx/len, dy/len];
+    });
+    let best = 'below', bestScore = -Infinity;
+    for (const [name, [sx, sy]] of Object.entries(SIDES)){
+      const score = Math.min(...dirs.map(([dx, dy]) => Math.acos(Math.max(-1, Math.min(1, sx*dx + sy*dy)))));
+      if (score > bestScore){ bestScore = score; best = name; }
+    }
+    f.labelPos = best;
+  });
+  return {places, transitions, arcs};
+}
+
+const philoData = buildPhilosophers();
+NETS.philosophers = makeNet({
+  id:'philosophers',
+  title:'Filósofos',
+  viewBox:'0 0 1640 1520',
+  places: philoData.places,
+  transitions: philoData.transitions,
+  arcs: philoData.arcs
+});
+
+/* ---- 7. SETI (práctica 6, diapositiva 4) ---- */
+function buildSeti(){
+  const N = 5, rows = [130, 260, 390, 520, 650];
+  const xP = 230, xT0 = 450, xW = 660, xT1 = 900, xD = 1130, xT = 1260;
+  const places = [], transitions = [], arcs = [];
+  for (let i=0; i<N; i++){
+    places.push({id:'P'+i, label:`P${i}: nodo ${i+1} libre`, x:xP, y:rows[i], init:1, labelPos:'left'});
+    places.push({id:'P'+(i+5), label:`P${i+5}: nodo ${i+1} procesando`, x:xW, y:rows[i], init:0, labelPos:i===N-1 ? 'below' : 'above'});
+    places.push({id:'P'+(i+10), label:`P${i+10}: nodo ${i+1} terminó`, x:xD, y:rows[i], init:0, labelPos:i===N-1 ? 'below' : 'above'});
+    transitions.push({id:'T'+(i+2), label:`T${i+2}: nodo ${i+1} vuelve a estar libre`, x:xT, y:rows[i], rot:90, labelPos:'right'});
+  }
+  // T0 y T1 reciben arcos de todos lados: la etiqueta va más separada, en el hueco entre los de abajo
+  transitions.push({id:'T0', label:'T0: repartir trabajo', x:xT0, y:390, rot:90, labelPos:'below', labelGap:40});
+  transitions.push({id:'T1', label:'T1: juntar resultados', x:xT1, y:390, rot:90, labelPos:'below', labelGap:40});
+  for (let i=0; i<N; i++){
+    arcs.push({from:'P'+i, to:'T0', type:'in'});
+    arcs.push({from:'T0', to:'P'+(i+5), type:'out'});
+    arcs.push({from:'P'+(i+5), to:'T1', type:'in'});
+    arcs.push({from:'T1', to:'P'+(i+10), type:'out'});
+    arcs.push({from:'P'+(i+10), to:'T'+(i+2), type:'in'});
+  }
+  // las devoluciones rodean la red por los pasillos entre filas, como en la diapositiva
+  const lanes = [65, 195, 455, 585, 760];
+  for (let i=0; i<N; i++){
+    arcs.push({from:'T'+(i+2), to:'P'+i, type:'out', via:[[xT, lanes[i]], [xP, lanes[i]]]});
+  }
+  return {places, transitions, arcs};
+}
+
+const setiData = buildSeti();
+NETS.seti = makeNet({
+  id:'seti',
+  title:'SETI',
+  viewBox:'0 0 1440 800',
+  places: setiData.places,
+  transitions: setiData.transitions,
+  arcs: setiData.arcs
+});
+
+/* ---- 8. Barbero (práctica 6, diapositiva 5) ---- */
+NETS.barber = makeNet({
+  id:'barber',
+  title:'Barbero',
+  viewBox:'0 0 900 680',
+  places:[
+    {id:'duermiendo', label:'duermiendo', x:140, y:200, init:1, labelPos:'left'},
+    {id:'cortando', label:'cortando', x:590, y:200, init:0, labelPos:'above'},
+    {id:'esperando', label:'cliente esperando', x:340, y:360, init:0, labelPos:'left'},
+    {id:'clientes', label:'clientes', x:340, y:580, init:5, labelPos:'left'},
+  ],
+  transitions:[
+    {id:'T0', label:'T0: empieza el corte', x:400, y:200, rot:90, labelPos:'above'},
+    {id:'T2', label:'T2: termina el corte', x:760, y:200, rot:90, labelPos:'right'},
+    {id:'entra', label:'entra cliente', x:340, y:470, labelPos:'left'},
+  ],
+  arcs:[
+    {from:'duermiendo', to:'T0', type:'in'},
+    {from:'esperando', to:'T0', type:'in'},
+    {from:'T0', to:'cortando', type:'out'},
+    {from:'cortando', to:'T2', type:'in'},
+    {from:'T2', to:'duermiendo', type:'out', via:[[760,70],[140,70]]},
+    {from:'T2', to:'clientes', type:'out', via:[[760,580]]},
+    {from:'clientes', to:'entra', type:'in'},
+    {from:'entra', to:'esperando', type:'out'},
+  ]
+});
+
+/* ======================= CONSTRUCCIÓN DE LA UI ======================= */
+// Una sola vista: se elige una red del desplegable (un ejemplo o una nueva) y se la simula o edita.
+
+const NET_ORDER = ['mutex','pc_infinite','pc_bounded','clientserver','readwrite','philosophers','seti','barber'];
+
+const mainEl = document.getElementById('main');
+
+const EDITOR_VIEWBOX = '0 0 1200 760';
+const GRID = 10;
+const snap = v => Math.round(v/GRID)*GRID;
+
+const editor = {
+  data: null,        // red abierta: {viewBox, places, transitions, arcs}
+  source: '',        // valor del desplegable que la originó: clave de ejemplo, 'new' o 'imported'
+  imported: null,    // última red importada o compartida, para poder volver a elegirla
+  mode: 'sim',       // sim | edit
+  tool: 'move',      // move | place | trans | arc | inhibit | delete
+  selected: null,    // {kind:'place'|'trans'|'arc', id}  (para arcos, id es el índice)
+  arcFrom: null,     // id del nodo origen mientras se crea un arco
+  drag: null,        // {node, dx, dy, moved}
+  dirty: false,      // hay cambios que no se exportaron ni se compartieron
+  analysis: null,    // resultado de la última búsqueda de deadlocks
+  graph: null,       // grafo de alcance abierto
+};
+
+const TOOL_HINTS = {
+  move: 'Arrastrá los nodos para moverlos. Hacé clic en un nodo o arco para editarlo.',
+  place: 'Hacé clic en un espacio vacío para agregar un lugar.',
+  trans: 'Hacé clic en un espacio vacío para agregar una transición.',
+  arc: 'Hacé clic en el origen y después en el destino (lugar → transición o transición → lugar).',
+  inhibit: 'Hacé clic en un lugar y después en la transición que inhibe.',
+  delete: 'Hacé clic en un nodo o arco para borrarlo.',
+};
+
+const logEl = () => document.getElementById('log-editor');
+const clone = o => JSON.parse(JSON.stringify(o));
+const emptyNet = () => ({viewBox: EDITOR_VIEWBOX, places: [], transitions: [], arcs: []});
+
+// valida y normaliza una red que viene de un archivo o de un enlace
+function sanitizeNet(raw){
+  if (!raw || typeof raw !== 'object') return null;
+  const num = (v, def = 0) => Number.isFinite(+v) ? +v : def;
+  const str = (v, max = 120) => String(v ?? '').slice(0, max);
+  const POS = ['above', 'below', 'left', 'right'];
+  const seen = new Set();
+  const node = (n, extra) => {
+    const id = str(n && n.id, 40);
+    if (!id || seen.has(id)) return null;
+    seen.add(id);
+    const out = {id, label: str(n.label ?? id), x: num(n.x), y: num(n.y), ...extra(n)};
+    if (POS.includes(n.labelPos)) out.labelPos = n.labelPos;
+    if (num(n.labelGap)) out.labelGap = num(n.labelGap);
+    if (num(n.labelWrap) >= 4) out.labelWrap = Math.floor(num(n.labelWrap));
+    return out;
+  };
+  const places = (Array.isArray(raw.places) ? raw.places : []).map(p => node(p, p => ({init: Math.max(0, Math.floor(num(p.init)))}))).filter(Boolean);
+  const transitions = (Array.isArray(raw.transitions) ? raw.transitions : []).map(t => node(t, t => num(t.rot) ? {rot: num(t.rot)} : {})).filter(Boolean);
+  const isPlace = new Set(places.map(p => p.id)), isTrans = new Set(transitions.map(t => t.id));
+  const arcs = (Array.isArray(raw.arcs) ? raw.arcs : []).map(a => {
+    if (!a || !['in', 'out', 'inhibit'].includes(a.type)) return null;
+    const ok = a.type === 'out' ? isTrans.has(a.from) && isPlace.has(a.to) : isPlace.has(a.from) && isTrans.has(a.to);
+    if (!ok) return null;
+    const out = {from: a.from, to: a.to, type: a.type};
+    if (Math.floor(num(a.weight, 1)) > 1) out.weight = Math.floor(num(a.weight, 1));
+    if (num(a.bend)) out.bend = num(a.bend);
+    if (a.loop && typeof a.loop === 'object') out.loop = {side: num(a.loop.side) < 0 ? -1 : 1, width: num(a.loop.width, 300), drop: num(a.loop.drop, 120)};
+    if (Array.isArray(a.via)) out.via = a.via.filter(v => Array.isArray(v) && v.length === 2).map(([x, y]) => [num(x), num(y)]);
+    return out;
+  }).filter(Boolean);
+  const viewBox = /^-?\d+(\.\d+)? -?\d+(\.\d+)? \d+(\.\d+)? \d+(\.\d+)?$/.test(raw.viewBox) ? raw.viewBox : EDITOR_VIEWBOX;
+  return {viewBox, places, transitions, arcs};
+}
+
+function exampleNet(key){
+  const n = NETS[key];
+  return sanitizeNet(clone({viewBox: n.viewBox, places: n.places, transitions: n.transitions, arcs: n.arcs}));
+}
+
+function rebuildNet(){
+  const d = editor.data;
+  NETS.editor = makeNet({id: 'editor', title: '', viewBox: d.viewBox, places: d.places, transitions: d.transitions, arcs: d.arcs});
+}
+
+// pregunta en un diálogo de la página (window.confirm puede estar bloqueado en algunos navegadores o vistas embebidas)
+function askConfirm(text, okLabel){
+  const dlg = document.getElementById('confirm-dialog');
+  if (!dlg || typeof dlg.showModal !== 'function') return Promise.resolve(window.confirm(text));
+  document.getElementById('confirm-text').textContent = text;
+  document.getElementById('confirm-ok').textContent = okLabel;
+  dlg.returnValue = 'cancel';
+  return new Promise(resolve => {
+    dlg.addEventListener('close', () => resolve(dlg.returnValue === 'ok'), {once: true});
+    dlg.showModal();
+    document.getElementById('confirm-ok').focus();
+  });
+}
+
+async function confirmDiscard(){
+  return !editor.dirty || await askConfirm('Modificaste esta red y no la exportaste ni copiaste su enlace. ¿Descartar los cambios?', 'Descartar cambios');
+}
+
+function openNet(data, source, mode){
+  editor.data = data;
+  editor.source = source;
+  editor.mode = mode;
+  editor.selected = null;
+  editor.arcFrom = null;
+  editor.dirty = false;
+  clearAnalysis();
+  closeGraph();
+  rebuildNet();
+  document.getElementById('net-select').value = source;
+  renderEditor();
+}
+
+function openSource(source){
+  if (source === 'new') openNet(emptyNet(), 'new', 'edit');
+  else if (source === 'imported') openNet(clone(editor.imported), 'imported', 'sim');
+  else openNet(exampleNet(source), source, 'sim');
+}
+
+function nextId(prefix){
+  const d = editor.data;
+  const used = new Set([...d.places, ...d.transitions].map(n => n.id));
+  let i = 0;
+  while (used.has(prefix + i)) i++;
+  return prefix + i;
+}
+
+/* ---- dibujo ---- */
+
+function renderEditor(){
+  const svgEl = document.getElementById('svg-editor');
+  svgEl.classList.toggle('editing', editor.mode === 'edit');
+  document.querySelectorAll('#editor-mode button').forEach(b => b.classList.toggle('on', b.dataset.mode === editor.mode));
+  document.querySelectorAll('#editor-tools button').forEach(b => b.classList.toggle('on', b.dataset.tool === editor.tool));
+  document.getElementById('editor-tools').style.display = editor.mode === 'edit' ? '' : 'none';
+  document.getElementById('editor-reset').style.display = editor.mode === 'sim' ? '' : 'none';
+  renderCanvas();
+  renderProps();
+  if (editor.mode === 'sim') logEl().textContent = 'Hacé clic en una transición verde para dispararla.';
+  else if (editor.arcFrom) logEl().textContent = 'Ahora elegí el destino del arco (Esc para cancelar).';
+  else logEl().textContent = TOOL_HINTS[editor.tool];
+}
+
+function renderCanvas(){
+  const svgEl = document.getElementById('svg-editor');
+  if (editor.mode === 'sim') renderNet(NETS.editor, svgEl);
+  else renderNet(NETS.editor, svgEl, {edit: true, selected: editor.selected, arcFrom: editor.arcFrom});
+  highlightGraph();
+}
+
+const posSelect = (value) => `<label>Etiqueta<select class="field" data-prop="labelPos">
+  ${[['above','arriba'],['below','abajo'],['left','izquierda'],['right','derecha']].map(([v,t]) => `<option value="${v}"${v===value?' selected':''}>${t}</option>`).join('')}
+</select></label>`;
+
+function renderProps(){
+  const box = document.getElementById('editor-props');
+  const s = editor.selected;
+  if (editor.mode === 'sim'){
+    box.innerHTML = `<p class="hint">Pasá a <b>Editar</b> para cambiar la red. Para guardarla, exportala o copiá su enlace.</p>`;
+    return;
+  }
+  if (!s){
+    box.innerHTML = `<p class="hint">Agregá lugares y transiciones con las herramientas, unilos con arcos y probá la red en <b>Simular</b>.
+      Doble clic en un nodo para renombrarlo; <b>Supr</b> borra lo seleccionado. Para guardarla, exportala o copiá su enlace.</p>`;
+    return;
+  }
+  if (s.kind === 'place'){
+    const p = NETS.editor.placeMap[s.id];
+    box.innerHTML = `
+      <label>Nombre<input class="field" data-prop="label" value="${esc(p.label)}"></label>
+      <label>Fichas iniciales<input class="field" type="number" min="0" step="1" data-prop="init" value="${p.init||0}" style="width:90px"></label>
+      ${posSelect(p.labelPos || 'below')}
+      <button class="action" data-act="delete">Borrar lugar</button>`;
+  } else if (s.kind === 'trans'){
+    const t = NETS.editor.transMap[s.id];
+    box.innerHTML = `
+      <label>Nombre<input class="field" data-prop="label" value="${esc(t.label)}"></label>
+      <label>Orientación<select class="field" data-prop="rot">
+        <option value="0"${!t.rot?' selected':''}>horizontal</option>
+        <option value="90"${t.rot===90?' selected':''}>vertical</option>
+        ${t.rot && t.rot !== 90 ? `<option value="${t.rot}" selected>${t.rot}°</option>` : ''}
+      </select></label>
+      ${posSelect(t.labelPos || 'above')}
+      <button class="action" data-act="delete">Borrar transición</button>`;
+  } else {
+    const a = editor.data.arcs[s.id];
+    const name = id => esc((NETS.editor.placeMap[id] || NETS.editor.transMap[id]).label);
+    box.innerHTML = `
+      <span class="hint" style="align-self:center"><b>${name(a.from)}</b> → <b>${name(a.to)}</b></span>
+      ${a.type === 'out' ? '' : `<label>Tipo<select class="field" data-prop="type">
+        <option value="in"${a.type==='in'?' selected':''}>normal</option>
+        <option value="inhibit"${a.type==='inhibit'?' selected':''}>inhibidor</option>
+      </select></label>`}
+      <label>Peso<input class="field" type="number" min="1" step="1" data-prop="weight" value="${a.weight||1}" style="width:80px"></label>
+      ${a.loop || a.via ? '' : `<label>Curvatura<input type="range" min="-200" max="200" step="5" data-prop="bend" value="${a.bend||0}"></label>`}
+      <button class="action" data-act="delete">Borrar arco</button>`;
+  }
+}
+
+/* ---- edición ---- */
+
+function selectedObject(){
+  const s = editor.selected;
+  if (!s) return null;
+  if (s.kind === 'place') return NETS.editor.placeMap[s.id];
+  if (s.kind === 'trans') return NETS.editor.transMap[s.id];
+  return editor.data.arcs[s.id];
+}
+
+function changed(rebuild){
+  editor.dirty = true;
+  if (editor.analysis) clearAnalysis();
+  if (editor.graph) closeGraph();
+  if (rebuild) rebuildNet();
+  renderCanvas();
+}
+
+function deleteSelected(){
+  const s = editor.selected, d = editor.data;
+  if (!s) return;
+  if (s.kind === 'arc') d.arcs.splice(s.id, 1);
+  else {
+    const list = s.kind === 'place' ? d.places : d.transitions;
+    list.splice(list.findIndex(n => n.id === s.id), 1);
+    d.arcs = d.arcs.filter(a => a.from !== s.id && a.to !== s.id);
+  }
+  editor.selected = null;
+  changed(true);
+  renderProps();
+}
+
+// agrega el arco; devuelve un mensaje de error si no se puede
+function addArc(fromId, toId, tool){
+  const d = editor.data, net = NETS.editor;
+  const fromPlace = !!net.placeMap[fromId], toPlace = !!net.placeMap[toId];
+  if (fromPlace === toPlace) return 'Un arco tiene que unir un lugar con una transición.';
+  if (tool === 'inhibit' && !fromPlace) return 'El arco inhibidor va de un lugar a una transición.';
+  const type = tool === 'inhibit' ? 'inhibit' : fromPlace ? 'in' : 'out';
+  if (d.arcs.some(a => a.from === fromId && a.to === toId && (a.type === 'inhibit') === (type === 'inhibit'))) return 'Ese arco ya existe.';
+  const arc = {from: fromId, to: toId, type};
+  // si ya hay un arco en sentido contrario, se curvan los dos para que no se superpongan
+  const rev = d.arcs.find(a => a.from === toId && a.to === fromId && !a.loop && !a.via);
+  if (rev){ rev.bend = rev.bend || 30; arc.bend = 30; }
+  d.arcs.push(arc);
+  editor.selected = {kind: 'arc', id: d.arcs.length - 1};
+  changed(true);
+  return null;
+}
+
+function svgPoint(svgEl, e){
+  const pt = svgEl.createSVGPoint();
+  pt.x = e.clientX; pt.y = e.clientY;
+  return pt.matrixTransform(svgEl.getScreenCTM().inverse());
+}
+
+function clampToView(x, y){
+  const [vx, vy, vw, vh] = NETS.editor.viewBox.split(' ').map(Number);
+  return [Math.min(vx + vw - 40, Math.max(vx + 40, snap(x))), Math.min(vy + vh - 40, Math.max(vy + 40, snap(y)))];
+}
+
+function onEditorPointerDown(e){
+  if (editor.mode !== 'edit' || e.button > 0) return;
+  const svgEl = e.currentTarget, d = editor.data, net = NETS.editor;
+  const pt = svgPoint(svgEl, e);
+  const nodeEl = e.target.closest('g.place, g.trans');
+  const arcEl = e.target.closest('g.arc');
+  const nodeId = nodeEl && nodeEl.dataset.id;
+  const kind = nodeEl && (nodeEl.classList.contains('place') ? 'place' : 'trans');
+  const tool = editor.tool;
+
+  if (tool === 'arc' || tool === 'inhibit'){
+    let msg = TOOL_HINTS[tool];
+    if (!nodeEl) editor.arcFrom = null;
+    else if (!editor.arcFrom){ editor.arcFrom = nodeId; editor.selected = null; msg = 'Ahora elegí el destino del arco (Esc para cancelar).'; }
+    else { const from = editor.arcFrom; editor.arcFrom = null; if (from !== nodeId) msg = addArc(from, nodeId, tool) || msg; }
+    renderCanvas(); renderProps();
+    logEl().textContent = msg;
+    return;
+  }
+  if (tool === 'delete'){
+    if (nodeEl) editor.selected = {kind, id: nodeId};
+    else if (arcEl) editor.selected = {kind: 'arc', id: +arcEl.dataset.index};
+    deleteSelected();
+    return;
+  }
+  if (nodeEl){
+    const obj = kind === 'place' ? net.placeMap[nodeId] : net.transMap[nodeId];
+    editor.selected = {kind, id: nodeId};
+    editor.drag = {node: obj, dx: obj.x - pt.x, dy: obj.y - pt.y, moved: false};
+    svgEl.setPointerCapture(e.pointerId);
+  } else if (arcEl){
+    editor.selected = {kind: 'arc', id: +arcEl.dataset.index};
+  } else if (tool === 'place' || tool === 'trans'){
+    const [x, y] = clampToView(pt.x, pt.y);
+    const id = nextId(tool === 'place' ? 'P' : 'T');
+    if (tool === 'place') d.places.push({id, label: id, x, y, init: 0});
+    else d.transitions.push({id, label: id, x, y});
+    editor.selected = {kind: tool, id};
+    changed(true);
+  } else {
+    editor.selected = null;
+  }
+  renderCanvas();
+  renderProps();
+}
+
+function onEditorPointerMove(e){
+  const svgEl = e.currentTarget;
+  if (editor.drag){
+    const pt = svgPoint(svgEl, e);
+    const [x, y] = clampToView(pt.x + editor.drag.dx, pt.y + editor.drag.dy);
+    if (x !== editor.drag.node.x || y !== editor.drag.node.y){
+      editor.drag.node.x = x; editor.drag.node.y = y;
+      editor.drag.moved = true;
+      editor.dirty = true;
+      renderCanvas();
+    }
+  } else if (editor.arcFrom){
+    const n = NETS.editor.placeMap[editor.arcFrom] || NETS.editor.transMap[editor.arcFrom];
+    const pt = svgPoint(svgEl, e);
+    let line = svgEl.querySelector('line.ghost-arc');
+    if (!line){
+      line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('class', 'ghost-arc');
+      svgEl.appendChild(line);
+    }
+    line.setAttribute('x1', n.x); line.setAttribute('y1', n.y);
+    line.setAttribute('x2', pt.x); line.setAttribute('y2', pt.y);
+  }
+}
+
+function onEditorPointerUp(){
+  editor.drag = null;
+}
+
+function onPropsInput(e){
+  const el = e.target.closest('[data-prop]');
+  const obj = selectedObject();
+  if (!el || !obj) return;
+  const prop = el.dataset.prop;
+  let rebuild = false;
+  if (prop === 'label') obj.label = el.value.slice(0, 120) || editor.selected.id;
+  else if (prop === 'labelPos') obj.labelPos = el.value;
+  else if (prop === 'init'){ obj.init = Math.max(0, Math.floor(+el.value || 0)); rebuild = true; }
+  else if (prop === 'rot'){ obj.rot = +el.value || 0; if (!obj.rot) delete obj.rot; }
+  else if (prop === 'weight'){ const w = Math.max(1, Math.floor(+el.value || 1)); if (w > 1) obj.weight = w; else delete obj.weight; }
+  else if (prop === 'bend'){ obj.bend = +el.value; if (!obj.bend) delete obj.bend; }
+  else if (prop === 'type'){ obj.type = el.value; }
+  changed(rebuild);
+}
+
+/* ---- análisis: búsqueda de deadlocks ---- */
+
+const MAX_STATES = 100000;
+
+// la red como vectores: cada transición con sus pares [índice de lugar, peso] de entrada, inhibición y salida
+function compileNet(net){
+  const ids = net.places.map(p => p.id);
+  const idx = Object.fromEntries(ids.map((id, i) => [id, i]));
+  const trans = net.transitions.map(t => ({
+    id: t.id,
+    pre: inArcs(net, t.id).map(a => [idx[a.from], a.weight||1]),
+    inh: inhibArcs(net, t.id).map(a => [idx[a.from], a.weight||1]),
+    post: outArcs(net, t.id).map(a => [idx[a.to], a.weight||1]),
+  }));
+  return {ids, trans, start: ids.map(id => net.init[id] || 0)};
+}
+
+// Recorre en anchura las marcas alcanzables desde la marca inicial. Si encuentra una marca sin
+// transiciones habilitadas (deadlock) devuelve el camino más corto de disparos para llegar a ella.
+// complete indica si se exploró todo el espacio de estados (si no, se cortó en MAX_STATES).
+function findDeadlock(net){
+  const {ids, trans, start} = compileNet(net);
+  const parent = new Map([[start.join(','), null]]);   // marca -> {prev, t} por la que se llegó
+  let frontier = [start];
+  while (frontier.length){
+    const next = [];
+    for (const m of frontier){
+      const key = m.join(',');
+      let enabled = false;
+      for (const t of trans){
+        if (!t.pre.every(([i, w]) => m[i] >= w) || !t.inh.every(([i, w]) => m[i] < w)) continue;
+        enabled = true;
+        const m2 = m.slice();
+        t.pre.forEach(([i, w]) => { m2[i] -= w; });
+        t.post.forEach(([i, w]) => { m2[i] += w; });
+        const k2 = m2.join(',');
+        if (!parent.has(k2)){ parent.set(k2, {prev: key, t: t.id}); next.push(m2); }
+      }
+      if (!enabled){
+        const path = [];
+        for (let k = key; parent.get(k); k = parent.get(k).prev) path.unshift(parent.get(k).t);
+        return {found: true, path, states: parent.size};
+      }
+      if (parent.size > MAX_STATES) return {found: false, complete: false, states: parent.size};
+    }
+    frontier = next;
+  }
+  return {found: false, complete: true, states: parent.size};
+}
+
+// aplica un cambio de tamaño al contenido de wrap manteniendo centrado lo que se está viendo
+function zoomKeepingCenter(wrap, apply){
+  const cx = (wrap.scrollLeft + wrap.clientWidth/2) / wrap.scrollWidth;
+  const cy = (wrap.scrollTop + wrap.clientHeight/2) / wrap.scrollHeight;
+  apply();
+  wrap.scrollLeft = cx*wrap.scrollWidth - wrap.clientWidth/2;
+  wrap.scrollTop = cy*wrap.scrollHeight - wrap.clientHeight/2;
+}
+
+/* ---- grafo de alcance ---- */
+
+const MAX_GRAPH_STATES = 400;
+
+// Genera las marcas alcanzables desde la inicial (en anchura) y las aristas entre ellas.
+// complete es false si se cortó por superar max estados.
+function reachabilityGraph(net, max){
+  const {ids, trans, start} = compileNet(net);
+  const index = new Map([[start.join(','), 0]]);
+  const states = [{m: start, depth: 0}], edges = [];
+  for (let i = 0; i < states.length; i++){
+    const {m, depth} = states[i];
+    for (const t of trans){
+      if (!t.pre.every(([k, w]) => m[k] >= w) || !t.inh.every(([k, w]) => m[k] < w)) continue;
+      const m2 = m.slice();
+      t.pre.forEach(([k, w]) => { m2[k] -= w; });
+      t.post.forEach(([k, w]) => { m2[k] += w; });
+      const key = m2.join(',');
+      let j = index.get(key);
+      if (j === undefined){
+        if (states.length >= max) return {ids, states, edges, complete: false};
+        j = states.length;
+        index.set(key, j);
+        states.push({m: m2, depth: depth + 1});
+      }
+      edges.push({from: i, to: j, t: t.id});
+    }
+  }
+  return {ids, states, edges, index, complete: true};
+}
+
+// nombre corto de un nodo para el grafo: el prefijo antes de ":" si no se repite, si no la etiqueta entera
+function shortNames(nodes){
+  const pre = nodes.map(n => /^[^:\s]{1,8}:/.test(n.label) ? n.label.split(':')[0] : null);
+  const count = {};
+  pre.forEach(p => { if (p) count[p] = (count[p] || 0) + 1; });
+  return Object.fromEntries(nodes.map((n, i) => [n.id, pre[i] && count[pre[i]] === 1 ? pre[i] : n.label]));
+}
+
+function closeGraph(){
+  editor.graph = null;
+  const box = document.getElementById('graph');
+  box.classList.remove('show');
+  box.innerHTML = '';
+}
+
+function toggleGraph(){
+  if (editor.graph){ closeGraph(); return; }
+  const net = NETS.editor;
+  const g = reachabilityGraph(net, MAX_GRAPH_STATES);
+  const box = document.getElementById('graph');
+  const head = (msg, controls = '') => `<div class="head"><span class="msg">${msg}</span>${controls}<button class="action close" data-graph="close" title="Cerrar">✕</button></div>`;
+  box.classList.add('show');
+  if (!g.complete){
+    editor.graph = {empty: true};
+    box.innerHTML = head(`<b>El grafo de alcance tiene más de ${MAX_GRAPH_STATES} marcas</b> (o la red no es acotada), así que no se dibuja. Para buscar deadlocks usá <b>Buscar deadlock</b>, que explora muchos más estados.`);
+    return;
+  }
+
+  // orden del vector de marca: lugares ordenados por nombre
+  const pnames = shortNames(net.places), tnames = shortNames(net.transitions);
+  const order = net.places.map((p, i) => i).sort((a, b) => pnames[net.places[a].id].localeCompare(pnames[net.places[b].id], 'es', {numeric: true}));
+  // con muchos lugares (y menos de 10 fichas en cada uno) la marca se escribe sin separadores para que entre
+  const compact = order.length > 8 && g.states.every(st => st.m.every(v => v < 10));
+  const markText = (m, i) => `M${i} = (${order.map(k => m[k]).join(compact ? '' : ', ')})`;
+
+  // capas por profundidad; dentro de cada capa se ordena por el promedio de posición de los padres
+  const levels = [];
+  g.states.forEach((st, i) => { (levels[st.depth] = levels[st.depth] || []).push(i); });
+  const pos = {};
+  const parents = {};
+  g.edges.forEach(e => { if (g.states[e.to].depth === g.states[e.from].depth + 1) (parents[e.to] = parents[e.to] || []).push(e.from); });
+  const widthOf = i => Math.max(90, markText(g.states[i].m, i).length * 7.4 + 28);
+  const GAP = 36, MARGIN = 40;
+  // las filas se separan más cuando son muy anchas, para que las aristas no queden casi horizontales
+  const widest = Math.max(...levels.map(lvl => lvl.reduce((s, i) => s + widthOf(i) + GAP, 0)));
+  const ROW = Math.min(360, Math.max(120, widest / 14));
+  levels.forEach((lvl, d) => {
+    if (d > 0) lvl.sort((a, b) => {
+      const avg = i => { const ps = parents[i] || []; return ps.length ? ps.reduce((s, p) => s + pos[p].x, 0) / ps.length : 0; };
+      return avg(a) - avg(b);
+    });
+    const total = lvl.reduce((s, i) => s + widthOf(i), 0) + GAP*(lvl.length - 1);
+    let x = -total/2;
+    lvl.forEach(i => { const w = widthOf(i); pos[i] = {x: x + w/2, y: d*ROW, rx: w/2, ry: 20}; x += w + GAP; });
+  });
+  const xs = Object.values(pos);
+  const minX = Math.min(...xs.map(p => p.x - p.rx)), maxX = Math.max(...xs.map(p => p.x + p.rx));
+  const W = maxX - minX + 2*MARGIN + 120, H = (levels.length - 1)*ROW + 2*MARGIN + 40;
+  Object.values(pos).forEach(p => { p.x += -minX + MARGIN + 60; p.y += MARGIN + 20; });
+
+  // aristas: se agrupan las que unen el mismo par de marcas
+  const groups = new Map();
+  g.edges.forEach(e => {
+    const k = e.from + '>' + e.to;
+    if (!groups.has(k)) groups.set(k, {from: e.from, to: e.to, ts: []});
+    groups.get(k).ts.push(tnames[e.t]);
+  });
+  const edgePt = (p, tx, ty) => {   // punto del borde de la elipse en dirección a (tx,ty)
+    const dx = tx - p.x, dy = ty - p.y;
+    const f = 1 / Math.sqrt((dx*dx)/(p.rx*p.rx) + (dy*dy)/(p.ry*p.ry) || 1);
+    return [p.x + dx*f, p.y + dy*f];
+  };
+  const edgeSvg = [], labelData = [];
+  for (const e of groups.values()){
+    const A = pos[e.from], B = pos[e.to];
+    let d;
+    if (e.from === e.to){
+      const x = A.x + A.rx, y = A.y;
+      d = `M ${x-6} ${y-14} C ${x+40} ${y-40} ${x+40} ${y+40} ${x-6} ${y+14}`;
+    } else if (g.states[e.to].depth === g.states[e.from].depth + 1){
+      const [sx, sy] = edgePt(A, B.x, B.y), [ex, ey] = edgePt(B, A.x, A.y);
+      d = `M ${sx.toFixed(1)} ${sy.toFixed(1)} L ${ex.toFixed(1)} ${ey.toFixed(1)}`;
+    } else {
+      // arista que vuelve o queda en la misma capa: curva hacia un costado
+      const dx = B.x - A.x, dy = B.y - A.y, len = Math.hypot(dx, dy) || 1;
+      const bend = Math.min(160, 40 + len*0.25);
+      const cx = (A.x + B.x)/2 + (-dy/len)*bend, cy = (A.y + B.y)/2 + (dx/len)*bend;
+      const [sx, sy] = edgePt(A, cx, cy), [ex, ey] = edgePt(B, cx, cy);
+      d = `M ${sx.toFixed(1)} ${sy.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`;
+    }
+    edgeSvg.push(`<path class="gedge" d="${d}" marker-end="url(#garrow)"></path>`);
+    labelData.push(e.ts.join(', '));
+  }
+  const dead = new Set(g.states.map((s, i) => i).filter(i => !g.edges.some(e => e.from === i)));
+  const nodeSvg = g.states.map((st, i) => {
+    const p = pos[i];
+    return `<g class="gnode${i === 0 ? ' initial' : ''}${dead.has(i) ? ' dead' : ''}" data-i="${i}">
+      <title>${dead.has(i) ? 'Deadlock: no hay transiciones habilitadas' : 'Hacé clic para llevar la red a esta marca'}</title>
+      <ellipse cx="${p.x.toFixed(1)}" cy="${p.y}" rx="${p.rx.toFixed(1)}" ry="${p.ry}"></ellipse>
+      <text x="${p.x.toFixed(1)}" y="${p.y}">${esc(markText(st.m, i))}</text>
+    </g>`;
+  }).join('');
+
+  editor.graph = {g, keyOrder: g.ids, W: Math.ceil(W), H: Math.ceil(H), zoom: 1};
+  const deadMsg = dead.size ? ` — <b style="color:var(--inhibit)">${dead.size} ${dead.size === 1 ? 'deadlock' : 'deadlocks'}</b> (en rojo)` : ' — sin deadlocks';
+  box.innerHTML = head(`<b>Grafo de alcance:</b> ${g.states.length} ${g.states.length === 1 ? 'marca' : 'marcas'}${deadMsg}. Orden de los lugares en cada marca${compact ? ' (un dígito por lugar)' : ''}: (${order.map(k => esc(pnames[net.places[k].id])).join(', ')}).
+      Hacé clic en una marca para llevar la red a ese estado.`, `
+      <div class="zoom">
+        <button class="action" data-gzoom="out" title="Alejar">−</button>
+        <button class="action" data-gzoom="reset" title="Volver al 100%" id="graph-zoom">100%</button>
+        <button class="action" data-gzoom="in" title="Acercar">+</button>
+      </div>
+      ${iconBtn('fit', 'Ajustar: ver el grafo entero', 'data-gzoom="fit"')}`) +
+    `<div class="graph-wrap"><svg id="graph-svg" width="${Math.ceil(W)}" height="${Math.ceil(H)}" viewBox="0 0 ${Math.ceil(W)} ${Math.ceil(H)}">
+      <defs><marker id="garrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="var(--arc)"></path></marker></defs>
+      ${edgeSvg.join('')}${nodeSvg}
+    </svg></div>`;
+  // etiquetas de las aristas en la mitad del recorrido, por encima de las líneas
+  const svg = document.getElementById('graph-svg');
+  const paths = svg.querySelectorAll('path.gedge');
+  const labels = [...paths].map((path, k) => {
+    const m = path.getPointAtLength(path.getTotalLength()/2);
+    return `<text class="gedge-label" x="${m.x.toFixed(1)}" y="${m.y.toFixed(1)}">${esc(labelData[k])}</text>`;
+  }).join('');
+  svg.querySelector('.gnode').insertAdjacentHTML('beforebegin', labels);
+  // si no entra a lo ancho, arranca ajustado para verlo entero
+  if (W > box.querySelector('.graph-wrap').clientWidth) setGraphZoom('fit');
+  highlightGraph();
+}
+
+const GRAPH_ZOOM_MIN = 0.05, GRAPH_ZOOM_MAX = 3;
+
+// how: 'in' | 'out' | 'reset' (100%) | 'fit' (todo el grafo a la vista)
+function setGraphZoom(how){
+  const gr = editor.graph, wrap = document.querySelector('#graph .graph-wrap'), svg = document.getElementById('graph-svg');
+  if (!gr || !gr.g || !svg) return;
+  let z = gr.zoom;
+  if (how === 'in') z *= ZOOM_STEP;
+  else if (how === 'out') z /= ZOOM_STEP;
+  else if (how === 'reset') z = 1;
+  else z = Math.min(1, (wrap.clientWidth - 4) / gr.W, (window.innerHeight*0.6 - 4) / gr.H);
+  gr.zoom = Math.min(GRAPH_ZOOM_MAX, Math.max(GRAPH_ZOOM_MIN, z));
+  zoomKeepingCenter(wrap, () => {
+    svg.style.width = (gr.W*gr.zoom) + 'px';
+    svg.style.height = (gr.H*gr.zoom) + 'px';
+  });
+  document.getElementById('graph-zoom').textContent = Math.round(gr.zoom*100) + '%';
+}
+
+// resalta en el grafo la marca actual de la red
+function highlightGraph(){
+  if (!editor.graph || !editor.graph.g) return;
+  const net = NETS.editor, key = editor.graph.keyOrder.map(id => net.state[id] || 0).join(',');
+  const cur = editor.graph.g.index.get(key);
+  document.querySelectorAll('#graph .gnode').forEach(n => n.classList.toggle('current', +n.dataset.i === cur));
+}
+
+// lleva la red a la marca i del grafo (en modo Simular)
+function goToMarking(i){
+  replayToken++;
+  if (editor.mode !== 'sim'){
+    editor.mode = 'sim'; editor.selected = null; editor.arcFrom = null;
+    rebuildNet();
+    renderEditor();
+  }
+  const {g} = editor.graph, net = NETS.editor;
+  g.ids.forEach((id, k) => { net.state[id] = g.states[i].m[k]; });
+  renderCanvas();
+  const enabled = net.transitions.filter(t => isEnabled(net, t.id)).length;
+  logEl().textContent = `Red en la marca M${i}.` + (enabled ? '' : ' Deadlock: no hay ninguna transición habilitada.');
+}
+
+let replayToken = 0;   // invalida una reproducción en curso
+
+function clearAnalysis(){
+  replayToken++;
+  editor.analysis = null;
+  const box = document.getElementById('analysis');
+  box.classList.remove('show');
+  box.innerHTML = '';
+}
+
+function runAnalysis(){
+  clearAnalysis();
+  const res = findDeadlock(NETS.editor);
+  editor.analysis = res;
+  const box = document.getElementById('analysis');
+  const fmt = n => n.toLocaleString('es-AR');
+  let msg;
+  if (!NETS.editor.transitions.length) msg = `<b>La red no tiene transiciones</b>, así que no hay nada que analizar.`;
+  else if (res.found && !res.path.length) msg = `<b class="found">Deadlock:</b> en el estado inicial no hay ninguna transición habilitada.`;
+  else if (res.found) msg = `<b class="found">Se encontró un deadlock</b> a ${res.path.length} ${res.path.length === 1 ? 'disparo' : 'disparos'} del estado inicial (camino más corto):`;
+  else if (res.complete) msg = `<b class="ok">No hay deadlocks:</b> se exploraron los ${fmt(res.states)} estados alcanzables y en todos hay alguna transición habilitada.`;
+  else msg = `<b>No se encontró un deadlock</b> en los primeros ${fmt(MAX_STATES)} estados. La red parece no acotada (las fichas pueden crecer sin límite), así que no se puede explorar completa.`;
+  const play = res.found && res.path.length ? `<button class="action primary" data-an="play">Reproducir</button>` : '';
+  box.innerHTML = `<div class="head"><span class="msg">${msg}</span>${play}<button class="action close" data-an="close" title="Cerrar">✕</button></div>` +
+    (res.found && res.path.length ? `<ol>${res.path.map((id, k) => `<li><button data-step="${k+1}" title="Ver el estado después de este disparo"><span class="n">${k+1}.</span>${esc(NETS.editor.transMap[id].label)}</button></li>`).join('')}</ol>` : '');
+  box.classList.add('show');
+}
+
+// pasa a Simular y deja la red en el estado alcanzado tras los primeros k disparos del camino
+function showStep(k){
+  if (editor.mode !== 'sim'){
+    editor.mode = 'sim'; editor.selected = null; editor.arcFrom = null;
+    rebuildNet();
+    renderEditor();
+  }
+  const net = NETS.editor, path = editor.analysis.path;
+  resetNet(net);
+  path.slice(0, k).forEach(id => fireTransition(net, id));
+  renderCanvas();
+  document.querySelectorAll('#analysis [data-step]').forEach(b => b.classList.toggle('current', +b.dataset.step === k));
+  const last = path[k-1];
+  logEl().innerHTML = !k ? 'Estado inicial.'
+    : `Paso ${k} de ${path.length}: se disparó <b>${esc(net.transMap[last].label)}</b>` +
+      (k === path.length ? ' — deadlock: no queda ninguna transición habilitada.' : '');
+}
+
+function replayPath(){
+  const token = ++replayToken, n = editor.analysis.path.length;
+  let k = 0;
+  const step = () => {
+    if (token !== replayToken || !editor.analysis) return;
+    showStep(k);
+    if (k > 0) touchedPulse(document.getElementById('svg-editor'), NETS.editor);
+    if (k++ < n) setTimeout(step, 700);
+  };
+  step();
+}
+
+/* ---- importar, exportar y compartir ---- */
+
+function exportNet(){
+  const name = document.getElementById('net-select').selectedOptions[0].textContent;
+  const blob = new Blob([JSON.stringify(editor.data, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (name.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w]+/g, '-').replace(/^-|-$/g, '').toLowerCase() || 'red') + '.json';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  editor.dirty = false;
+}
+
+// carga una red importada o compartida; label es el texto que aparece en el desplegable
+async function importNetText(text, label){
+  let data;
+  try { data = sanitizeNet(JSON.parse(text)); } catch (e) { data = null; }
+  if (!data){ logEl().textContent = 'No se pudo leer la red: el archivo no tiene el formato esperado.'; return false; }
+  if (!(await confirmDiscard())) return false;
+  editor.imported = data;
+  let opt = document.querySelector('#net-select option[value="imported"]');
+  if (!opt){
+    opt = document.createElement('option');
+    opt.value = 'imported';
+    document.getElementById('net-select').appendChild(opt);
+  }
+  opt.textContent = label;
+  openSource('imported');
+  return true;
+}
+
+// el enlace lleva la red en el fragmento (#red=...), codificada en base64 url-safe
+function encodeNet(d){
+  const bytes = new TextEncoder().encode(JSON.stringify(d));
+  let bin = '';
+  bytes.forEach(b => { bin += String.fromCharCode(b); });
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function decodeNet(code){
+  const b64 = code.replace(/-/g, '+').replace(/_/g, '/');
+  const bin = atob(b64 + '==='.slice((b64.length + 3) % 4));
+  return new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0)));
+}
+
+async function copyLink(){
+  const url = location.href.split('#')[0] + '#red=' + encodeNet(editor.data);
+  try {
+    await navigator.clipboard.writeText(url);
+    logEl().textContent = 'Enlace copiado: quien lo abra va a ver esta red.';
+  } catch (e) {
+    window.prompt('Copiá este enlace para compartir la red:', url);
+  }
+  editor.dirty = false;
+}
+
+// una red compartida por enlace (#red=...) se abre en lugar de la actual
+async function openSharedLink(){
+  const m = location.hash.match(/^#red=([\w-]+)$/);
+  if (!m) return;
+  history.replaceState(null, '', location.pathname + location.search);
+  let text = null;
+  try { text = decodeNet(m[1]); } catch (e) { /* enlace dañado */ }
+  if (text) await importNetText(text, 'Red compartida');
+}
+
+/* ---- armado de la vista ---- */
+
+// íconos de la barra de herramientas (trazos sobre una grilla de 24×24, color del texto del botón)
+const ICONS = {
+  sim: '<path d="M7 4.5l12 7.5-12 7.5z" fill="currentColor" stroke="none"/>',
+  edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>',
+  move: '<path d="M4 3l7 17 2.5-7.5L21 10z"/>',
+  place: '<circle cx="12" cy="12" r="7"/>',
+  trans: '<rect x="3" y="10" width="18" height="4" rx="1" fill="currentColor" stroke="none"/>',
+  arc: '<path d="M4 12h15"/><path d="M14 7l5 5-5 5"/>',
+  inhibit: '<path d="M3 12h11"/><circle cx="17.5" cy="12" r="3.5"/>',
+  delete: '<path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/><path d="M10 11v5M14 11v5"/>',
+  deadlock: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/><path d="M8.5 8.5l4 4M12.5 8.5l-4 4"/>',
+  graph: '<circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M10.8 7.2L6.2 16.8M13.2 7.2l4.6 9.6M7.5 19h9"/>',
+  reset: '<path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><path d="M3 4v5h5"/>',
+  export: '<path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/>',
+  import: '<path d="M12 15V4"/><path d="M7 9l5-5 5 5"/><path d="M5 20h14"/>',
+  link: '<path d="M10 13.5a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.5 1.5"/><path d="M14 10.5a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.5-1.5"/>',
+  fit: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
+};
+const icon = name => `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
+// botón con ícono; el nombre queda como tooltip y para lectores de pantalla
+const iconBtn = (name, label, attrs = '', cls = '') => `<button class="action icon${cls ? ' ' + cls : ''}" ${attrs} title="${label}" aria-label="${label}">${icon(name)}</button>`;
+const toolBtn = (tool, text) => iconBtn(tool, text, `data-tool="${tool}"`);
+mainEl.innerHTML = `
+  <div class="diagram-card">
+    <div class="editor-bar">
+      <select class="field net-select" id="net-select" title="Elegir una red">
+        ${NET_ORDER.map(k => `<option value="${k}">${esc(NETS[k].title)}</option>`).join('')}
+        <option value="new">Nueva</option>
+      </select>
+      <span class="spacer"></span>
+      ${iconBtn('export', 'Exportar: descargar la red como archivo JSON', 'id="editor-export"')}
+      ${iconBtn('import', 'Importar: abrir una red desde un archivo JSON', 'id="editor-import"')}
+      ${iconBtn('link', 'Copiar enlace: un enlace que contiene la red', 'id="editor-link"')}
+      <input type="file" id="editor-file" accept=".json,application/json" hidden>
+    </div>
+    <div class="diagram-toolbar">
+      <div class="editor-modes">
+        <div class="seg" id="editor-mode">
+          ${iconBtn('sim', 'Simular', 'data-mode="sim"')}
+          ${iconBtn('edit', 'Editar', 'data-mode="edit"')}
+        </div>
+        <div class="seg" id="editor-tools">
+          ${toolBtn('move','Mover')}${toolBtn('place','Lugar')}${toolBtn('trans','Transición')}${toolBtn('arc','Arco')}${toolBtn('inhibit','Inhibidor')}${toolBtn('delete','Borrar')}
+        </div>
+        ${iconBtn('deadlock', 'Buscar deadlock', 'id="editor-deadlock"')}
+        ${iconBtn('graph', 'Grafo de alcance', 'id="editor-graph"')}
+      </div>
+      <div class="btns">
+        <div class="zoom">
+          <button class="action" data-zoom="out" title="Alejar">−</button>
+          <button class="action" data-zoom="reset" title="Volver al 100%" id="zoom-editor">100%</button>
+          <button class="action" data-zoom="in" title="Acercar">+</button>
+        </div>
+        ${iconBtn('reset', 'Reiniciar', 'id="editor-reset"', 'primary')}
+      </div>
+    </div>
+    <div class="analysis" id="analysis"></div>
+    <div class="graph-panel" id="graph"></div>
+    <div class="log" id="log-editor" style="margin-bottom:8px"></div>
+    <div class="svg-wrap">
+      <svg class="net" id="svg-editor" data-net-id="editor"></svg>
+    </div>
+    <div class="editor-props" id="editor-props"></div>
+  </div>
+`;
+
+const svgEl = document.getElementById('svg-editor');
+svgEl.addEventListener('pointerdown', onEditorPointerDown);
+svgEl.addEventListener('pointermove', onEditorPointerMove);
+svgEl.addEventListener('pointerup', onEditorPointerUp);
+svgEl.addEventListener('pointercancel', onEditorPointerUp);
+svgEl.addEventListener('dblclick', (e) => {
+  if (editor.mode !== 'edit' || !e.target.closest('g.place, g.trans')) return;
+  const input = document.querySelector('#editor-props [data-prop="label"]');
+  if (input){ input.focus(); input.select(); }
+});
+
+const netSelect = document.getElementById('net-select');
+netSelect.addEventListener('change', async () => {
+  const v = netSelect.value;
+  if (!(await confirmDiscard())){ netSelect.value = editor.source; return; }
+  openSource(v);
+});
+
+document.getElementById('editor-mode').addEventListener('click', (e) => {
+  const b = e.target.closest('button');
+  if (!b || b.dataset.mode === editor.mode) return;
+  replayToken++;
+  editor.mode = b.dataset.mode;
+  editor.selected = null; editor.arcFrom = null;
+  rebuildNet();
+  renderEditor();
+});
+document.getElementById('editor-tools').addEventListener('click', (e) => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  editor.tool = b.dataset.tool;
+  editor.arcFrom = null;
+  renderEditor();
+});
+const propsEl = document.getElementById('editor-props');
+propsEl.addEventListener('input', onPropsInput);
+propsEl.addEventListener('click', (e) => { if (e.target.closest('[data-act="delete"]')) deleteSelected(); });
+
+document.getElementById('editor-deadlock').addEventListener('click', runAnalysis);
+document.getElementById('editor-graph').addEventListener('click', toggleGraph);
+document.getElementById('graph').addEventListener('click', (e) => {
+  if (e.target.closest('[data-graph="close"]')){ closeGraph(); return; }
+  const zb = e.target.closest('[data-gzoom]');
+  if (zb){ setGraphZoom(zb.dataset.gzoom); return; }
+  const n = e.target.closest('.gnode');
+  if (n) goToMarking(+n.dataset.i);
+});
+document.getElementById('analysis').addEventListener('click', (e) => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  if (b.dataset.an === 'close') clearAnalysis();
+  else if (b.dataset.an === 'play') replayPath();
+  else if (b.dataset.step){ replayToken++; showStep(+b.dataset.step); }
+});
+
+document.getElementById('editor-reset').addEventListener('click', () => {
+  replayToken++;
+  document.querySelectorAll('#analysis [data-step]').forEach(b => b.classList.remove('current'));
+  resetNet(NETS.editor);
+  renderCanvas();
+  logEl().textContent = 'Red reiniciada al estado inicial.';
+});
+
+// zoom: escala el ancho del SVG dentro de .svg-wrap, manteniendo centrado lo que se está viendo
+const ZOOM_MIN = 0.5, ZOOM_MAX = 3, ZOOM_STEP = 1.25;
+let zoomLevel = 1;
+document.querySelector('.zoom').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-zoom]');
+  if (!btn) return;
+  let z = btn.dataset.zoom === 'in' ? zoomLevel*ZOOM_STEP : btn.dataset.zoom === 'out' ? zoomLevel/ZOOM_STEP : 1;
+  zoomLevel = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, z));
+  zoomKeepingCenter(svgEl.parentElement, () => {
+    svgEl.style.width = (zoomLevel*100) + '%';
+    svgEl.style.minWidth = (560*zoomLevel) + 'px';
+  });
+  document.getElementById('zoom-editor').textContent = Math.round(zoomLevel*100) + '%';
+});
+
+document.getElementById('editor-export').addEventListener('click', exportNet);
+document.getElementById('editor-import').addEventListener('click', () => document.getElementById('editor-file').click());
+document.getElementById('editor-file').addEventListener('change', async (e) => {
+  const f = e.target.files[0];
+  e.target.value = '';
+  if (f) importNetText(await f.text(), f.name.replace(/\.json$/i, ''));
+});
+document.getElementById('editor-link').addEventListener('click', copyLink);
+
+document.addEventListener('keydown', (e) => {
+  if (editor.mode !== 'edit') return;
+  if (e.target.closest && e.target.closest('input, select, textarea')) return;
+  if (e.key === 'Escape'){ editor.arcFrom = null; editor.selected = null; renderEditor(); }
+  else if ((e.key === 'Delete' || e.key === 'Backspace') && editor.selected){ e.preventDefault(); deleteSelected(); }
+});
+window.addEventListener('beforeunload', (e) => {
+  if (editor.dirty){ e.preventDefault(); e.returnValue = ''; }
+});
+window.addEventListener('hashchange', openSharedLink);
+
+openSource(NET_ORDER[0]);
+openSharedLink();
+</script>
+</body>
+</html>
