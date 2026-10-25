@@ -191,6 +191,8 @@
   dialog.confirm::backdrop{background:rgba(5,8,15,.6);}
   dialog.confirm p{margin:0 0 16px;line-height:1.5;font-size:.92rem;}
   dialog.confirm .btns{display:flex;justify-content:flex-end;gap:8px;}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:var(--accent);color:#0b1220;font-weight:600;font-size:.88rem;padding:10px 18px;border-radius:999px;box-shadow:var(--card-shadow);transition:opacity .2s ease,transform .2s ease;z-index:10;}
+  .toast.show{opacity:1;transform:translate(-50%,0);}
   .ghost-arc{stroke:var(--accent);stroke-width:1.6;stroke-dasharray:5 4;pointer-events:none;}
 
   footer{
@@ -219,6 +221,8 @@
     </div>
   </form>
 </dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <footer>Modelo educativo simplificado. Elegí una red para simularla o editarla; para guardar tus cambios, exportala o copiá su enlace.</footer>
 
@@ -1536,11 +1540,21 @@ function decodeNet(code){
   return new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0)));
 }
 
+// aviso breve que desaparece solo
+let toastTimer = null;
+function showToast(text){
+  const el = document.getElementById('toast');
+  el.textContent = text;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
 async function copyLink(){
   const url = location.href.split('#')[0] + '#red=' + encodeNet(editor.data);
   try {
     await navigator.clipboard.writeText(url);
-    logEl().textContent = 'Enlace copiado: quien lo abra va a ver esta red.';
+    showToast('Enlace copiado');
   } catch (e) {
     window.prompt('Copiá este enlace para compartir la red:', url);
   }
@@ -1612,6 +1626,7 @@ mainEl.innerHTML = `
           <button class="action" data-zoom="reset" title="Volver al 100%" id="zoom-editor">100%</button>
           <button class="action" data-zoom="in" title="Acercar">+</button>
         </div>
+        ${iconBtn('fit', 'Ajustar: ver la red entera', 'data-zoom="fit"')}
         ${iconBtn('reset', 'Reiniciar', 'id="editor-reset"', 'primary')}
       </div>
     </div>
@@ -1689,12 +1704,23 @@ document.getElementById('editor-reset').addEventListener('click', () => {
 });
 
 // zoom: escala el ancho del SVG dentro de .svg-wrap, manteniendo centrado lo que se está viendo
-const ZOOM_MIN = 0.5, ZOOM_MAX = 3, ZOOM_STEP = 1.25;
+const ZOOM_MIN = 0.25, ZOOM_MAX = 3, ZOOM_STEP = 1.25;
 let zoomLevel = 1;
-document.querySelector('.zoom').addEventListener('click', (e) => {
+
+// zoom con el que la red entra completa en el recuadro (a lo ancho y a lo alto)
+function fitZoom(){
+  const wrap = svgEl.parentElement;
+  const [, , vw, vh] = NETS.editor.viewBox.split(' ').map(Number);
+  const full = Math.max(wrap.clientWidth, 560);   // ancho del SVG al 100% (tiene un mínimo de 560px)
+  const maxH = parseFloat(getComputedStyle(wrap).maxHeight) || window.innerHeight*0.8;
+  return Math.min(wrap.clientWidth / full, (maxH - 4) / (full * vh / vw));
+}
+
+document.querySelector('.diagram-toolbar .btns').addEventListener('click', (e) => {
   const btn = e.target.closest('button[data-zoom]');
   if (!btn) return;
-  let z = btn.dataset.zoom === 'in' ? zoomLevel*ZOOM_STEP : btn.dataset.zoom === 'out' ? zoomLevel/ZOOM_STEP : 1;
+  const how = btn.dataset.zoom;
+  let z = how === 'in' ? zoomLevel*ZOOM_STEP : how === 'out' ? zoomLevel/ZOOM_STEP : how === 'fit' ? fitZoom() : 1;
   zoomLevel = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, z));
   zoomKeepingCenter(svgEl.parentElement, () => {
     svgEl.style.width = (zoomLevel*100) + '%';
